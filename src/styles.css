@@ -1,0 +1,567 @@
+/* --- 폰트 정의 (로컬 파일) --- */
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter-VariableFont.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/MaterialIcons-Regular.woff2") format("woff2");
+}
+
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  white-space: nowrap;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* --- 테마 변수 정의 --- */
+:root {
+  --bg-color: #242526;
+  --text-main: #e0e0e0;
+  --text-sub: #a0a0a0;
+  --hover-bg: rgba(255, 255, 255, 0.08);
+  --icon-circle-bg: #e8eaed;
+  --search-bg: #2d2d2d;
+  --search-border-default: #444444;
+  --search-border-focus: #8ab4f8;
+  --search-shadow-focus: rgba(138, 180, 248, 0.25);
+  --accent: #8ab4f8;
+  --modal-bg: #2d2d2d;
+  --btn-primary: #8ab4f8;
+  --btn-text: #1e1e1e;
+  --menu-bg: #2d2d2d;
+  --menu-hover: #3a3a3a;
+  --ai-btn-bg: #2d2d2d;
+  --ai-btn-text: #e0e0e0;
+  --ai-btn-hover: rgba(255, 255, 255, 0.08);
+  --ai-btn-shadow: none;
+}
+
+[data-theme="light"] {
+  --bg-color: #f8f9fa;
+  --text-main: #202124;
+  --text-sub: #5f6368;
+  --hover-bg: rgba(0, 0, 0, 0.05);
+  --icon-circle-bg: #e1e3e1;
+  --search-bg: #ffffff;
+  --search-border-default: #dfe1e5;
+  --search-border-focus: transparent;
+  --search-shadow-focus: rgba(32, 33, 36, 0.2);
+  --accent: #1a73e8;
+  --modal-bg: #ffffff;
+  --btn-primary: #1a73e8;
+  --btn-text: #ffffff;
+  --menu-bg: #ffffff;
+  --menu-hover: #f1f3f4;
+  --ai-btn-bg: #ffffff;
+  --ai-btn-text: #1e1e1e;
+  --ai-btn-hover: #f1f3f4;
+  --ai-btn-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- 상단 헤더 --- */
+.top-header {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 100;
+}
+.header-link {
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 13px;
+}
+.header-link:hover {
+  text-decoration: underline;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+.icon-btn:hover {
+  background-color: var(--hover-bg);
+}
+
+/* --- 메인 컨테이너 --- */
+.main-container {
+  width: 100%;
+  min-width: 320px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15vh;
+}
+
+/* --- 시계 --- */
+.clock-container {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.clock-text {
+  font-family: "Inter", sans-serif;
+  font-size: 90px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -3px;
+}
+.date-text {
+  font-size: 20px;
+  color: var(--text-sub);
+  margin-top: 15px;
+}
+
+/* --- 검색창 --- */
+.search-bar {
+  background: var(--search-bg);
+  border: 1px solid var(--search-border-default);
+  border-radius: 30px;
+  width: 680px;
+  max-width: 90%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px 0 20px;
+  margin-bottom: 40px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.search-bar:focus-within {
+  border-color: var(--search-border-focus);
+  box-shadow: 0 1px 6px var(--search-shadow-focus);
+}
+
+[data-theme="light"] .search-bar:hover,
+[data-theme="light"] .search-bar:focus-within {
+  border-color: transparent;
+  box-shadow: 0 1px 6px var(--search-shadow-focus);
+  background: #fff;
+}
+
+.search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-size: 16px;
+  outline: none;
+  margin: 0 15px;
+}
+.search-icon {
+  color: var(--text-sub);
+  font-size: 20px;
+}
+.search-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.action-icon {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--text-sub);
+  transition: background-color 0.2s, color 0.2s;
+  font-size: 20px;
+}
+.action-icon:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-main);
+}
+
+/* --- AI 모드 버튼 --- */
+@keyframes border-beam {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.ai-mode-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ai-btn-text);
+  background: transparent;
+  border: none;
+  box-shadow: 0 0 0 1px var(--search-border-default);
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+.ai-mode-btn .material-icons {
+  font-size: 18px;
+  background: none;
+  -webkit-text-fill-color: initial;
+  color: inherit;
+  transition: color 0.3s;
+}
+.ai-mode-btn::before {
+  content: "";
+  position: absolute;
+  top: -500%;
+  left: -500%;
+  width: 1000%;
+  height: 1000%;
+  background: conic-gradient(
+    from 90deg,
+    transparent 0%,
+    transparent 10%,
+    #4285f4 40%,
+    #9b72cb 50%,
+    #d96570 60%,
+    #f49c42 70%,
+    transparent 90%,
+    transparent 100%
+  );
+  animation: border-beam 3s linear infinite;
+  opacity: 0;
+  z-index: -2;
+  transition: opacity 0.3s ease;
+}
+.ai-mode-btn::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: var(--ai-btn-bg);
+  border-radius: 99px;
+  z-index: -1;
+}
+.ai-mode-btn:hover {
+  box-shadow: 0 0 0 1px transparent;
+}
+.ai-mode-btn:hover::before {
+  opacity: 1;
+}
+.ai-mode-btn:hover .material-icons {
+  color: #4285f4;
+}
+
+/* --- 바로가기 레이아웃 --- */
+.shortcuts-slider {
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.shortcuts-wrapper {
+  display: flex;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+  width: 100%;
+}
+
+/* --- [수정됨] 페이지 설정: 아이템이 밖으로 나가는 것을 보여주기 위해 visible 처리 --- */
+.shortcut-page {
+  /* 기존 속성 유지 */
+  min-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: start;
+  gap: 16px 8px;
+  padding-left: max(20px, calc(50% - 596px));
+  padding-right: max(20px, calc(50% - 596px));
+
+  /* 3줄 높이 제한은 유지하되, 애니메이션을 위해 overflow를 풉니다 */
+  height: 370px; /* max-height 대신 고정 높이 사용 권장 */
+  overflow: visible;
+}
+
+/* --- [핵심] 31번째 아이템: 사라지지 않고 오른쪽 밖으로 밀려나는 연출 --- */
+.shortcut-page .shortcut-item-container:nth-child(n + 31) {
+  position: absolute;
+  right: -150px; /* 화면 오른쪽 밖으로 내보냄 */
+  bottom: 20px; /* 3번째 줄 높이 쯤에 위치 */
+  opacity: 0; /* 서서히 투명해짐 */
+  transform: scale(0.8); /* 작아짐 */
+  z-index: -1; /* 다른 요소 뒤로 */
+  pointer-events: none; /* 클릭 방지 */
+
+  /* FLIP 애니메이션이 아닌 CSS 자체 트랜지션이 필요할 때를 대비 */
+  transition: opacity 0.3s, transform 0.3s;
+}
+.shortcut-item-container {
+  position: relative;
+  border-radius: 8px;
+  width: 112px;
+  height: 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, transform 0.2s;
+  user-select: none;
+}
+
+/* --- [중요] 드래그 중이 아닐 때만 호버 효과 적용 --- */
+body:not(.is-dragging) .shortcut-item-container:hover {
+  background: var(--hover-bg);
+}
+
+.shortcut-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.icon-circle {
+  width: 48px;
+  height: 48px;
+  background: var(--icon-circle-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  transition: background-color 0.2s;
+}
+
+/* --- [중요] 드래그 중이 아닐 때만 아이콘 밝기 조정 --- */
+body:not(.is-dragging) .shortcut-item-container:hover .icon-circle {
+  filter: brightness(0.95);
+}
+
+.icon-circle img {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+/* + 버튼 아이콘 색상 */
+.shortcut-item .icon-circle .material-icons {
+  color: #202124 !important;
+}
+
+.shortcut-title {
+  font-size: 13px;
+  width: 108px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-main);
+  line-height: 1.5;
+  padding-bottom: 2px;
+}
+
+/* --- 더보기 버튼 --- */
+.more-options-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: transparent;
+  border: none;
+  color: var(--text-sub);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  opacity: 0; /* 기본 숨김 */
+  transition: opacity 0.2s, background-color 0.2s;
+  z-index: 2;
+}
+
+/* --- [중요] 드래그 중이 아닐 때만 버튼 보이기 --- */
+body:not(.is-dragging) .shortcut-item-container:hover .more-options-btn {
+  opacity: 1;
+}
+
+.more-options-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: var(--text-main);
+}
+[data-theme="light"] .more-options-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.more-options-btn .material-icons {
+  font-size: 16px;
+}
+
+/* --- 메뉴 --- */
+.shortcut-menu {
+  position: absolute;
+  top: 30px;
+  right: 5px;
+  background: var(--menu-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  overflow: hidden;
+  min-width: 100px;
+  display: none;
+  border: 1px solid var(--hover-bg);
+}
+[data-theme="light"] .shortcut-menu {
+  border: 1px solid #dfe1e5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.shortcut-menu.show {
+  display: block;
+}
+.menu-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-main);
+  transition: background-color 0.2s;
+  text-align: left;
+}
+.menu-item:hover {
+  background-color: var(--menu-hover);
+}
+
+/* --- 인디케이터 --- */
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 8px;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--text-sub);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.5;
+}
+.dot.active {
+  background: var(--accent);
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+/* --- 모달 --- */
+dialog {
+  background: var(--modal-bg);
+  color: var(--text-main);
+  border: none;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  width: 320px;
+}
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+dialog h3 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+.input-group {
+  margin-bottom: 20px;
+}
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--text-sub);
+}
+.input-group input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--search-border-default);
+  background: var(--bg-color);
+  color: var(--text-main);
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.input-group input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+.modal-actions button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 13px;
+  background: transparent;
+  color: var(--accent);
+  transition: background-color 0.2s;
+}
+.modal-actions button:hover {
+  background: var(--hover-bg);
+}
+.modal-actions button.primary {
+  background: var(--btn-primary);
+  color: var(--btn-text);
+}
+.modal-actions button.primary:hover {
+  opacity: 0.9;
+  background: var(--btn-primary);
+}
+
+/* --- DnD 관련 스타일 --- */
+.shortcut-item-container[draggable="true"] {
+  cursor: grab;
+}
+.shortcut-item-container[draggable="true"]:active {
+  cursor: grabbing;
+}
+.shortcut-item-container.dragging {
+  opacity: 0.001;
+}
+.dragging .shortcut-item {
+  pointer-events: none;
+}

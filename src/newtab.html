@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tab</title>
+    <link rel="icon" type="image/png" href="../assets/icons/icon128.png">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="top-header">
+        <a href="https://mail.google.com" class="header-link">Gmail</a>
+        <button id="themeToggle" class="icon-btn" title="테마 변경">
+            <span class="material-icons">dark_mode</span>
+        </button>
+    </header>
+
+    <div class="main-container">
+        <div class="clock-container">
+            <div id="digitalClock" class="clock-text"></div>
+            <div id="dateText" class="date-text">Loading...</div>
+        </div>
+
+        <div class="search-bar">
+            <span class="material-icons search-icon">search</span>
+            <input type="text" id="searchInput" placeholder="Google 검색 또는 URL 입력">
+            <div class="search-actions">
+                <span class="action-icon" id="imageSearchBtn" title="이미지 검색으로 검색" style="display: flex; align-items: center; justify-content: center;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera-icon lucide-camera"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></svg>
+</span>
+                <button id="aiModeBtn" class="ai-mode-btn">
+                    <span class="material-icons">auto_awesome</span>
+                    <span class="btn-text">AI 모드</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="shortcuts-slider">
+            <div class="shortcuts-wrapper" id="shortcutsWrapper">
+                </div>
+        </div>
+        
+        <div class="pagination-dots" id="paginationDots"></div>
+    </div>
+
+    <dialog id="addModal">
+        <form id="addForm" method="dialog">
+            <h3 id="modalHeader">바로가기 추가</h3>
+            <div class="input-group">
+                <label for="modalTitle">이름</label>
+                <input type="text" id="modalTitle" placeholder="예: 유튜브" required>
+            </div>
+            <div class="input-group">
+                <label for="modalUrl">URL</label>
+                <input type="url" id="modalUrl" placeholder="https://" required>
+            </div>
+            <div class="modal-actions">
+                <button type="button" id="cancelBtn">취소</button>
+                <button type="submit" class="primary" id="submitBtn">추가</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="script.js"></script>
+</body>
+</html>
