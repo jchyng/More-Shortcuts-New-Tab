@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "More Shortcuts New Tab",
   "version": "2.0",
-  "description": "Overcome Chrome's 10-shortcut limit. Add up to 30 shortcuts, auto-fetch titles, and enjoy a clean dashboard with AI search.",
+  "description": "Break Chrome's 10-shortcut limit. Add up to 30 shortcuts to your new tab page with a clean, customizable, and searchable dashboard.",
   "chrome_url_overrides": {
     "newtab": "src/newtab.html"
   },
@@ -15,6 +15,6 @@
       "128": "assets/icons/icon128.png"
     }
   },
-  "permissions": ["storage", "topSites", "favicon"],
+  "permissions": ["storage", "topSites", "favicon", "search"],
   "host_permissions": ["<all_urls>"]
 }

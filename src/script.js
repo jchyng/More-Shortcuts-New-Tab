@@ -551,10 +551,11 @@ function goToPage(index) {
 function setupSearch() {
   const input = document.getElementById("searchInput");
   input.addEventListener("keypress", (e) => {
-    if (e.key === "Enter" && input.value.trim()) {
-      window.location.href = `https://www.google.com/search?q=${encodeURIComponent(
-        input.value
-      )}`;
+    if (e.key === "Enter") {
+      const query = input.value.trim();
+      if (query) {
+        chrome.search.query({ text: query });
+      }
     }
   });
   document.getElementById("imageSearchBtn").addEventListener("click", () => {
