@@ -169,7 +169,7 @@ function renderGrid() {
 
     const pageItems = shortcuts.slice(
       i * ITEMS_PER_PAGE,
-      (i + 1) * ITEMS_PER_PAGE
+      (i + 1) * ITEMS_PER_PAGE,
     );
 
     pageItems.forEach((item) => {
@@ -184,11 +184,13 @@ function renderGrid() {
 
     wrapper.appendChild(pageDiv);
 
-    // 페이지네이션 점
-    const dot = document.createElement("div");
-    dot.className = `dot ${i === currentPage ? "active" : ""}`;
-    dot.onclick = () => goToPage(i);
-    dotContainer.appendChild(dot);
+    // 페이지네이션 점 - 2페이지 이상일 때만 표시
+    if (totalPages > 1) {
+      const dot = document.createElement("div");
+      dot.className = `dot ${i === currentPage ? "active" : ""}`;
+      dot.onclick = () => goToPage(i);
+      dotContainer.appendChild(dot);
+    }
   }
   wrapper.style.transform = `translateX(-${currentPage * 100}%)`;
 }
@@ -421,7 +423,7 @@ function moveDraggedItemToCurrentPage() {
 function reorderAndSave() {
   const newShortcuts = [];
   const allItems = document.querySelectorAll(
-    ".shortcut-item-container.draggable-item"
+    ".shortcut-item-container.draggable-item",
   );
 
   allItems.forEach((el) => {
