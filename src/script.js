@@ -70,10 +70,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // 키보드 네비게이션
   document.addEventListener("keydown", (e) => {
     const modal = document.getElementById("addModal");
+    const searchInput = document.getElementById("searchInput");
     if (!modal.open && !draggedItem) {
       // 드래그 중엔 키보드 이동 막기
       if (e.key === "ArrowRight") movePage(1);
       if (e.key === "ArrowLeft") movePage(-1);
+
+      // "/" 키로 검색창 포커스 (입력 필드에 포커스 중이 아닐 때)
+      if (e.key === "/" && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    }
+
+    // Escape 키로 검색창 포커스 해제
+    if (e.key === "Escape" && document.activeElement === searchInput) {
+      searchInput.blur();
     }
   });
 
