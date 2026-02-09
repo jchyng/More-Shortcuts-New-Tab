@@ -95,9 +95,17 @@ body {
   text-decoration: none;
   color: var(--text-main);
   font-size: 13px;
+  display: flex;
+  align-items: center;
 }
 .header-link:hover {
-  text-decoration: underline;
+  opacity: 0.8;
+}
+.header-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  margin-right: 6px;
 }
 
 .icon-btn {
