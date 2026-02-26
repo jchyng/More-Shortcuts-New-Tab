@@ -74,10 +74,10 @@ body {
   color: var(--text-main);
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  overflow-y: auto;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -314,7 +314,6 @@ body {
   padding-right: max(20px, calc(50% - 596px));
 
   /* 3줄 높이 제한은 유지하되, 애니메이션을 위해 overflow를 풉니다 */
-  height: 370px; /* max-height 대신 고정 높이 사용 권장 */
   overflow: visible;
 }
 
