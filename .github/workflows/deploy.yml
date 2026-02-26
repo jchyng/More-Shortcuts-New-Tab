@@ -18,7 +18,7 @@ jobs:
         run: zip -r extension.zip . -x "*.git*" "*.github*" "*.DS_Store*"
 
       - name: Upload to Chrome Web Store
-        uses: mnaotomo/chrome-extension-upload@v5.0.0
+        uses: mnao305/chrome-extension-upload@v5.0.0
         with:
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
           client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
