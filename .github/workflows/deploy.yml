@@ -4,16 +4,17 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatch: # 수동 실행 버튼 활성화
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # 최신 안정 버전으로 업데이트
 
       - name: Zip extension
+        # 프로젝트 루트의 모든 파일을 extension.zip으로 압축 (불필요한 파일 제외)
         run: zip -r extension.zip . -x "*.git*" "*.github*" "*.DS_Store*"
 
       - name: Upload to Chrome Web Store
@@ -23,4 +24,5 @@ jobs:
           client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
           refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
           extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
-          zip-file: extension.zip
+          file-path: extension.zip
+          publish: true
