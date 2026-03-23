@@ -154,7 +154,7 @@ body {
 .search-bar {
   background: var(--search-bg);
   border: 1px solid var(--search-border-default);
-  border-radius: 30px;
+  border-radius: 24px;
   width: 680px;
   max-width: 90%;
   height: 48px;
@@ -164,6 +164,14 @@ body {
   margin-bottom: 40px;
   transition: all 0.2s ease-in-out;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.search-bar.has-suggestions {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+  box-shadow: 0 1px 6px var(--search-shadow-focus);
 }
 
 .search-bar:focus-within {
@@ -171,11 +179,21 @@ body {
   box-shadow: 0 1px 6px var(--search-shadow-focus);
 }
 
+.search-bar.has-suggestions:focus-within {
+  border-bottom-color: transparent;
+}
+
 [data-theme="light"] .search-bar:hover,
 [data-theme="light"] .search-bar:focus-within {
   border-color: transparent;
   box-shadow: 0 1px 6px var(--search-shadow-focus);
   background: #fff;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
 }
 
 .search-bar input {
@@ -186,6 +204,7 @@ body {
   font-size: 16px;
   outline: none;
   margin: 0 15px;
+  width: 100%;
 }
 .search-icon {
   color: var(--text-sub);
@@ -195,6 +214,56 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+/* --- 검색 추천 --- */
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: -1px; /* To align with border */
+  right: -1px; /* To align with border */
+  background: var(--search-bg);
+  border: 1px solid var(--search-border-focus);
+  border-top: 1px solid var(--search-border-default);
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  box-shadow: 0 4px 6px var(--search-shadow-focus);
+  list-style: none;
+  padding: 0 0 12px 0;
+  margin: 0;
+  display: none;
+  z-index: 10;
+}
+
+[data-theme="light"] .search-suggestions {
+  border-color: transparent;
+  border-top: 1px solid #dfe1e5;
+  background: #fff;
+}
+
+.search-suggestions.show {
+  display: block;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 20px;
+  cursor: pointer;
+  color: var(--text-main);
+  font-size: 16px;
+  transition: background-color 0.1s;
+}
+
+.suggestion-item:hover,
+.suggestion-item.selected {
+  background-color: var(--hover-bg);
+}
+
+.suggestion-item .material-icons {
+  color: var(--text-sub);
+  font-size: 18px;
+  margin-right: 15px;
 }
 .action-icon {
   cursor: pointer;
