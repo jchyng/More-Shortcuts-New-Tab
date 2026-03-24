@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'manifest.json'
   workflow_dispatch: # 수동 실행 버튼 활성화
 
 jobs:
