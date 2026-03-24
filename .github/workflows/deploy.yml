@@ -14,41 +14,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4 # 최신 안정 버전으로 업데이트
-        with:
-          fetch-depth: 2
-
-      - name: Check version change
-        id: check_version
-        run: |
-          # Check if this is a manual trigger
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "Manual trigger, proceeding with deployment."
-            echo "version_increased=true" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-
-          # Get versions
-          PREV_VERSION=$(git show HEAD^:manifest.json | jq -r .version 2>/dev/null || echo "0.0.0")
-          CURR_VERSION=$(jq -r .version manifest.json)
-
-          echo "Previous version: $PREV_VERSION"
-          echo "Current version: $CURR_VERSION"
-
-          if [ "$PREV_VERSION" != "$CURR_VERSION" ] && [ "$(printf '%s\n' "$PREV_VERSION" "$CURR_VERSION" | sort -V | head -n1)" = "$PREV_VERSION" ]; then
-            echo "Version increased!"
-            echo "version_increased=true" >> $GITHUB_OUTPUT
-          else
-            echo "Version did not increase."
-            echo "version_increased=false" >> $GITHUB_OUTPUT
-          fi
 
       - name: Zip extension
-        if: steps.check_version.outputs.version_increased == 'true'
         # 프로젝트 루트의 모든 파일을 extension.zip으로 압축 (불필요한 파일 제외)
         run: zip -r extension.zip . -x "*.git*" "*.github*" "*.DS_Store*"
 
       - name: Upload to Chrome Web Store
-        if: steps.check_version.outputs.version_increased == 'true'
         uses: mnao305/chrome-extension-upload@v5.0.0
         with:
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
