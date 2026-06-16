@@ -207,6 +207,45 @@ function renderGrid() {
   wrapper.style.transform = `translateX(-${currentPage * 100}%)`;
 }
 
+// --- Favicon 생성 (폴백 체인 포함) ---
+function createFaviconImg(item) {
+  const img = document.createElement("img");
+  img.alt = item.title;
+
+  const tryFallback = () => {
+    try {
+      const hostname = new URL(item.url).hostname;
+      const googleUrl = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(hostname)}&sz=64`;
+      if (img.src.startsWith(location.origin + "/_favicon/")) {
+        img.src = googleUrl;
+      } else {
+        showLetterFallback(img, item.title);
+      }
+    } catch {
+      showLetterFallback(img, item.title);
+    }
+  };
+
+  img.addEventListener("error", tryFallback);
+  img.addEventListener("load", () => {
+    // Chrome이 favicon 미캐시 시 1×1 투명 GIF를 반환하므로 크기로 감지
+    if (img.naturalWidth <= 1) {
+      tryFallback();
+    }
+  });
+
+  img.src = `/_favicon/?pageUrl=${encodeURIComponent(item.url)}&size=64`;
+  return img;
+}
+
+function showLetterFallback(img, title) {
+  if (!img.parentNode) return;
+  const span = document.createElement("span");
+  span.className = "favicon-letter";
+  span.textContent = (title || "?")[0].toUpperCase();
+  img.parentNode.replaceChild(span, img);
+}
+
 // --- 아이템 생성 (DnD 포함) ---
 function createItemEl(item) {
   const container = document.createElement("div");
@@ -218,7 +257,6 @@ function createItemEl(item) {
   const a = document.createElement("a");
   a.className = "shortcut-item";
   a.href = item.url;
-  const iconUrl = `/_favicon/?pageUrl=${encodeURIComponent(item.url)}&size=64`;
 
   // 드래그 중 클릭 방지
   a.onclick = (e) => {
@@ -230,10 +268,16 @@ function createItemEl(item) {
     }
   };
 
-  a.innerHTML = `
-        <div class="icon-circle"><img src="${iconUrl}" alt="${item.title}"></div>
-        <div class="shortcut-title">${item.title}</div>
-    `;
+  const iconCircle = document.createElement("div");
+  iconCircle.className = "icon-circle";
+  iconCircle.appendChild(createFaviconImg(item));
+
+  const titleDiv = document.createElement("div");
+  titleDiv.className = "shortcut-title";
+  titleDiv.textContent = item.title;
+
+  a.appendChild(iconCircle);
+  a.appendChild(titleDiv);
   container.appendChild(a);
 
   // 더보기 버튼

@@ -454,6 +454,14 @@ body:not(.is-dragging) .shortcut-item-container:hover .icon-circle {
   object-fit: contain;
 }
 
+.icon-circle .favicon-letter {
+  font-size: 18px;
+  font-weight: 600;
+  color: #5f6368;
+  user-select: none;
+  line-height: 1;
+}
+
 /* + 버튼 아이콘 색상 */
 .shortcut-item .icon-circle .material-icons {
   color: #202124 !important;
