@@ -3,6 +3,10 @@ let currentPage = 0;
 const ITEMS_PER_PAGE = 30;
 let editingItemId = null;
 
+const FAVICON_RETRY_DELAYS = [5000, 30000];
+const faviconRetryTimers = [null, null];
+const faviconRetryQueues = [[], []];
+
 // --- 다국어 지원 ---
 const translations = {
   ko: {
@@ -125,7 +129,8 @@ function updateClock() {
 
 /* --- 테마 관리 --- */
 function initTheme() {
-  const savedTheme = localStorage.getItem("theme") || "dark";
+  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  const savedTheme = localStorage.getItem("theme") || systemTheme;
   document.body.setAttribute("data-theme", savedTheme);
   updateThemeIcon(savedTheme);
   document.getElementById("themeToggle").addEventListener("click", () => {
@@ -144,17 +149,7 @@ function updateThemeIcon(theme) {
 /* --- 데이터 로드 및 저장 --- */
 async function initShortcuts() {
   const result = await chrome.storage.sync.get(["myShortcuts"]);
-  if (result.myShortcuts && result.myShortcuts.length > 0) {
-    shortcuts = result.myShortcuts;
-  } else {
-    const topSites = await chrome.topSites.get();
-    shortcuts = topSites.map((s) => ({
-      title: s.title,
-      url: s.url,
-      id: Date.now() + Math.floor(Math.random() * 1000000),
-    }));
-    saveShortcuts();
-  }
+  shortcuts = result.myShortcuts ?? [];
   renderGrid();
 }
 function saveShortcuts() {
@@ -163,6 +158,11 @@ function saveShortcuts() {
 
 /* --- 그리드 렌더링 --- */
 function renderGrid() {
+  faviconRetryTimers.forEach((t, i) => {
+    if (t) { clearTimeout(t); faviconRetryTimers[i] = null; }
+  });
+  faviconRetryQueues.forEach((q) => (q.length = 0));
+
   const wrapper = document.getElementById("shortcutsWrapper");
   const dotContainer = document.getElementById("paginationDots");
   wrapper.innerHTML = "";
@@ -220,6 +220,7 @@ function createFaviconImg(item) {
         img.src = googleUrl;
       } else {
         showLetterFallback(img, item.title);
+        scheduleRetryFavicon(item);
       }
     } catch {
       showLetterFallback(img, item.title);
@@ -244,6 +245,53 @@ function showLetterFallback(img, title) {
   span.className = "favicon-letter";
   span.textContent = (title || "?")[0].toUpperCase();
   img.parentNode.replaceChild(span, img);
+}
+
+function scheduleRetryFavicon(item, attempt = 0) {
+  if (attempt >= FAVICON_RETRY_DELAYS.length) return;
+  faviconRetryQueues[attempt].push(item);
+  if (!faviconRetryTimers[attempt]) {
+    faviconRetryTimers[attempt] = setTimeout(
+      () => retryAllPendingFavicons(attempt),
+      FAVICON_RETRY_DELAYS[attempt]
+    );
+  }
+}
+
+function retryAllPendingFavicons(attempt) {
+  faviconRetryTimers[attempt] = null;
+  const items = faviconRetryQueues[attempt].splice(0);
+
+  items.forEach((item) => {
+    const container = document.querySelector(`.draggable-item[data-id="${item.id}"]`);
+    if (!container) return;
+
+    const letterSpan = container.querySelector(".favicon-letter");
+    if (!letterSpan?.parentNode) return;
+
+    let hostname;
+    try {
+      hostname = new URL(item.url).hostname;
+    } catch {
+      return;
+    }
+
+    const retryImg = document.createElement("img");
+    retryImg.alt = item.title;
+
+    retryImg.addEventListener("load", () => {
+      if (retryImg.naturalWidth > 1 && letterSpan.isConnected) {
+        letterSpan.replaceWith(retryImg);
+      } else {
+        scheduleRetryFavicon(item, attempt + 1);
+      }
+    });
+    retryImg.addEventListener("error", () => {
+      scheduleRetryFavicon(item, attempt + 1);
+    });
+
+    retryImg.src = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(hostname)}&sz=64`;
+  });
 }
 
 // --- 아이템 생성 (DnD 포함) ---
