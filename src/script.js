@@ -38,6 +38,8 @@ const translations = {
     aiModeTitle: "AI 검색 모드",
     menuEdit: "수정",
     menuDelete: "삭제",
+    titleLoadingPlaceholder: "이름 자동 입력 중...",
+    titleInputPlaceholder: "예: 유튜브",
   },
   en: {
     searchPlaceholder: "Search Google or type a URL",
@@ -55,6 +57,8 @@ const translations = {
     aiModeTitle: "AI Search Mode",
     menuEdit: "Edit",
     menuDelete: "Delete",
+    titleLoadingPlaceholder: "Fetching name...",
+    titleInputPlaceholder: "e.g. YouTube",
   },
 };
 
@@ -118,6 +122,7 @@ function applyLocalization() {
   document.getElementById("aiModeBtn").title = t.aiModeTitle;
   document.querySelector('#addModal label[for="modalTitle"]').textContent =
     t.nameLabel;
+  document.getElementById("modalTitle").placeholder = t.titleInputPlaceholder;
   document.querySelector('#addModal label[for="modalUrl"]').textContent =
     t.urlLabel;
   document.getElementById("cancelBtn").textContent = t.cancelBtnLabel;
@@ -262,15 +267,23 @@ function createFaviconImg(item) {
     return img;
   }
 
+  img.classList.add("favicon-loading");
   loadFaviconWithFallback(img, item, hostname);
   return img;
+}
+
+// img.src를 설정하고 로드 완료 후 로딩 클래스 제거
+function applyFavicon(img, dataUrl) {
+  img.addEventListener("load",  () => img.classList.remove("favicon-loading"), { once: true });
+  img.addEventListener("error", () => img.classList.remove("favicon-loading"), { once: true });
+  img.src = dataUrl;
 }
 
 async function loadFaviconWithFallback(img, item, hostname) {
   // 1. 로컬 캐시 확인 (이전 fetch 성공 결과)
   const cached = await getCachedFavicon(hostname);
   if (cached) {
-    img.src = cached;
+    applyFavicon(img, cached);
     return;
   }
 
@@ -287,7 +300,7 @@ async function loadFaviconWithFallback(img, item, hostname) {
         // 기본 아이콘과 다름 → 실제 파비콘
         const dataUrl = await blobToBase64(new Blob([buf], { type: "image/png" }));
         setCachedFavicon(hostname, dataUrl);
-        img.src = dataUrl;
+        applyFavicon(img, dataUrl);
         return;
       }
     }
@@ -305,13 +318,14 @@ async function loadFaviconWithFallback(img, item, hostname) {
       const dataUrl = await fetchAsBase64(src);
       if (await validateDataUrl(dataUrl)) {
         setCachedFavicon(hostname, dataUrl);
-        img.src = dataUrl;
+        applyFavicon(img, dataUrl);
         return;
       }
     } catch {}
   }
 
   // 6. 글자 fallback
+  img.classList.remove("favicon-loading");
   showLetterFallback(img, item.title);
 }
 
@@ -596,18 +610,47 @@ function setupAddModal() {
 
   document.getElementById("cancelBtn").onclick = () => modal.close();
 
-  urlInput.addEventListener("blur", async () => {
+  let titleFetchTimeout = null;
+  let isFetchingTitle = false;
+
+  const fetchPageTitle = async () => {
+    if (isFetchingTitle || titleInput.value.trim()) return;
     let url = urlInput.value.trim();
-    if (!url || titleInput.value.trim()) return;
-    if (!url.startsWith("http://") && !url.startsWith("https://")) {
-      url = "https://" + url;
-    }
+    if (!url) return;
+    if (!url.startsWith("http://") && !url.startsWith("https://")) url = "https://" + url;
+    try { new URL(url); } catch { return; }
+
+    isFetchingTitle = true;
+    titleInput.placeholder = t.titleLoadingPlaceholder;
+    titleInput.classList.add("title-loading");
+
     try {
-      const response = await fetch(url);
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 5000);
+      const response = await fetch(url, { signal: ctrl.signal });
+      clearTimeout(timer);
       const text = await response.text();
       const doc = new DOMParser().parseFromString(text, "text/html");
-      if (doc.title) titleInput.value = doc.title;
-    } catch (e) {}
+      if (doc.title && !titleInput.value.trim()) titleInput.value = doc.title;
+    } catch {}
+
+    isFetchingTitle = false;
+    titleInput.placeholder = t.titleInputPlaceholder;
+    titleInput.classList.remove("title-loading");
+  };
+
+  // URL 입력 중 600ms 멈추면 자동 fetch
+  urlInput.addEventListener("input", () => {
+    clearTimeout(titleFetchTimeout);
+    const url = urlInput.value.trim();
+    if (!url || titleInput.value.trim() || !url.includes(".")) return;
+    titleFetchTimeout = setTimeout(fetchPageTitle, 600);
+  });
+
+  // URL 필드에서 나갈 때 즉시 fetch
+  urlInput.addEventListener("blur", () => {
+    clearTimeout(titleFetchTimeout);
+    fetchPageTitle();
   });
 
   form.onsubmit = (e) => {

@@ -636,6 +636,49 @@ dialog h3 {
   background: var(--btn-primary);
 }
 
+/* --- 파비콘 로딩 스켈레톤 --- */
+@keyframes favicon-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+img.favicon-loading {
+  display: none;
+}
+
+.icon-circle:has(img.favicon-loading) {
+  background: linear-gradient(
+    90deg,
+    var(--icon-circle-bg) 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    var(--icon-circle-bg) 100%
+  );
+  background-size: 200% 100%;
+  animation: favicon-shimmer 1.4s ease-in-out infinite;
+}
+
+[data-theme="light"] .icon-circle:has(img.favicon-loading) {
+  background: linear-gradient(
+    90deg,
+    var(--icon-circle-bg) 0%,
+    rgba(255, 255, 255, 0.9) 50%,
+    var(--icon-circle-bg) 100%
+  );
+  background-size: 200% 100%;
+  animation: favicon-shimmer 1.4s ease-in-out infinite;
+}
+
+/* --- 이름 자동 입력 로딩 상태 --- */
+@keyframes input-pulse {
+  0%, 100% { border-color: var(--search-border-default); }
+  50%       { border-color: var(--accent); }
+}
+
+.input-group input.title-loading {
+  animation: input-pulse 1.2s ease-in-out infinite;
+  cursor: wait;
+}
+
 /* --- DnD 관련 스타일 --- */
 .shortcut-item-container[draggable="true"] {
   cursor: grab;
