@@ -3,9 +3,22 @@ let currentPage = 0;
 const ITEMS_PER_PAGE = 30;
 let editingItemId = null;
 
-const FAVICON_RETRY_DELAYS = [5000, 30000];
-const faviconRetryTimers = [null, null];
-const faviconRetryQueues = [[], []];
+const FAVICON_CACHE_PREFIX = "fav_";
+
+// Chrome /_favicon/ 기본 아이콘 hex 지문 — 한 번만 fetch하고 재사용
+let _chromeDefaultHexPromise = null;
+async function getChromeFaviconDefaultHex() {
+  if (!_chromeDefaultHexPromise) {
+    _chromeDefaultHexPromise = (async () => {
+      try {
+        const src = `/_favicon/?pageUrl=${encodeURIComponent("https://xn--not-a-real-domain-xyz.invalid")}&size=64`;
+        const buf = await fetch(src).then(r => r.arrayBuffer());
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+      } catch { return null; }
+    })();
+  }
+  return _chromeDefaultHexPromise;
+}
 
 // --- 다국어 지원 ---
 const translations = {
@@ -158,11 +171,6 @@ function saveShortcuts() {
 
 /* --- 그리드 렌더링 --- */
 function renderGrid() {
-  faviconRetryTimers.forEach((t, i) => {
-    if (t) { clearTimeout(t); faviconRetryTimers[i] = null; }
-  });
-  faviconRetryQueues.forEach((q) => (q.length = 0));
-
   const wrapper = document.getElementById("shortcutsWrapper");
   const dotContainer = document.getElementById("paginationDots");
   wrapper.innerHTML = "";
@@ -207,36 +215,104 @@ function renderGrid() {
   wrapper.style.transform = `translateX(-${currentPage * 100}%)`;
 }
 
+// --- Favicon 캐시 헬퍼 ---
+async function getCachedFavicon(hostname) {
+  const res = await chrome.storage.local.get(FAVICON_CACHE_PREFIX + hostname);
+  return res[FAVICON_CACHE_PREFIX + hostname] ?? null;
+}
+
+function setCachedFavicon(hostname, dataUrl) {
+  chrome.storage.local.set({ [FAVICON_CACHE_PREFIX + hostname]: dataUrl });
+}
+
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function fetchAsBase64(url) {
+  const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return blobToBase64(await res.blob());
+}
+
+async function validateDataUrl(dataUrl) {
+  return new Promise((resolve) => {
+    const probe = new Image();
+    probe.onload = () => resolve(probe.naturalWidth > 1 && probe.naturalHeight > 1);
+    probe.onerror = () => resolve(false);
+    probe.src = dataUrl;
+  });
+}
+
 // --- Favicon 생성 (폴백 체인 포함) ---
 function createFaviconImg(item) {
   const img = document.createElement("img");
   img.alt = item.title;
 
-  const tryFallback = () => {
-    try {
-      const hostname = new URL(item.url).hostname;
-      const googleUrl = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(hostname)}&sz=64`;
-      if (img.src.startsWith(location.origin + "/_favicon/")) {
-        img.src = googleUrl;
-      } else {
-        showLetterFallback(img, item.title);
-        scheduleRetryFavicon(item);
-      }
-    } catch {
-      showLetterFallback(img, item.title);
-    }
-  };
+  let hostname;
+  try {
+    hostname = new URL(item.url).hostname;
+  } catch {
+    setTimeout(() => showLetterFallback(img, item.title), 0);
+    return img;
+  }
 
-  img.addEventListener("error", tryFallback);
-  img.addEventListener("load", () => {
-    // Chrome이 favicon 미캐시 시 1×1 투명 GIF를 반환하므로 크기로 감지
-    if (img.naturalWidth <= 1) {
-      tryFallback();
-    }
-  });
-
-  img.src = `/_favicon/?pageUrl=${encodeURIComponent(item.url)}&size=64`;
+  loadFaviconWithFallback(img, item, hostname);
   return img;
+}
+
+async function loadFaviconWithFallback(img, item, hostname) {
+  // 1. 로컬 캐시 확인 (이전 fetch 성공 결과)
+  const cached = await getCachedFavicon(hostname);
+  if (cached) {
+    img.src = cached;
+    return;
+  }
+
+  // 2. Chrome 로컬 파비콘 캐시: blob 바이트 비교로 기본 아이콘 여부 감지
+  //    /_favicon/ 은 미캐시 도메인에 기본 아이콘(1×1 GIF or 지구본 PNG)을 반환
+  //    → 가짜 도메인으로 기본 아이콘 지문을 미리 얻어서 비교
+  try {
+    const chromeSrc = `/_favicon/?pageUrl=${encodeURIComponent(item.url)}&size=64`;
+    const buf = await fetch(chromeSrc).then(r => r.arrayBuffer());
+    if (buf.byteLength > 1) {
+      const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+      const defaultHex = await getChromeFaviconDefaultHex();
+      if (!defaultHex || hex !== defaultHex) {
+        // 기본 아이콘과 다름 → 실제 파비콘
+        const dataUrl = await blobToBase64(new Blob([buf], { type: "image/png" }));
+        setCachedFavicon(hostname, dataUrl);
+        img.src = dataUrl;
+        return;
+      }
+    }
+  } catch {}
+
+  // 3~5. 외부 소스 순서대로 시도, 성공 시 base64로 캐시
+  const sources = [
+    `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(item.url)}&size=64`,
+    `https://${hostname}/favicon.ico`,
+    `https://icons.duckduckgo.com/ip3/${hostname}.ico`,
+  ];
+
+  for (const src of sources) {
+    try {
+      const dataUrl = await fetchAsBase64(src);
+      if (await validateDataUrl(dataUrl)) {
+        setCachedFavicon(hostname, dataUrl);
+        img.src = dataUrl;
+        return;
+      }
+    } catch {}
+  }
+
+  // 6. 글자 fallback
+  showLetterFallback(img, item.title);
 }
 
 function showLetterFallback(img, title) {
@@ -245,53 +321,6 @@ function showLetterFallback(img, title) {
   span.className = "favicon-letter";
   span.textContent = (title || "?")[0].toUpperCase();
   img.parentNode.replaceChild(span, img);
-}
-
-function scheduleRetryFavicon(item, attempt = 0) {
-  if (attempt >= FAVICON_RETRY_DELAYS.length) return;
-  faviconRetryQueues[attempt].push(item);
-  if (!faviconRetryTimers[attempt]) {
-    faviconRetryTimers[attempt] = setTimeout(
-      () => retryAllPendingFavicons(attempt),
-      FAVICON_RETRY_DELAYS[attempt]
-    );
-  }
-}
-
-function retryAllPendingFavicons(attempt) {
-  faviconRetryTimers[attempt] = null;
-  const items = faviconRetryQueues[attempt].splice(0);
-
-  items.forEach((item) => {
-    const container = document.querySelector(`.draggable-item[data-id="${item.id}"]`);
-    if (!container) return;
-
-    const letterSpan = container.querySelector(".favicon-letter");
-    if (!letterSpan?.parentNode) return;
-
-    let hostname;
-    try {
-      hostname = new URL(item.url).hostname;
-    } catch {
-      return;
-    }
-
-    const retryImg = document.createElement("img");
-    retryImg.alt = item.title;
-
-    retryImg.addEventListener("load", () => {
-      if (retryImg.naturalWidth > 1 && letterSpan.isConnected) {
-        letterSpan.replaceWith(retryImg);
-      } else {
-        scheduleRetryFavicon(item, attempt + 1);
-      }
-    });
-    retryImg.addEventListener("error", () => {
-      scheduleRetryFavicon(item, attempt + 1);
-    });
-
-    retryImg.src = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(hostname)}&sz=64`;
-  });
 }
 
 // --- 아이템 생성 (DnD 포함) ---
