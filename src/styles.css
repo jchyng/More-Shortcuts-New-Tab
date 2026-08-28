@@ -1,4 +1,4 @@
-/* --- 폰트 정의 (로컬 파일) --- */
+/* --- Font definitions (local files) --- */
 @font-face {
   font-family: "Inter";
   src: url("fonts/Inter-VariableFont.ttf") format("truetype");
@@ -24,7 +24,7 @@
   user-select: none;
 }
 
-/* --- 테마 변수 정의 --- */
+/* --- Theme variables --- */
 :root {
   --bg-color: #242526;
   --text-main: #e0e0e0;
@@ -45,6 +45,15 @@
   --ai-btn-text: #e0e0e0;
   --ai-btn-hover: rgba(255, 255, 255, 0.08);
   --ai-btn-shadow: none;
+  --background-dim: 0.2;
+  --slider-fill: #f1f3f4;
+  --slider-track: #5f6368;
+  --customize-active: #f1f3f4;
+  --page-text-main: var(--text-main);
+  --page-text-sub: var(--text-sub);
+  --date-text-color: var(--text-sub);
+  --page-accent: var(--accent);
+  --shortcut-icon-color: #202124;
 }
 
 [data-theme="light"] {
@@ -52,7 +61,7 @@
   --text-main: #202124;
   --text-sub: #5f6368;
   --hover-bg: rgba(0, 0, 0, 0.05);
-  --icon-circle-bg: #e1e3e1;
+  --icon-circle-bg: #2d2d2d;
   --search-bg: #ffffff;
   --search-border-default: #dfe1e5;
   --search-border-focus: transparent;
@@ -67,11 +76,48 @@
   --ai-btn-text: #1e1e1e;
   --ai-btn-hover: #f1f3f4;
   --ai-btn-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --slider-fill: #202124;
+  --slider-track: #bdc1c6;
+  --customize-active: #202124;
+  --shortcut-icon-color: #ffffff;
+}
+
+body.has-color-theme {
+  --page-text-main: var(--text-main);
+  --page-text-sub: var(--text-sub);
+  --date-text-color: var(--text-sub);
+  --page-accent: var(--palette-color);
+  --icon-circle-bg: color-mix(in srgb, var(--palette-color) 38%, #242526);
+  --shortcut-icon-color: #ffffff;
+}
+
+body[data-theme="light"].has-color-theme {
+  --page-text-main: var(--text-main);
+  --page-text-sub: var(--text-sub);
+  --date-text-color: var(--text-sub);
+  --page-accent: color-mix(in srgb, var(--palette-color) 76%, black);
+  --icon-circle-bg: color-mix(in srgb, var(--palette-color) 38%, #242526);
+}
+
+body[data-color-theme="black"].has-color-theme {
+  --page-accent: #111111;
+  --icon-circle-bg: #111111;
+  --shortcut-icon-color: #ffffff;
+}
+
+body[data-color-theme="white"].has-color-theme {
+  --page-accent: #ffffff;
+  --icon-circle-bg: #f5f5f5;
+  --shortcut-icon-color: #202124;
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-main);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
   min-height: 100vh;
@@ -81,7 +127,16 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* --- 상단 헤더 --- */
+body.has-wallpaper::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, var(--background-dim));
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- Top header --- */
 .top-header {
   position: absolute;
   top: 20px;
@@ -93,7 +148,7 @@ body {
 }
 .header-link {
   text-decoration: none;
-  color: var(--text-main);
+  color: var(--page-text-main);
   font-size: 13px;
   display: flex;
   align-items: center;
@@ -109,20 +164,38 @@ body {
 }
 
 .icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  flex: 0 0 40px;
+  box-sizing: border-box;
   background: none;
   border: none;
   color: var(--text-main);
   cursor: pointer;
-  padding: 8px;
+  padding: 0;
   border-radius: 50%;
   transition: background-color 0.2s;
+}
+.icon-btn .material-icons {
+  line-height: 1;
 }
 .icon-btn:hover {
   background-color: var(--hover-bg);
 }
 
-/* --- 메인 컨테이너 --- */
+.top-header .icon-btn {
+  color: var(--page-text-main);
+}
+
+/* --- Main container --- */
 .main-container {
+  position: relative;
+  z-index: 1;
   width: 100%;
   min-width: 320px;
   max-width: 100%;
@@ -132,7 +205,7 @@ body {
   padding-top: 15vh;
 }
 
-/* --- 시계 --- */
+/* --- Clock --- */
 .clock-container {
   text-align: center;
   margin-bottom: 40px;
@@ -143,14 +216,15 @@ body {
   font-weight: 400;
   line-height: 1;
   letter-spacing: -3px;
+  color: var(--page-text-main);
 }
 .date-text {
   font-size: 20px;
-  color: var(--text-sub);
+  color: var(--date-text-color);
   margin-top: 15px;
 }
 
-/* --- 검색창 --- */
+/* --- Search bar --- */
 .search-bar {
   background: var(--search-bg);
   border: 1px solid var(--search-border-default);
@@ -213,10 +287,65 @@ body {
 .search-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 3px;
 }
 
-/* --- 검색 추천 --- */
+body.reverse-search-colors:not([data-theme="light"]) .search-bar {
+  --search-bg: #ffffff;
+  --search-border-default: #dfe1e5;
+  --search-border-focus: transparent;
+  --search-shadow-focus: rgba(32, 33, 36, 0.2);
+  --text-main: #202124;
+  --text-sub: #5f6368;
+  --hover-bg: rgba(0, 0, 0, 0.05);
+  --ai-btn-bg: #ffffff;
+  --ai-btn-text: #202124;
+}
+
+body[data-theme="light"].reverse-search-colors .search-bar {
+  --search-bg: #2d2d2d;
+  --search-border-default: #444444;
+  --search-border-focus: #5f6368;
+  --search-shadow-focus: rgba(0, 0, 0, 0.5);
+  --text-main: #e0e0e0;
+  --text-sub: #a0a0a0;
+  --hover-bg: rgba(255, 255, 255, 0.08);
+  --ai-btn-bg: #2d2d2d;
+  --ai-btn-text: #e0e0e0;
+}
+
+body[data-theme="light"].reverse-search-colors .search-bar:hover,
+body[data-theme="light"].reverse-search-colors .search-bar:focus-within {
+  border-color: var(--search-border-focus);
+  background: var(--search-bg);
+}
+
+body.has-color-theme:not([data-theme="light"]):not(.reverse-search-colors) .search-bar {
+  --search-bg: color-mix(in srgb, var(--palette-color) 8%, #2d2d2d);
+  --ai-btn-bg: color-mix(in srgb, var(--palette-color) 8%, #2d2d2d);
+}
+
+body[data-theme="light"].has-color-theme:not(.reverse-search-colors) .search-bar {
+  --search-bg: color-mix(in srgb, var(--palette-color) 7%, #ffffff);
+  --ai-btn-bg: color-mix(in srgb, var(--palette-color) 7%, #ffffff);
+}
+
+body.has-color-theme:not([data-theme="light"]).reverse-search-colors .search-bar {
+  --search-bg: color-mix(in srgb, var(--palette-color) 7%, #ffffff);
+  --ai-btn-bg: color-mix(in srgb, var(--palette-color) 7%, #ffffff);
+}
+
+body[data-theme="light"].has-color-theme.reverse-search-colors .search-bar {
+  --search-bg: color-mix(in srgb, var(--palette-color) 8%, #2d2d2d);
+  --ai-btn-bg: color-mix(in srgb, var(--palette-color) 8%, #2d2d2d);
+}
+
+body[data-theme="light"].has-color-theme .search-bar:hover,
+body[data-theme="light"].has-color-theme .search-bar:focus-within {
+  background: var(--search-bg);
+}
+
+/* --- Search suggestions --- */
 .search-suggestions {
   position: absolute;
   top: 100%;
@@ -239,6 +368,16 @@ body {
   border-color: transparent;
   border-top: 1px solid #dfe1e5;
   background: #fff;
+}
+
+body[data-theme="light"].reverse-search-colors .search-suggestions {
+  border-color: var(--search-border-focus);
+  border-top-color: var(--search-border-default);
+  background: var(--search-bg);
+}
+
+body[data-theme="light"].has-color-theme .search-suggestions {
+  background: var(--search-bg);
 }
 
 .search-suggestions.show {
@@ -266,9 +405,16 @@ body {
   margin-right: 15px;
 }
 .action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
-  padding: 8px;
+  padding: 6px;
+  border: none;
   border-radius: 50%;
+  background: transparent;
   color: var(--text-sub);
   transition: background-color 0.2s, color 0.2s;
   font-size: 20px;
@@ -277,8 +423,23 @@ body {
   background-color: var(--hover-bg);
   color: var(--text-main);
 }
+.lens-icon {
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+  content: url("../assets/icons/google-lens-dark.png");
+}
+[data-theme="light"] .lens-icon {
+  content: url("../assets/icons/google-lens-light.png");
+}
+body.reverse-search-colors:not([data-theme="light"]) .lens-icon {
+  content: url("../assets/icons/google-lens-light.png");
+}
+body[data-theme="light"].reverse-search-colors .lens-icon {
+  content: url("../assets/icons/google-lens-dark.png");
+}
 
-/* --- AI 모드 버튼 --- */
+/* --- AI mode button --- */
 @keyframes border-beam {
   0% {
     transform: rotate(0deg);
@@ -292,6 +453,7 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
+  margin-left: 7px;
   padding: 6px 14px;
   border-radius: 100px;
   font-size: 14px;
@@ -306,12 +468,21 @@ body {
   overflow: hidden;
   transition: box-shadow 0.3s ease;
 }
-.ai-mode-btn .material-icons {
-  font-size: 18px;
-  background: none;
-  -webkit-text-fill-color: initial;
-  color: inherit;
-  transition: color 0.3s;
+.ai-mode-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  content: url("../assets/icons/search-spark-dark.png");
+}
+
+[data-theme="light"] .ai-mode-icon {
+  content: url("../assets/icons/search-spark-light.png");
+}
+body.reverse-search-colors:not([data-theme="light"]) .ai-mode-icon {
+  content: url("../assets/icons/search-spark-light.png");
+}
+body[data-theme="light"].reverse-search-colors .ai-mode-icon {
+  content: url("../assets/icons/search-spark-dark.png");
 }
 .ai-mode-btn::before {
   content: "";
@@ -350,11 +521,7 @@ body {
 .ai-mode-btn:hover::before {
   opacity: 1;
 }
-.ai-mode-btn:hover .material-icons {
-  color: #4285f4;
-}
-
-/* --- 바로가기 레이아웃 --- */
+/* --- Shortcuts layout --- */
 .shortcuts-slider {
   width: 100%;
   padding: 10px 0;
@@ -368,9 +535,8 @@ body {
   width: 100%;
 }
 
-/* --- [수정됨] 페이지 설정: 아이템이 밖으로 나가는 것을 보여주기 위해 visible 처리 --- */
+/* Page container: overflow stays visible so items can animate off-screen */
 .shortcut-page {
-  /* 기존 속성 유지 */
   min-width: 100%;
   width: 100%;
   box-sizing: border-box;
@@ -381,22 +547,18 @@ body {
   gap: 16px 8px;
   padding-left: max(20px, calc(50% - 596px));
   padding-right: max(20px, calc(50% - 596px));
-
-  /* 3줄 높이 제한은 유지하되, 애니메이션을 위해 overflow를 풉니다 */
   overflow: visible;
 }
 
-/* --- [핵심] 31번째 아이템: 사라지지 않고 오른쪽 밖으로 밀려나는 연출 --- */
+/* Item 31+: slides off to the right instead of just disappearing */
 .shortcut-page .shortcut-item-container:nth-child(n + 31) {
   position: absolute;
-  right: -150px; /* 화면 오른쪽 밖으로 내보냄 */
-  bottom: 20px; /* 3번째 줄 높이 쯤에 위치 */
-  opacity: 0; /* 서서히 투명해짐 */
-  transform: scale(0.8); /* 작아짐 */
-  z-index: -1; /* 다른 요소 뒤로 */
-  pointer-events: none; /* 클릭 방지 */
-
-  /* FLIP 애니메이션이 아닌 CSS 자체 트랜지션이 필요할 때를 대비 */
+  right: -150px;
+  bottom: 20px;
+  opacity: 0;
+  transform: scale(0.8);
+  z-index: -1;
+  pointer-events: none;
   transition: opacity 0.3s, transform 0.3s;
 }
 .shortcut-item-container {
@@ -412,7 +574,6 @@ body {
   user-select: none;
 }
 
-/* --- [중요] 드래그 중이 아닐 때만 호버 효과 적용 --- */
 body:not(.is-dragging) .shortcut-item-container:hover {
   background: var(--hover-bg);
 }
@@ -442,7 +603,6 @@ body:not(.is-dragging) .shortcut-item-container:hover {
   transition: background-color 0.2s;
 }
 
-/* --- [중요] 드래그 중이 아닐 때만 아이콘 밝기 조정 --- */
 body:not(.is-dragging) .shortcut-item-container:hover .icon-circle {
   filter: brightness(0.95);
 }
@@ -462,9 +622,12 @@ body:not(.is-dragging) .shortcut-item-container:hover .icon-circle {
   line-height: 1;
 }
 
-/* + 버튼 아이콘 색상 */
 .shortcut-item .icon-circle .material-icons {
-  color: #202124 !important;
+  color: var(--shortcut-icon-color) !important;
+}
+
+[data-theme="light"] .shortcut-item .icon-circle .material-icons {
+  color: var(--shortcut-icon-color) !important;
 }
 
 .shortcut-title {
@@ -474,35 +637,34 @@ body:not(.is-dragging) .shortcut-item-container:hover .icon-circle {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: var(--text-main);
+  color: var(--page-text-main);
   line-height: 1.5;
   padding-bottom: 2px;
 }
 
-/* --- 더보기 버튼 --- */
+/* --- "More options" button --- */
 .more-options-btn {
   position: absolute;
   top: 4px;
   right: 4px;
   background: transparent;
   border: none;
-  color: var(--text-sub);
+  color: var(--page-text-sub);
   cursor: pointer;
   padding: 4px;
   border-radius: 50%;
-  opacity: 0; /* 기본 숨김 */
+  opacity: 0;
   transition: opacity 0.2s, background-color 0.2s;
   z-index: 2;
 }
 
-/* --- [중요] 드래그 중이 아닐 때만 버튼 보이기 --- */
 body:not(.is-dragging) .shortcut-item-container:hover .more-options-btn {
   opacity: 1;
 }
 
 .more-options-btn:hover {
   background-color: rgba(0, 0, 0, 0.1);
-  color: var(--text-main);
+  color: var(--page-text-main);
 }
 [data-theme="light"] .more-options-btn:hover {
   background-color: rgba(0, 0, 0, 0.05);
@@ -511,7 +673,7 @@ body:not(.is-dragging) .shortcut-item-container:hover .more-options-btn {
   font-size: 16px;
 }
 
-/* --- 메뉴 --- */
+/* --- Menu --- */
 .shortcut-menu {
   position: absolute;
   top: 30px;
@@ -544,7 +706,7 @@ body:not(.is-dragging) .shortcut-item-container:hover .more-options-btn {
   background-color: var(--menu-hover);
 }
 
-/* --- 인디케이터 --- */
+/* --- Pagination dots --- */
 .pagination-dots {
   display: flex;
   justify-content: center;
@@ -554,19 +716,19 @@ body:not(.is-dragging) .shortcut-item-container:hover .more-options-btn {
 .dot {
   width: 8px;
   height: 8px;
-  background: var(--text-sub);
+  background: var(--page-text-sub);
   border-radius: 50%;
   cursor: pointer;
   transition: 0.3s;
   opacity: 0.5;
 }
 .dot.active {
-  background: var(--accent);
+  background: var(--page-accent);
   transform: scale(1.1);
   opacity: 1;
 }
 
-/* --- 모달 --- */
+/* --- Modal --- */
 dialog {
   background: var(--modal-bg);
   color: var(--text-main);
@@ -636,7 +798,7 @@ dialog h3 {
   background: var(--btn-primary);
 }
 
-/* --- 파비콘 로딩 스켈레톤 --- */
+/* --- Favicon loading skeleton --- */
 @keyframes favicon-shimmer {
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
@@ -668,7 +830,7 @@ img.favicon-loading {
   animation: favicon-shimmer 1.4s ease-in-out infinite;
 }
 
-/* --- 이름 자동 입력 로딩 상태 --- */
+/* --- Title auto-fill loading state --- */
 @keyframes input-pulse {
   0%, 100% { border-color: var(--search-border-default); }
   50%       { border-color: var(--accent); }
@@ -679,7 +841,7 @@ img.favicon-loading {
   cursor: wait;
 }
 
-/* --- DnD 관련 스타일 --- */
+/* --- Drag and drop --- */
 .shortcut-item-container[draggable="true"] {
   cursor: grab;
 }
@@ -691,4 +853,492 @@ img.favicon-loading {
 }
 .dragging .shortcut-item {
   pointer-events: none;
+}
+
+/* --- Customize panel --- */
+.customize-modal {
+  position: fixed;
+  inset: 76px 12px 12px auto;
+  width: 360px;
+  max-width: calc(100vw - 24px);
+  height: auto;
+  max-height: calc(100vh - 88px);
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 16px;
+  background: var(--modal-bg);
+  color: var(--text-main);
+  box-sizing: border-box;
+  overflow-y: auto;
+  z-index: 200;
+  scrollbar-width: thin;
+  scrollbar-color: var(--slider-track) transparent;
+}
+
+.customize-modal::-webkit-scrollbar {
+  width: 9px;
+}
+
+.customize-modal::-webkit-scrollbar-track {
+  margin-block: 34px 14px;
+  background: transparent;
+}
+
+.customize-modal::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.customize-modal::-webkit-scrollbar-thumb {
+  min-height: 42px;
+  border: 2px solid var(--modal-bg);
+  border-radius: 999px;
+  background: var(--slider-track);
+}
+
+.customize-modal::-webkit-scrollbar-thumb:hover {
+  background: var(--text-sub);
+}
+
+.customize-modal::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.customize-modal[open] {
+  animation: customize-slide-in 220ms ease-out both;
+}
+
+.customize-modal.closing {
+  animation: customize-slide-out 200ms ease-in both;
+}
+
+.customize-modal::backdrop {
+  background: transparent;
+}
+
+@keyframes customize-slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes customize-slide-out {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+.customize-content {
+  padding: 22px;
+}
+
+.customize-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.customize-header h3 {
+  margin: 0;
+}
+
+.customize-header .icon-btn {
+  display: grid;
+  place-items: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.customize-header .icon-btn .material-icons {
+  line-height: 1;
+}
+
+.customize-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.customize-section:last-child {
+  margin-bottom: 0;
+}
+
+.customize-section label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-sub);
+}
+
+.customize-toggle-row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.customize-hint {
+  display: block;
+  max-width: 230px;
+  margin-top: 4px;
+  color: var(--text-sub);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.customize-section label.toggle-switch {
+  position: relative;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.toggle-switch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--search-border-default);
+  border-radius: 999px;
+  background: var(--search-border-default);
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--modal-bg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: transform 0.18s ease, background-color 0.18s ease;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  border-color: var(--customize-active);
+  background: var(--customize-active);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(16px);
+  background: var(--modal-bg);
+}
+
+.toggle-switch input:focus-visible + .toggle-slider {
+  outline: 2px solid var(--customize-active);
+  outline-offset: 2px;
+}
+
+.color-theme-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 9px;
+}
+
+.color-theme-swatch {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: var(--swatch-color, #777);
+  box-shadow: inset 0 0 0 1px rgba(127, 127, 127, 0.24);
+  cursor: pointer;
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+
+.color-theme-swatch:not(.neutral) {
+  background: var(--swatch-color, #777);
+}
+
+.color-theme-swatch.neutral {
+  background: conic-gradient(
+    from 45deg,
+    #202124 0 25%,
+    #f1f3f4 0 50%,
+    #5f6368 0 75%,
+    #bdc1c6 0
+  );
+}
+
+.color-theme-swatch:hover {
+  transform: scale(1.07);
+}
+
+.color-theme-swatch.selected {
+  border-color: var(--customize-active);
+}
+
+.color-theme-swatch.selected::after {
+  content: "check";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-family: "Material Icons";
+  font-size: 18px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75);
+}
+
+.color-theme-swatch:focus-visible {
+  outline: 2px solid var(--customize-active);
+  outline-offset: 2px;
+}
+
+.theme-picker {
+  position: relative;
+}
+
+.theme-picker-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 9px 10px 9px 12px;
+  background: var(--search-bg);
+  color: var(--text-main);
+  border: 1px solid var(--search-border-default);
+  border-radius: 8px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.theme-picker-arrow {
+  font-size: 20px;
+  color: var(--text-sub);
+  transition: transform 0.15s ease;
+}
+
+.theme-picker-trigger[aria-expanded="true"] .theme-picker-arrow {
+  transform: rotate(180deg);
+}
+
+.theme-picker-options {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 5px);
+  left: 0;
+  right: 0;
+  padding: 5px;
+  border: 1px solid var(--search-border-default);
+  border-radius: 8px;
+  background: var(--modal-bg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+.theme-picker-options[hidden] {
+  display: none;
+}
+
+.theme-picker-options button {
+  display: block;
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-main);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.theme-picker-options button:hover {
+  background: var(--hover-bg);
+}
+
+.theme-picker-options button.selected {
+  background: var(--menu-hover);
+  font-weight: 600;
+}
+
+/* --- Range slider (background dim) --- */
+.customize-section input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  margin: 8px 0;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  /* Fill gradient is kept in sync with the value from customize.js */
+  background: linear-gradient(to right, var(--slider-fill) 20%, var(--slider-track) 20%);
+}
+
+.customize-section input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: transparent;
+}
+
+.customize-section input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: var(--slider-fill);
+  border: 2px solid var(--modal-bg);
+  box-shadow: 0 0 0 1px var(--slider-track);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.customize-section input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* --- Upload / remove buttons --- */
+.upload-row {
+  display: flex;
+  gap: 10px;
+}
+
+.customize-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 1;
+  padding: 9px 14px;
+  border: 1px solid var(--search-border-default);
+  border-radius: 8px;
+  background: var(--search-bg);
+  color: var(--text-main);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.customize-section label.customize-btn {
+  color: var(--text-main);
+}
+
+.customize-btn:hover {
+  background: var(--hover-bg);
+  border-color: var(--customize-active);
+}
+
+.customize-btn .material-icons {
+  font-size: 16px;
+}
+
+/* --- Wallpaper gallery --- */
+.wallpaper-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wallpaper-gallery.loading::after {
+  content: "Loading image…";
+  padding: 12px;
+  border: 1px dashed var(--search-border-default);
+  border-radius: 8px;
+  color: var(--text-sub);
+  font-size: 12px;
+  text-align: center;
+}
+
+.wallpaper-group-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-sub);
+}
+
+.wallpaper-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.wallpaper-thumb {
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background-color: var(--search-bg);
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.1s ease;
+}
+
+.wallpaper-thumb:hover {
+  transform: scale(1.05);
+}
+
+.wallpaper-thumb.active {
+  border-color: var(--customize-active);
+}
+
+.wallpaper-thumb-wrapper {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1;
+}
+
+.wallpaper-remove-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.78);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.82;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.wallpaper-remove-btn::before,
+.wallpaper-remove-btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 1px;
+  border-radius: 999px;
+  background: currentColor;
+  transform-origin: center;
+}
+
+.wallpaper-remove-btn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.wallpaper-remove-btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.wallpaper-remove-btn:hover {
+  opacity: 1;
+  transform: scale(1.08);
 }

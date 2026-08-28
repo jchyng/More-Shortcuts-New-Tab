@@ -8,14 +8,20 @@
     "newtab": "src/newtab.html"
   },
   "icons": {
-    "128": "assets/icons/icon128.png"
+    "16": "assets/icons/tab-icon-loading-16.png",
+    "32": "assets/icons/tab-icon-loading-32.png",
+    "48": "assets/icons/tab-icon-loading-48.png",
+    "128": "assets/icons/icon128-white.png"
   },
   "action": {
     "default_title": "New Tab",
     "default_icon": {
-      "128": "assets/icons/icon128.png"
+      "16": "assets/icons/tab-icon-dark-v2-16.png",
+      "32": "assets/icons/tab-icon-dark-v2-32.png",
+      "48": "assets/icons/tab-icon-dark-v2-48.png",
+      "128": "assets/icons/icon128-white.png"
     }
   },
-  "permissions": ["storage", "favicon", "search"],
+  "permissions": ["storage", "unlimitedStorage", "favicon", "search"],
   "host_permissions": ["<all_urls>"]
 }

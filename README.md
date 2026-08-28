@@ -104,7 +104,17 @@ More-Shortcuts-New-Tab/
 ├── manifest.json              # Extension configuration
 ├── src/
 │   ├── newtab.html            # Main HTML structure
-│   ├── script.js              # Core functionality
+│   ├── js/
+│   │   ├── main.js            # Entry point, localization, global listeners
+│   │   ├── theme.js           # Light/dark/system theme handling
+│   │   ├── customize.js       # Customize panel, background wallpaper
+│   │   ├── shortcuts.js       # Grid rendering, pagination
+│   │   ├── storage.js         # Shortcuts persistence (chrome.storage.sync)
+│   │   ├── favicons.js        # Favicon fetching, caching, fallbacks
+│   │   ├── dragdrop.js        # Drag-and-drop reordering
+│   │   ├── search.js          # Search bar and suggestions
+│   │   ├── clock.js           # Clock and date display
+│   │   └── modal.js           # Add/edit shortcut modal
 │   ├── styles.css             # Styling with CSS variables
 │   └── fonts/
 │       ├── Inter-VariableFont.ttf

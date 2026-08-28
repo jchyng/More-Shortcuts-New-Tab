@@ -1,6 +1,8 @@
 {
   "searchPlaceholder": { "message": "Search Google or type a URL" },
   "addShortcutTitle": { "message": "Add Shortcut" },
+  "shortcutLimitReached": { "message": "You can add up to 30 shortcuts." },
+  "shortcutSaveError": { "message": "Could not save your changes. Your previous shortcuts are still intact." },
   "editShortcutTitle": { "message": "Edit Shortcut" },
   "addBtnLabel": { "message": "Add" },
   "saveBtnLabel": { "message": "Save" },

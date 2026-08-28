@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Tab</title>
-    <link rel="icon" type="image/png" href="../assets/icons/icon128.png">
+    <link id="pageFavicon" rel="icon" type="image/png" sizes="32x32" href="../assets/icons/tab-icon-dark-v2-32.png">
     
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -19,15 +19,25 @@
         <a href="https://meet.google.com" class="header-link" title="Google Meet">
             <img src="../assets/icons/google-meet.svg" alt="Google Meet" class="header-icon">Meet
         </a>
+        <a href="https://calendar.google.com" class="header-link" title="Google Calendar">
+            <img src="../assets/icons/google-calendar.png" alt="Google Calendar" class="header-icon">Calendar
+        </a>
+        <a href="https://photos.google.com" class="header-link" title="Google Photos">
+            <img src="../assets/icons/google-photos.png" alt="Google Photos" class="header-icon">Photos
+        </a>
         <button id="themeToggle" class="icon-btn" title="Toggle Theme">
             <span class="material-icons">dark_mode</span>
         </button>
+        <button id="customizeBtn" class="icon-btn" title="Customize">
+            <span class="material-icons">settings</span>
+        </button>
+
     </header>
 
     <div class="main-container">
         <div class="clock-container">
             <div id="digitalClock" class="clock-text"></div>
-            <div id="dateText" class="date-text">Loading...</div>
+            <div id="dateText" class="date-text"></div>
         </div>
 
         <div class="search-bar" id="searchBar">
@@ -36,11 +46,19 @@
                 <input type="text" id="searchInput" placeholder="Search Google or type a URL" autocomplete="off">
             </div>
             <div class="search-actions">
-                <span class="action-icon" id="imageSearchBtn" title="Image Search" style="display: flex; align-items: center; justify-content: center;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera-icon lucide-camera"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></svg>
-</span>
+                <button class="action-icon" id="imageSearchBtn" type="button" title="Search by image with Google Lens" aria-label="Search by image with Google Lens">
+                    <img
+                            class="lens-icon"
+                            src="../assets/icons/google-lens-dark.png"
+                            alt=""
+                    >
+                </button>
                 <button id="aiModeBtn" class="ai-mode-btn">
-                    <span class="material-icons">auto_awesome</span>
+                    <img
+                            class="ai-mode-icon"
+                            src="../assets/icons/search-spark-dark.png"
+                            alt=""
+                    >
                     <span class="btn-text">AI Mode</span>
                 </button>
             </div>
@@ -73,6 +91,112 @@
         </form>
     </dialog>
 
-    <script src="script.js"></script>
+    <dialog id="customizeModal" class="customize-modal">
+        <div class="customize-content">
+            <div class="customize-header">
+                <h3>Customize</h3>
+
+                <button id="closeCustomizeBtn" class="icon-btn">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+
+            <div class="customize-section">
+                <label for="themeSelect">Theme</label>
+
+                <div class="theme-picker" id="themePicker">
+                    <button id="themeSelect" class="theme-picker-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span id="themeSelectValue">System</span>
+                        <span class="material-icons theme-picker-arrow">expand_more</span>
+                    </button>
+                    <div class="theme-picker-options" id="themeOptions" role="listbox" hidden>
+                        <button type="button" role="option" data-value="system">System</button>
+                        <button type="button" role="option" data-value="light">Light</button>
+                        <button type="button" role="option" data-value="dark">Dark</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="customize-section customize-toggle-row">
+                <div>
+                    <label for="reverseSearchColors">Reverse search bar colors</label>
+                    <span class="customize-hint">Use the opposite color scheme for the search bar</span>
+                </div>
+                <label class="toggle-switch" for="reverseSearchColors">
+                    <input type="checkbox" id="reverseSearchColors">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="customize-section">
+                <label>Color theme</label>
+                <div class="color-theme-grid" id="colorThemeOptions" aria-label="Color theme">
+                    <button type="button" class="color-theme-swatch neutral" data-theme-color="neutral" data-color="" title="Neutral" aria-label="Neutral"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="black" data-color="#111111" title="Black" aria-label="Black"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="white" data-color="#f5f5f5" title="White" aria-label="White"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="slate" data-color="#94a3b8" title="Slate" aria-label="Slate"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="red" data-color="#ef6b73" title="Red" aria-label="Red"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="coral" data-color="#f58b6b" title="Coral" aria-label="Coral"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="amber" data-color="#eebd55" title="Amber" aria-label="Amber"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="lime" data-color="#9bcf62" title="Lime" aria-label="Lime"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="green" data-color="#65c98f" title="Green" aria-label="Green"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="cyan" data-color="#62c7d9" title="Cyan" aria-label="Cyan"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="blue" data-color="#789de5" title="Blue" aria-label="Blue"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="violet" data-color="#a78bda" title="Violet" aria-label="Violet"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="purple" data-color="#c17bd4" title="Purple" aria-label="Purple"></button>
+                    <button type="button" class="color-theme-swatch" data-theme-color="pink" data-color="#e982b0" title="Pink" aria-label="Pink"></button>
+                </div>
+            </div>
+
+            <div class="customize-section">
+                <label>Background</label>
+
+                <div class="wallpaper-gallery" id="wallpaperGallery"></div>
+
+                <div class="upload-row">
+                    <label for="backgroundInput" class="customize-btn">
+                        <span class="material-icons">upload</span>
+                        Upload
+                    </label>
+                    <input
+                            type="file"
+                            id="backgroundInput"
+                            accept="image/*"
+                            hidden
+                    >
+
+                    <button id="removeBackgroundBtn" class="customize-btn" type="button">
+                        <span class="material-icons">delete_outline</span>
+                        Remove
+                    </button>
+                </div>
+            </div>
+
+            <div class="customize-section">
+                <label for="backgroundDim">
+                    Wallpaper darkness
+                </label>
+
+                <input
+                        type="range"
+                        id="backgroundDim"
+                        min="0"
+                        max="80"
+                        value="20"
+                >
+            </div>
+        </div>
+    </dialog>
+
+    <script src="js/storage.js"></script>
+    <script src="js/favicons.js"></script>
+    <script src="js/dragdrop.js"></script>
+    <script src="js/shortcuts.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/clock.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/customize.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
