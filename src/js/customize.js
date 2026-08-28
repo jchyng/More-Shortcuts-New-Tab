@@ -15,6 +15,7 @@ function initCustomize() {
   const themePicker = document.getElementById("themePicker");
   const themeOptions = document.getElementById("themeOptions");
   const reverseSearchColors = document.getElementById("reverseSearchColors");
+  const use24HourClock = document.getElementById("use24HourClock");
   const colorThemeOptions = document.getElementById("colorThemeOptions");
   const backgroundInput = document.getElementById("backgroundInput");
   const removeBackgroundBtn = document.getElementById("removeBackgroundBtn");
@@ -100,6 +101,12 @@ function initCustomize() {
     const enabled = reverseSearchColors.checked;
     localStorage.setItem("reverseSearchColors", String(enabled));
     document.body.classList.toggle("reverse-search-colors", enabled);
+  });
+
+  use24HourClock.checked = localStorage.getItem("use24HourClock") === "true";
+  use24HourClock.addEventListener("change", () => {
+    localStorage.setItem("use24HourClock", String(use24HourClock.checked));
+    updateClock();
   });
 
   const applyColorTheme = (name, color) => {

@@ -1,12 +1,31 @@
-// --- Localization ---
-// Reads from Chrome's standard i18n (_locales/<lang>/messages.json).
-// chrome.i18n.getMessage() picks the message matching Chrome's display
-// language, falling back to manifest.json's default_locale otherwise.
-// Wrapped in a thin Proxy so call sites can keep using t.xxx.
-const t = new Proxy({}, { get: (_, key) => chrome.i18n.getMessage(key) });
+// --- English UI copy ---
+// Keep all user-facing text in one place so the new tab stays English-only.
+const t = {
+  searchPlaceholder: "Search Google or type a URL",
+  addShortcutTitle: "Add Shortcut",
+  shortcutLimitReached: "You can add up to 30 shortcuts.",
+  shortcutSaveError:
+    "Could not save your changes. Your previous shortcuts are still intact.",
+  editShortcutTitle: "Edit Shortcut",
+  addBtnLabel: "Add",
+  saveBtnLabel: "Save",
+  cancelBtnLabel: "Cancel",
+  modalHeaderAdd: "Add Shortcut",
+  modalHeaderEdit: "Edit Shortcut",
+  nameLabel: "Name",
+  urlLabel: "URL",
+  themeTitle: "Toggle Theme",
+  imgSearchTitle: "Image Search",
+  aiModeTitle: "AI Search Mode",
+  menuEdit: "Edit",
+  menuDelete: "Delete",
+  titleLoadingPlaceholder: "Fetching name...",
+  titleInputPlaceholder: "e.g. YouTube",
+  aiModeBtnText: "AI Mode",
+};
 
 document.addEventListener("DOMContentLoaded", () => {
-  applyLocalization();
+  applyEnglishText();
   initTheme();
   initCustomize();
   loadBackground();
@@ -50,8 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("dragover", handleGlobalDragOver);
 });
 
-function applyLocalization() {
-  document.documentElement.lang = chrome.i18n.getUILanguage();
+function applyEnglishText() {
+  document.documentElement.lang = "en";
   document.getElementById("searchInput").placeholder = t.searchPlaceholder;
   document.getElementById("themeToggle").title = t.themeTitle;
   document.getElementById("imageSearchBtn").title = t.imgSearchTitle;
