@@ -872,17 +872,18 @@ function applyLocalization() {
 }
 
 function updateLanguagePickerUI() {
-  const currentPref = getPrefSync("language", "auto");
+  const currentPref = typeof getPrefSync === "function" ? getPrefSync("language", "auto") : "auto";
   const valueLabel = document.getElementById("languageSelectValue");
   const options = document.querySelectorAll("#languageOptions [data-value]");
   const detectedLang = detectBrowserLanguage();
-  const detectedName = SUPPORTED_LANGUAGES[detectedLang]?.name || "English";
+  const detectedName = (SUPPORTED_LANGUAGES[detectedLang] && SUPPORTED_LANGUAGES[detectedLang].name) || "English";
+  const autoText = (typeof t !== "undefined" && t.languageAuto) || "Auto";
 
   if (valueLabel) {
     if (currentPref === "auto") {
-      valueLabel.textContent = `${t.languageAuto} (${detectedName})`;
+      valueLabel.textContent = `${autoText} (${detectedName})`;
     } else {
-      valueLabel.textContent = SUPPORTED_LANGUAGES[currentPref]?.name || currentPref;
+      valueLabel.textContent = (SUPPORTED_LANGUAGES[currentPref] && SUPPORTED_LANGUAGES[currentPref].name) || currentPref;
     }
   }
 
@@ -892,7 +893,7 @@ function updateLanguagePickerUI() {
     option.classList.toggle("selected", selected);
     option.setAttribute("aria-selected", String(selected));
     if (val === "auto") {
-      option.textContent = `${t.languageAuto} (${detectedName})`;
+      option.textContent = `${autoText} (${detectedName})`;
     }
   });
 }

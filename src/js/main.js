@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  initTheme();
-  initCustomize();
   initLanguagePicker();
   applyLocalization();
+  initTheme();
+  initCustomize();
   reconcilePrefs(applyChangedPref);
   loadBackground();
   updateClock();
