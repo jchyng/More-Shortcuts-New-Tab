@@ -640,14 +640,19 @@ async function resizeImage(
 }
 
 async function createOptimizedWallpaper(source) {
-  const full = await resizeImage(
-    source,
-    MAX_WALLPAPER_EDGE,
-    0.82,
-    MAX_WALLPAPER_DATA_URL_LENGTH,
-  );
-  const thumbnail = await resizeImage(full, WALLPAPER_THUMB_SIZE, 0.72);
-  return { full, thumbnail };
+  try {
+    const full = await resizeImage(
+      source,
+      MAX_WALLPAPER_EDGE,
+      0.82,
+      MAX_WALLPAPER_DATA_URL_LENGTH,
+    );
+    const thumbnail = await resizeImage(full, WALLPAPER_THUMB_SIZE, 0.72);
+    return { full, thumbnail };
+  } catch (error) {
+    console.warn("Could not optimize wallpaper:", error);
+    return { full: source, thumbnail: source };
+  }
 }
 
 const DEFAULT_WALLPAPER_FILES = ["1.jpg", "2.jpg", "3.jpg"];
@@ -659,26 +664,49 @@ async function getDefaultWallpapers() {
 }
 
 async function getUserWallpapers() {
-  const result = await chrome.storage.local.get("userWallpapers");
-  const stored = result.userWallpapers ?? [];
-  const normalized = await Promise.all(
-    stored.map(async (item) =>
-      typeof item === "string" ? createOptimizedWallpaper(item) : item,
-    ),
-  );
-  if (stored.some((item) => typeof item === "string")) {
-    await chrome.storage.local.set({ userWallpapers: normalized });
+  try {
+    const result = await chrome.storage.local.get("userWallpapers");
+    const stored = (result.userWallpapers ?? []).filter(Boolean);
+    const normalized = (
+      await Promise.all(
+        stored.map(async (item) => {
+          try {
+            if (typeof item === "string") return await createOptimizedWallpaper(item);
+            if (item && item.full) {
+              return {
+                full: item.full,
+                thumbnail: item.thumbnail || item.full,
+              };
+            }
+            return null;
+          } catch {
+            return null;
+          }
+        }),
+      )
+    ).filter(Boolean);
+
+    if (stored.some((item) => typeof item === "string")) {
+      await chrome.storage.local.set({ userWallpapers: normalized });
+    }
+    return normalized;
+  } catch (error) {
+    console.error("Could not get user wallpapers:", error);
+    return [];
   }
-  return normalized;
 }
 
 async function saveUserWallpaper(wallpaper) {
-  let wallpapers = await getUserWallpapers();
-  wallpapers = wallpapers.filter((item) => item.full !== wallpaper.full);
-  wallpapers.unshift(wallpaper);
-  wallpapers = wallpapers.slice(0, MAX_USER_WALLPAPERS);
+  try {
+    let wallpapers = await getUserWallpapers();
+    wallpapers = wallpapers.filter((item) => item.full !== wallpaper.full);
+    wallpapers.unshift(wallpaper);
+    wallpapers = wallpapers.slice(0, MAX_USER_WALLPAPERS);
 
-  await chrome.storage.local.set({ userWallpapers: wallpapers });
+    await chrome.storage.local.set({ userWallpapers: wallpapers });
+  } catch (error) {
+    console.error("Could not save user wallpaper:", error);
+  }
 }
 
 function setWallpaperGalleryLoading(isLoading) {
@@ -695,33 +723,48 @@ async function selectWallpaper(url) {
 }
 
 async function getDefaultWallpaperThumbnail(wallpaper) {
-  const version = chrome.runtime.getManifest().version;
-  const filename = wallpaper.full.split("/").pop();
-  const key = `wallpaperThumb_${version}_${filename}`;
-  const cached = await chrome.storage.local.get(key);
-  if (cached[key]) return cached[key];
-  const thumbnail = await resizeImage(wallpaper.full, WALLPAPER_THUMB_SIZE, 0.72);
-  await chrome.storage.local.set({ [key]: thumbnail });
-  return thumbnail;
+  if (!wallpaper || !wallpaper.full) return "";
+  try {
+    const manifest = chrome.runtime.getManifest ? chrome.runtime.getManifest() : { version: "1" };
+    const version = manifest.version;
+    const filename = wallpaper.full.split("/").pop();
+    const key = `wallpaperThumb_${version}_${filename}`;
+    const cached = await chrome.storage.local.get(key);
+    if (cached[key]) return cached[key];
+    const thumbnail = await resizeImage(wallpaper.full, WALLPAPER_THUMB_SIZE, 0.72);
+    await chrome.storage.local.set({ [key]: thumbnail });
+    return thumbnail;
+  } catch (error) {
+    console.warn("Could not generate default thumbnail, using original image:", error);
+    return wallpaper.full;
+  }
 }
 
 async function pruneStaleWallpaperThumbnails() {
-  const version = chrome.runtime.getManifest().version;
-  const currentPrefix = `wallpaperThumb_${version}_`;
-  const all = await chrome.storage.local.get(null);
-  const staleKeys = Object.keys(all).filter(
-    (key) => key.startsWith("wallpaperThumb_") && !key.startsWith(currentPrefix),
-  );
-  if (staleKeys.length) await chrome.storage.local.remove(staleKeys);
+  try {
+    const manifest = chrome.runtime.getManifest ? chrome.runtime.getManifest() : { version: "1" };
+    const version = manifest.version;
+    const currentPrefix = `wallpaperThumb_${version}_`;
+    const all = await chrome.storage.local.get(null);
+    const staleKeys = Object.keys(all).filter(
+      (key) => key.startsWith("wallpaperThumb_") && !key.startsWith(currentPrefix),
+    );
+    if (staleKeys.length) await chrome.storage.local.remove(staleKeys);
+  } catch (error) {
+    console.warn("Could not prune stale thumbnails:", error);
+  }
 }
 
 function createWallpaperThumb(wallpaper, currentBg) {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "wallpaper-thumb";
-  btn.style.backgroundImage = `url("${wallpaper.thumbnail}")`;
+  const thumbUrl = wallpaper?.thumbnail || wallpaper?.full || "";
+  btn.style.backgroundImage = `url("${thumbUrl}")`;
   btn.title = "Use this wallpaper";
-  if (currentBg && currentBg.includes(wallpaper.full)) btn.classList.add("active");
+  if (currentBg && wallpaper?.full && currentBg.includes(wallpaper.full)) {
+    btn.classList.add("active");
+  }
   btn.addEventListener("click", () => selectWallpaper(wallpaper.full));
   return btn;
 }
@@ -775,50 +818,58 @@ async function renderWallpaperGallery() {
   const gallery = document.getElementById("wallpaperGallery");
   if (!gallery) return;
 
-  const currentBg = document.body.style.backgroundImage;
+  try {
+    const currentBg = document.body.style.backgroundImage;
 
-  const [defaultSources, userWallpapers] = await Promise.all([
-    getDefaultWallpapers(),
-    getUserWallpapers(),
-  ]);
-  const defaults = await Promise.all(
-    defaultSources.map(async (wallpaper) => ({
-      ...wallpaper,
-      thumbnail: await getDefaultWallpaperThumbnail(wallpaper),
-    })),
-  );
-
-  gallery.replaceChildren();
-  gallery.classList.remove("loading");
-
-  if (defaults.length) {
-    gallery.appendChild(createWallpaperGroupLabel(t.defaultPresets || "Default presets"));
-    const row = document.createElement("div");
-    row.className = "wallpaper-row";
-    defaults.forEach((wallpaper) =>
-      row.appendChild(createWallpaperThumb(wallpaper, currentBg)),
+    const [defaultSources, userWallpapers] = await Promise.all([
+      getDefaultWallpapers(),
+      getUserWallpapers(),
+    ]);
+    const defaults = await Promise.all(
+      defaultSources.map(async (wallpaper) => ({
+        ...wallpaper,
+        thumbnail: await getDefaultWallpaperThumbnail(wallpaper),
+      })),
     );
-    gallery.appendChild(row);
-  }
 
-  if (userWallpapers.length) {
-    const yourPresetsText = t.yourPresets || "Your presets";
-    gallery.appendChild(
-      createWallpaperGroupLabel(
-        `${yourPresetsText} (${userWallpapers.length}/${MAX_USER_WALLPAPERS})`,
-      ),
-    );
-    const row = document.createElement("div");
-    row.className = "wallpaper-row";
-    userWallpapers.forEach((wallpaper) =>
-      row.appendChild(createUserWallpaperThumb(wallpaper, currentBg)),
-    );
-    gallery.appendChild(row);
-  }
+    gallery.replaceChildren();
+    gallery.classList.remove("loading");
 
-  if (!defaults.length && !userWallpapers.length) {
-    gallery.style.display = "none";
-  } else {
-    gallery.style.display = "";
+    const validDefaults = defaults.filter((w) => w && w.full);
+    if (validDefaults.length) {
+      const defaultLabel = (typeof t !== "undefined" && t.defaultPresets) || "Default presets";
+      gallery.appendChild(createWallpaperGroupLabel(defaultLabel));
+      const row = document.createElement("div");
+      row.className = "wallpaper-row";
+      validDefaults.forEach((wallpaper) =>
+        row.appendChild(createWallpaperThumb(wallpaper, currentBg)),
+      );
+      gallery.appendChild(row);
+    }
+
+    const validUserWallpapers = userWallpapers.filter((w) => w && w.full);
+    if (validUserWallpapers.length) {
+      const yourPresetsText = (typeof t !== "undefined" && t.yourPresets) || "Your presets";
+      gallery.appendChild(
+        createWallpaperGroupLabel(
+          `${yourPresetsText} (${validUserWallpapers.length}/${MAX_USER_WALLPAPERS})`,
+        ),
+      );
+      const row = document.createElement("div");
+      row.className = "wallpaper-row";
+      validUserWallpapers.forEach((wallpaper) =>
+        row.appendChild(createUserWallpaperThumb(wallpaper, currentBg)),
+      );
+      gallery.appendChild(row);
+    }
+
+    if (!validDefaults.length && !validUserWallpapers.length) {
+      gallery.style.display = "none";
+    } else {
+      gallery.style.display = "";
+    }
+  } catch (error) {
+    console.error("Could not render wallpaper gallery:", error);
+    gallery.classList.remove("loading");
   }
 }
