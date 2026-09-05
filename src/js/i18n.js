@@ -3,14 +3,16 @@
 const SUPPORTED_LANGUAGES = {
   ko: { name: "한국어", locale: "ko-KR" },
   en: { name: "English", locale: "en-US" },
-  ja: { name: "日本語", locale: "ja-JP" },
-  zh_CN: { name: "简体中文", locale: "zh-CN" },
-  es: { name: "Español", locale: "es-ES" },
-  fr: { name: "Français", locale: "fr-FR" },
-  de: { name: "Deutsch", locale: "de-DE" },
-  pt_BR: { name: "Português (Brasil)", locale: "pt-BR" },
-  vi: { name: "Tiếng Việt", locale: "vi-VN" },
+  hi: { name: "हिन्दी", locale: "hi-IN" },
+  uk: { name: "Українська", locale: "uk-UA" },
   ru: { name: "Русский", locale: "ru-RU" },
+  pt_BR: { name: "Português (Brasil)", locale: "pt-BR" },
+  ja: { name: "日本語", locale: "ja-JP" },
+  de: { name: "Deutsch", locale: "de-DE" },
+  fr: { name: "Français", locale: "fr-FR" },
+  es: { name: "Español", locale: "es-ES" },
+  zh_CN: { name: "简体中文", locale: "zh-CN" },
+  vi: { name: "Tiếng Việt", locale: "vi-VN" },
   id: { name: "Bahasa Indonesia", locale: "id-ID" },
 };
 
@@ -148,6 +150,207 @@ const TRANSLATIONS = {
     "imageSaveError": "이미지를 저장하지 못했습니다.",
     "defaultPresets": "기본 프리셋",
     "yourPresets": "내 프리셋"
+  },
+  "hi": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "Chrome की 10-शॉर्टकट सीमा से आगे बढ़ें। एक साफ़, अनुकूलन योग्य और खोजने योग्य डैशबोर्ड के साथ अपने नए टैब पेज में 30 तक शॉर्टकट जोड़ें।",
+    "searchPlaceholder": "Google पर खोजें या कोई URL डालें",
+    "imgSearchTitle": "Google Lens से इमेज खोजें",
+    "aiModeTitle": "AI खोज मोड",
+    "aiModeBtnText": "AI मोड",
+    "addShortcutTitle": "शॉर्टकट जोड़ें",
+    "shortcutLimitReached": "आप अधिकतम 30 शॉर्टकट जोड़ सकते हैं।",
+    "shortcutSaveError": "आपके बदलाव सहेजे नहीं जा सके। आपके पिछले शॉर्टकट सुरक्षित हैं।",
+    "modalHeaderAdd": "शॉर्टकट जोड़ें",
+    "modalHeaderEdit": "शॉर्टकट संपादित करें",
+    "nameLabel": "नाम",
+    "urlLabel": "URL",
+    "addBtnLabel": "जोड़ें",
+    "saveBtnLabel": "सहेजें",
+    "cancelBtnLabel": "रद्द करें",
+    "themeTitle": "थीम बदलें",
+    "customizeTitle": "अनुकूलित करें",
+    "menuEdit": "संपादित करें",
+    "menuDelete": "हटाएं",
+    "menuDeleteConfirm": "क्या आप इस शॉर्टकट को हटाना चाहते हैं?",
+    "titleLoadingPlaceholder": "नाम प्राप्त किया जा रहा है...",
+    "titleInputPlaceholder": "उदा. YouTube",
+    "customizeModalTitle": "पेज अनुकूलित करें",
+    "themeLabel": "थीम",
+    "themeSystem": "सिस्टम",
+    "themeLight": "लाइट",
+    "themeDark": "डार्क",
+    "languageLabel": "भाषा",
+    "languageAuto": "स्वचालित",
+    "reverseSearchColorsLabel": "सर्च बार के रंग पलटें",
+    "reverseSearchColorsHint": "सर्च बार के लिए विपरीत रंग योजना का उपयोग करें",
+    "use24HourClockLabel": "24 घंटे की घड़ी का उपयोग करें",
+    "use24HourClockHint": "AM/PM के बजाय 24 घंटे के प्रारूप में समय दिखाएं",
+    "colorThemeLabel": "रंग थीम",
+    "backgroundSectionLabel": "पृष्ठभूमि",
+    "uploadBackgroundLabel": "अपलोड करें",
+    "removeBackgroundLabel": "हटाएं",
+    "backgroundDimLabel": "वॉलपेपर का अंधेरा",
+    "showGoogleAppsLabel": "Google ऐप्स दिखाएं",
+    "showGoogleAppsHint": "हेडर में Google ऐप शॉर्टकट दिखाएं या छिपाएं",
+    "googleAppsSectionLabel": "Google ऐप्स",
+    "googleAppsSectionHint": "चुनें कि हेडर में कौन से Google ऐप दिखेंगे और उनका क्रम बदलें",
+    "editGoogleAppsBtn": "संपादित करें",
+    "googleAppsModalTitle": "Google ऐप्स",
+    "googleAppsModalHint": "ऐप्स को चालू/बंद करें और पुनर्व्यवस्थित करने के लिए खींचें",
+    "shortcutsBackupLabel": "शॉर्टकट",
+    "shortcutsBackupHint": "अपने शॉर्टकट को फ़ाइल में बैकअप लें या पुनर्स्थापित करें",
+    "exportShortcutsBtn": "निर्यात",
+    "importShortcutsBtn": "आयात",
+    "importFromChromeBtn": "Chrome से आयात करें",
+    "chromeImportModalTitle": "Chrome से आयात करें",
+    "chromeImportHint": "Chrome के नए टैब शॉर्टकट आयात करने के लिए Preferences फ़ाइल चुनें। chrome://version खोलकर \"Profile Path\" देखें।",
+    "chromeImportDropzone": "Preferences फ़ाइल को यहां खींचें या चुनने के लिए क्लिक करें",
+    "chromeImportFoundOne": "1 शॉर्टकट मिला।",
+    "chromeImportFoundMany": "{count} शॉर्टकट मिले।",
+    "chromeImportInvalidFile": "यह Chrome Preferences फ़ाइल नहीं लगती है।",
+    "chromeImportNoShortcuts": "इस प्रोफ़ाइल में कोई शॉर्टकट नहीं मिला।",
+    "chromeImportConfirmBtn": "आयात करें",
+    "importInvalidFile": "इस फ़ाइल को शॉर्टकट बैकअप के रूप में नहीं पढ़ा जा सका।",
+    "importConfirm": "यह आपके वर्तमान शॉर्टकट को बदल देगा। क्या जारी रखें?",
+    "imageTooLarge": "छवि बहुत बड़ी है। अधिकतम आकार 5 MB है।",
+    "imageSaveError": "इस छवि को सहेजा नहीं जा सका।",
+    "defaultPresets": "डिफ़ॉल्ट प्रीसेट",
+    "yourPresets": "आपके प्रीसेट"
+  },
+  "uk": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "Подолайте обмеження Chrome у 10 ярликів. Додайте до 30 ярликів на настроювану сторінку нової вкладки зі зручним пошуком.",
+    "searchPlaceholder": "Пошук у Google або введіть URL",
+    "imgSearchTitle": "Пошук за зображенням через Google Lens",
+    "aiModeTitle": "Режим пошуку зі штучним інтелектом",
+    "aiModeBtnText": "ШІ-режим",
+    "addShortcutTitle": "Додати ярлик",
+    "shortcutLimitReached": "Можна додати щонайбільше 30 ярликів.",
+    "shortcutSaveError": "Не вдалося зберегти зміни. Ваші попередні ярлики збережено.",
+    "modalHeaderAdd": "Додати ярлик",
+    "modalHeaderEdit": "Редагувати ярлик",
+    "nameLabel": "Назва",
+    "urlLabel": "URL",
+    "addBtnLabel": "Додати",
+    "saveBtnLabel": "Зберегти",
+    "cancelBtnLabel": "Скасувати",
+    "themeTitle": "Змінити тему",
+    "customizeTitle": "Налаштувати",
+    "menuEdit": "Редагувати",
+    "menuDelete": "Видалити",
+    "menuDeleteConfirm": "Видалити цей ярлик?",
+    "titleLoadingPlaceholder": "Отримання назви...",
+    "titleInputPlaceholder": "напр. YouTube",
+    "customizeModalTitle": "Налаштування сторінки",
+    "themeLabel": "Тема",
+    "themeSystem": "Системна",
+    "themeLight": "Світла",
+    "themeDark": "Темна",
+    "languageLabel": "Мова",
+    "languageAuto": "Автоматично",
+    "reverseSearchColorsLabel": "Інвертувати кольори панелі пошуку",
+    "reverseSearchColorsHint": "Використовувати протилежну колірну схему для панелі пошуку",
+    "use24HourClockLabel": "24-годинний формат часу",
+    "use24HourClockHint": "Показувати час у 24-годинному форматі замість AM/PM",
+    "colorThemeLabel": "Колірна тема",
+    "backgroundSectionLabel": "Фон",
+    "uploadBackgroundLabel": "Завантажити",
+    "removeBackgroundLabel": "Видалити",
+    "backgroundDimLabel": "Затемнення шпалер",
+    "showGoogleAppsLabel": "Показувати сервіси Google",
+    "showGoogleAppsHint": "Показувати або приховувати ярлики Google у заголовку",
+    "googleAppsSectionLabel": "Сервіси Google",
+    "googleAppsSectionHint": "Виберіть сервіси для відображення та змініть їхній порядок",
+    "editGoogleAppsBtn": "Редагувати",
+    "googleAppsModalTitle": "Сервіси Google",
+    "googleAppsModalHint": "Вмикайте/вимикайте сервіси та перетягуйте для зміни порядку",
+    "shortcutsBackupLabel": "Ярлики",
+    "shortcutsBackupHint": "Створюйте резервну копію ярликів або відновлюйте їх із файлу",
+    "exportShortcutsBtn": "Експорт",
+    "importShortcutsBtn": "Імпорт",
+    "importFromChromeBtn": "Імпортувати з Chrome",
+    "chromeImportModalTitle": "Імпорт із Chrome",
+    "chromeImportHint": "Виберіть файл Preferences від Chrome для імпорту ярликів. Відкрийте chrome://version, щоб знайти \"Шлях до профілю\".",
+    "chromeImportDropzone": "Перетягніть файл Preferences сюди або натисніть для вибору",
+    "chromeImportFoundOne": "Знайдено 1 ярлик.",
+    "chromeImportFoundMany": "Знайдено {count} ярликів.",
+    "chromeImportInvalidFile": "Цей файл не схожий на файл Preferences Chrome.",
+    "chromeImportNoShortcuts": "У цьому профілі не знайдено ярликів.",
+    "chromeImportConfirmBtn": "Імпортувати",
+    "importInvalidFile": "Не вдалося прочитати файл резервної копії ярликів.",
+    "importConfirm": "Це замінить ваші поточні ярлики. Продовжити?",
+    "imageTooLarge": "Зображення завелике. Максимальний розмір: 5 МБ.",
+    "imageSaveError": "Не вдалося зберегти зображення.",
+    "defaultPresets": "Стандартні пресети",
+    "yourPresets": "Ваші пресети"
+  },
+  "ru": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "Преодолейте ограничение Chrome в 10 ярлыков. Добавьте до 30 ярлыков на настраиваемую страницу новой вкладки.",
+    "searchPlaceholder": "Поиск в Google или ввод URL",
+    "imgSearchTitle": "Поиск по картинке с Google Объективом",
+    "aiModeTitle": "Режим поиска с ИИ",
+    "aiModeBtnText": "ИИ-режим",
+    "addShortcutTitle": "Добавить ярлык",
+    "shortcutLimitReached": "Можно добавить не более 30 ярлыков.",
+    "shortcutSaveError": "Не удалось сохранить изменения. Предыдущие ярлыки сохранены.",
+    "modalHeaderAdd": "Добавить ярлык",
+    "modalHeaderEdit": "Изменить ярлык",
+    "nameLabel": "Название",
+    "urlLabel": "URL",
+    "addBtnLabel": "Добавить",
+    "saveBtnLabel": "Сохранить",
+    "cancelBtnLabel": "Отмена",
+    "themeTitle": "Сменить тему",
+    "customizeTitle": "Настроить",
+    "menuEdit": "Изменить",
+    "menuDelete": "Удалить",
+    "menuDeleteConfirm": "Удалить ярлык?",
+    "titleLoadingPlaceholder": "Получение названия...",
+    "titleInputPlaceholder": "например, YouTube",
+    "customizeModalTitle": "Настройка страницы",
+    "themeLabel": "Тема",
+    "themeSystem": "Системная",
+    "themeLight": "Светлая",
+    "themeDark": "Тёмная",
+    "languageLabel": "Язык",
+    "languageAuto": "Автоматически",
+    "reverseSearchColorsLabel": "Инвертировать цвета строки поиска",
+    "reverseSearchColorsHint": "Использовать контрастную цветовую схему для строки поиска",
+    "use24HourClockLabel": "24-часовой формат времени",
+    "use24HourClockHint": "Отображать время в 24-часовом формате вместо AM/PM",
+    "colorThemeLabel": "Цветовая схема",
+    "backgroundSectionLabel": "Фон",
+    "uploadBackgroundLabel": "Загрузить",
+    "removeBackgroundLabel": "Удалить",
+    "backgroundDimLabel": "Затемнение фона",
+    "showGoogleAppsLabel": "Показывать сервисы Google",
+    "showGoogleAppsHint": "Показывать или скрывать ярлыки сервисов Google в шапке",
+    "googleAppsSectionLabel": "Сервисы Google",
+    "googleAppsSectionHint": "Выберите сервисы для отображения и настройте их порядок",
+    "editGoogleAppsBtn": "Изменить",
+    "googleAppsModalTitle": "Сервисы Google",
+    "googleAppsModalHint": "Включайте/отключайте сервисы и перетаскивайте для изменения порядка",
+    "shortcutsBackupLabel": "Ярлыки",
+    "shortcutsBackupHint": "Сохраняйте ярлыки в файл или восстанавливайте из него",
+    "exportShortcutsBtn": "Экспорт",
+    "importShortcutsBtn": "Импорт",
+    "importFromChromeBtn": "Импорт из Chrome",
+    "chromeImportModalTitle": "Импорт из Chrome",
+    "chromeImportHint": "Выберите файл Preferences от Chrome для импорта ярлыков. Откройте chrome://version, чтобы найти \"Путь к профилю\".",
+    "chromeImportDropzone": "Перетащите файл Preferences сюда или нажмите для выбора",
+    "chromeImportFoundOne": "Найден 1 ярлык.",
+    "chromeImportFoundMany": "Найдено ярлыков: {count}.",
+    "chromeImportInvalidFile": "Файл не похож на файл Preferences Chrome.",
+    "chromeImportNoShortcuts": "В этом профиле не найдено ярлыков.",
+    "chromeImportConfirmBtn": "Импортировать",
+    "importInvalidFile": "Не удалось прочитать файл резервной копии ярлыков.",
+    "importConfirm": "Текущие ярлыки будут заменены. Продолжить?",
+    "imageTooLarge": "Изображение слишком большое. Максимальный размер: 5 МБ.",
+    "imageSaveError": "Не удалось сохранить изображение.",
+    "defaultPresets": "Стандартные пресеты",
+    "yourPresets": "Ваши пресеты"
   },
   "ja": {
     "appName": "More Shortcuts New Tab",
@@ -618,73 +821,6 @@ const TRANSLATIONS = {
     "defaultPresets": "Cài đặt sẵn mặc định",
     "yourPresets": "Cài đặt sẵn của bạn"
   },
-  "ru": {
-    "appName": "More Shortcuts New Tab",
-    "appDesc": "Преодолейте ограничение Chrome в 10 ярлыков. Добавьте до 30 ярлыков на настраиваемую страницу новой вкладки.",
-    "searchPlaceholder": "Поиск в Google или ввод URL",
-    "imgSearchTitle": "Поиск по картинке с Google Объективом",
-    "aiModeTitle": "Режим поиска с ИИ",
-    "aiModeBtnText": "ИИ-режим",
-    "addShortcutTitle": "Добавить ярлык",
-    "shortcutLimitReached": "Можно добавить не более 30 ярлыков.",
-    "shortcutSaveError": "Не удалось сохранить изменения. Предыдущие ярлыки сохранены.",
-    "modalHeaderAdd": "Добавить ярлык",
-    "modalHeaderEdit": "Изменить ярлык",
-    "nameLabel": "Название",
-    "urlLabel": "URL",
-    "addBtnLabel": "Добавить",
-    "saveBtnLabel": "Сохранить",
-    "cancelBtnLabel": "Отмена",
-    "themeTitle": "Сменить тему",
-    "customizeTitle": "Настроить",
-    "menuEdit": "Изменить",
-    "menuDelete": "Удалить",
-    "menuDeleteConfirm": "Удалить ярлык?",
-    "titleLoadingPlaceholder": "Получение названия...",
-    "titleInputPlaceholder": "например, YouTube",
-    "customizeModalTitle": "Настройка страницы",
-    "themeLabel": "Тема",
-    "themeSystem": "Системная",
-    "themeLight": "Светлая",
-    "themeDark": "Тёмная",
-    "languageLabel": "Язык",
-    "languageAuto": "Автоматически",
-    "reverseSearchColorsLabel": "Инвертировать цвета строки поиска",
-    "reverseSearchColorsHint": "Использовать контрастную цветовую схему для строки поиска",
-    "use24HourClockLabel": "24-часовой формат времени",
-    "use24HourClockHint": "Отображать время в 24-часовом формате вместо AM/PM",
-    "colorThemeLabel": "Цветовая схема",
-    "backgroundSectionLabel": "Фон",
-    "uploadBackgroundLabel": "Загрузить",
-    "removeBackgroundLabel": "Удалить",
-    "backgroundDimLabel": "Затемнение фона",
-    "showGoogleAppsLabel": "Показывать сервисы Google",
-    "showGoogleAppsHint": "Показывать или скрывать ярлыки сервисов Google в шапке",
-    "googleAppsSectionLabel": "Сервисы Google",
-    "googleAppsSectionHint": "Выберите сервисы для отображения и настройте их порядок",
-    "editGoogleAppsBtn": "Изменить",
-    "googleAppsModalTitle": "Сервисы Google",
-    "googleAppsModalHint": "Включайте/отключайте сервисы и перетаскивайте для изменения порядка",
-    "shortcutsBackupLabel": "Ярлыки",
-    "shortcutsBackupHint": "Сохраняйте ярлыки в файл или восстанавливайте из него",
-    "exportShortcutsBtn": "Экспорт",
-    "importShortcutsBtn": "Импорт",
-    "importFromChromeBtn": "Импорт из Chrome",
-    "chromeImportModalTitle": "Импорт из Chrome",
-    "chromeImportHint": "Выберите файл Preferences от Chrome для импорта ярлыков. Откройте chrome://version, чтобы найти \"Путь к профилю\".",
-    "chromeImportDropzone": "Перетащите файл Preferences сюда или нажмите для выбора",
-    "chromeImportFoundOne": "Найден 1 ярлык.",
-    "chromeImportFoundMany": "Найдено ярлыков: {count}.",
-    "chromeImportInvalidFile": "Файл не похож на файл Preferences Chrome.",
-    "chromeImportNoShortcuts": "В этом профиле не найдено ярлыков.",
-    "chromeImportConfirmBtn": "Импортировать",
-    "importInvalidFile": "Не удалось прочитать файл резервной копии ярлыков.",
-    "importConfirm": "Текущие ярлыки будут заменены. Продолжить?",
-    "imageTooLarge": "Изображение слишком большое. Максимальный размер: 5 МБ.",
-    "imageSaveError": "Не удалось сохранить изображение.",
-    "defaultPresets": "Стандартные пресеты",
-    "yourPresets": "Ваши пресеты"
-  },
   "id": {
     "appName": "More Shortcuts New Tab",
     "appDesc": "Lewati batas 10 pintasan Chrome. Tambahkan hingga 30 pintasan ke tab baru yang bersih dan dapat disesuaikan.",
@@ -760,14 +896,16 @@ function detectBrowserLanguage() {
     if (!raw) continue;
     const clean = raw.toLowerCase();
     if (clean.startsWith("ko")) return "ko";
-    if (clean.startsWith("ja")) return "ja";
-    if (clean.startsWith("zh")) return "zh_CN";
-    if (clean.startsWith("es")) return "es";
-    if (clean.startsWith("fr")) return "fr";
-    if (clean.startsWith("de")) return "de";
-    if (clean.startsWith("pt")) return "pt_BR";
-    if (clean.startsWith("vi")) return "vi";
+    if (clean.startsWith("hi")) return "hi";
+    if (clean.startsWith("uk")) return "uk";
     if (clean.startsWith("ru")) return "ru";
+    if (clean.startsWith("pt")) return "pt_BR";
+    if (clean.startsWith("ja")) return "ja";
+    if (clean.startsWith("de")) return "de";
+    if (clean.startsWith("fr")) return "fr";
+    if (clean.startsWith("es")) return "es";
+    if (clean.startsWith("zh")) return "zh_CN";
+    if (clean.startsWith("vi")) return "vi";
     if (clean.startsWith("id")) return "id";
     if (clean.startsWith("en")) return "en";
   }
@@ -775,7 +913,7 @@ function detectBrowserLanguage() {
 }
 
 function getEffectiveLanguage() {
-  const pref = getPrefSync("language", "auto");
+  const pref = typeof getPrefSync === "function" ? getPrefSync("language", "auto") : "auto";
   if (pref === "auto" || !SUPPORTED_LANGUAGES[pref]) {
     return detectBrowserLanguage();
   }
@@ -810,25 +948,25 @@ function applyLocalization() {
   // Translate elements with data-i18n
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.dataset.i18n;
-    el.textContent = t[key];
+    if (key && t[key]) el.textContent = t[key];
   });
 
   // Translate elements with data-i18n-title
   document.querySelectorAll("[data-i18n-title]").forEach((el) => {
     const key = el.dataset.i18nTitle;
-    el.title = t[key];
+    if (key && t[key]) el.title = t[key];
   });
 
   // Translate elements with data-i18n-placeholder
   document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
     const key = el.dataset.i18nPlaceholder;
-    el.placeholder = t[key];
+    if (key && t[key]) el.placeholder = t[key];
   });
 
   // Translate elements with data-i18n-aria-label
   document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
     const key = el.dataset.i18nAriaLabel;
-    el.setAttribute("aria-label", t[key]);
+    if (key && t[key]) el.setAttribute("aria-label", t[key]);
   });
 
   // Dynamic elements

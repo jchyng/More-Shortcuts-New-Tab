@@ -1,0 +1,197 @@
+{
+  "appName": {
+    "message": "More Shortcuts New Tab"
+  },
+  "appDesc": {
+    "message": "Chrome की 10-शॉर्टकट सीमा से आगे बढ़ें। एक साफ़, अनुकूलन योग्य और खोजने योग्य डैशबोर्ड के साथ अपने नए टैब पेज में 30 तक शॉर्टकट जोड़ें।"
+  },
+  "searchPlaceholder": {
+    "message": "Google पर खोजें या कोई URL डालें"
+  },
+  "imgSearchTitle": {
+    "message": "Google Lens से इमेज खोजें"
+  },
+  "aiModeTitle": {
+    "message": "AI खोज मोड"
+  },
+  "aiModeBtnText": {
+    "message": "AI मोड"
+  },
+  "addShortcutTitle": {
+    "message": "शॉर्टकट जोड़ें"
+  },
+  "shortcutLimitReached": {
+    "message": "आप अधिकतम 30 शॉर्टकट जोड़ सकते हैं।"
+  },
+  "shortcutSaveError": {
+    "message": "आपके बदलाव सहेजे नहीं जा सके। आपके पिछले शॉर्टकट सुरक्षित हैं।"
+  },
+  "modalHeaderAdd": {
+    "message": "शॉर्टकट जोड़ें"
+  },
+  "modalHeaderEdit": {
+    "message": "शॉर्टकट संपादित करें"
+  },
+  "nameLabel": {
+    "message": "नाम"
+  },
+  "urlLabel": {
+    "message": "URL"
+  },
+  "addBtnLabel": {
+    "message": "जोड़ें"
+  },
+  "saveBtnLabel": {
+    "message": "सहेजें"
+  },
+  "cancelBtnLabel": {
+    "message": "रद्द करें"
+  },
+  "themeTitle": {
+    "message": "थीम बदलें"
+  },
+  "customizeTitle": {
+    "message": "अनुकूलित करें"
+  },
+  "menuEdit": {
+    "message": "संपादित करें"
+  },
+  "menuDelete": {
+    "message": "हटाएं"
+  },
+  "menuDeleteConfirm": {
+    "message": "क्या आप इस शॉर्टकट को हटाना चाहते हैं?"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "नाम प्राप्त किया जा रहा है..."
+  },
+  "titleInputPlaceholder": {
+    "message": "उदा. YouTube"
+  },
+  "customizeModalTitle": {
+    "message": "पेज अनुकूलित करें"
+  },
+  "themeLabel": {
+    "message": "थीम"
+  },
+  "themeSystem": {
+    "message": "सिस्टम"
+  },
+  "themeLight": {
+    "message": "लाइट"
+  },
+  "themeDark": {
+    "message": "डार्क"
+  },
+  "languageLabel": {
+    "message": "भाषा"
+  },
+  "languageAuto": {
+    "message": "स्वचालित"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "सर्च बार के रंग पलटें"
+  },
+  "reverseSearchColorsHint": {
+    "message": "सर्च बार के लिए विपरीत रंग योजना का उपयोग करें"
+  },
+  "use24HourClockLabel": {
+    "message": "24 घंटे की घड़ी का उपयोग करें"
+  },
+  "use24HourClockHint": {
+    "message": "AM/PM के बजाय 24 घंटे के प्रारूप में समय दिखाएं"
+  },
+  "colorThemeLabel": {
+    "message": "रंग थीम"
+  },
+  "backgroundSectionLabel": {
+    "message": "पृष्ठभूमि"
+  },
+  "uploadBackgroundLabel": {
+    "message": "अपलोड करें"
+  },
+  "removeBackgroundLabel": {
+    "message": "हटाएं"
+  },
+  "backgroundDimLabel": {
+    "message": "वॉलपेपर का अंधेरा"
+  },
+  "showGoogleAppsLabel": {
+    "message": "Google ऐप्स दिखाएं"
+  },
+  "showGoogleAppsHint": {
+    "message": "हेडर में Google ऐप शॉर्टकट दिखाएं या छिपाएं"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Google ऐप्स"
+  },
+  "googleAppsSectionHint": {
+    "message": "चुनें कि हेडर में कौन से Google ऐप दिखेंगे और उनका क्रम बदलें"
+  },
+  "editGoogleAppsBtn": {
+    "message": "संपादित करें"
+  },
+  "googleAppsModalTitle": {
+    "message": "Google ऐप्स"
+  },
+  "googleAppsModalHint": {
+    "message": "ऐप्स को चालू/बंद करें और पुनर्व्यवस्थित करने के लिए खींचें"
+  },
+  "shortcutsBackupLabel": {
+    "message": "शॉर्टकट"
+  },
+  "shortcutsBackupHint": {
+    "message": "अपने शॉर्टकट को फ़ाइल में बैकअप लें या पुनर्स्थापित करें"
+  },
+  "exportShortcutsBtn": {
+    "message": "निर्यात"
+  },
+  "importShortcutsBtn": {
+    "message": "आयात"
+  },
+  "importFromChromeBtn": {
+    "message": "Chrome से आयात करें"
+  },
+  "chromeImportModalTitle": {
+    "message": "Chrome से आयात करें"
+  },
+  "chromeImportHint": {
+    "message": "Chrome के नए टैब शॉर्टकट आयात करने के लिए Preferences फ़ाइल चुनें। chrome://version खोलकर \"Profile Path\" देखें।"
+  },
+  "chromeImportDropzone": {
+    "message": "Preferences फ़ाइल को यहां खींचें या चुनने के लिए क्लिक करें"
+  },
+  "chromeImportFoundOne": {
+    "message": "1 शॉर्टकट मिला।"
+  },
+  "chromeImportFoundMany": {
+    "message": "{count} शॉर्टकट मिले।"
+  },
+  "chromeImportInvalidFile": {
+    "message": "यह Chrome Preferences फ़ाइल नहीं लगती है।"
+  },
+  "chromeImportNoShortcuts": {
+    "message": "इस प्रोफ़ाइल में कोई शॉर्टकट नहीं मिला।"
+  },
+  "chromeImportConfirmBtn": {
+    "message": "आयात करें"
+  },
+  "importInvalidFile": {
+    "message": "इस फ़ाइल को शॉर्टकट बैकअप के रूप में नहीं पढ़ा जा सका।"
+  },
+  "importConfirm": {
+    "message": "यह आपके वर्तमान शॉर्टकट को बदल देगा। क्या जारी रखें?"
+  },
+  "imageTooLarge": {
+    "message": "छवि बहुत बड़ी है। अधिकतम आकार 5 MB है।"
+  },
+  "imageSaveError": {
+    "message": "इस छवि को सहेजा नहीं जा सका।"
+  },
+  "defaultPresets": {
+    "message": "डिफ़ॉल्ट प्रीसेट"
+  },
+  "yourPresets": {
+    "message": "आपके प्रीसेट"
+  }
+}

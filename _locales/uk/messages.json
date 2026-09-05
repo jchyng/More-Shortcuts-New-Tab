@@ -1,0 +1,197 @@
+{
+  "appName": {
+    "message": "More Shortcuts New Tab"
+  },
+  "appDesc": {
+    "message": "Подолайте обмеження Chrome у 10 ярликів. Додайте до 30 ярликів на настроювану сторінку нової вкладки зі зручним пошуком."
+  },
+  "searchPlaceholder": {
+    "message": "Пошук у Google або введіть URL"
+  },
+  "imgSearchTitle": {
+    "message": "Пошук за зображенням через Google Lens"
+  },
+  "aiModeTitle": {
+    "message": "Режим пошуку зі штучним інтелектом"
+  },
+  "aiModeBtnText": {
+    "message": "ШІ-режим"
+  },
+  "addShortcutTitle": {
+    "message": "Додати ярлик"
+  },
+  "shortcutLimitReached": {
+    "message": "Можна додати щонайбільше 30 ярликів."
+  },
+  "shortcutSaveError": {
+    "message": "Не вдалося зберегти зміни. Ваші попередні ярлики збережено."
+  },
+  "modalHeaderAdd": {
+    "message": "Додати ярлик"
+  },
+  "modalHeaderEdit": {
+    "message": "Редагувати ярлик"
+  },
+  "nameLabel": {
+    "message": "Назва"
+  },
+  "urlLabel": {
+    "message": "URL"
+  },
+  "addBtnLabel": {
+    "message": "Додати"
+  },
+  "saveBtnLabel": {
+    "message": "Зберегти"
+  },
+  "cancelBtnLabel": {
+    "message": "Скасувати"
+  },
+  "themeTitle": {
+    "message": "Змінити тему"
+  },
+  "customizeTitle": {
+    "message": "Налаштувати"
+  },
+  "menuEdit": {
+    "message": "Редагувати"
+  },
+  "menuDelete": {
+    "message": "Видалити"
+  },
+  "menuDeleteConfirm": {
+    "message": "Видалити цей ярлик?"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "Отримання назви..."
+  },
+  "titleInputPlaceholder": {
+    "message": "напр. YouTube"
+  },
+  "customizeModalTitle": {
+    "message": "Налаштування сторінки"
+  },
+  "themeLabel": {
+    "message": "Тема"
+  },
+  "themeSystem": {
+    "message": "Системна"
+  },
+  "themeLight": {
+    "message": "Світла"
+  },
+  "themeDark": {
+    "message": "Темна"
+  },
+  "languageLabel": {
+    "message": "Мова"
+  },
+  "languageAuto": {
+    "message": "Автоматично"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "Інвертувати кольори панелі пошуку"
+  },
+  "reverseSearchColorsHint": {
+    "message": "Використовувати протилежну колірну схему для панелі пошуку"
+  },
+  "use24HourClockLabel": {
+    "message": "24-годинний формат часу"
+  },
+  "use24HourClockHint": {
+    "message": "Показувати час у 24-годинному форматі замість AM/PM"
+  },
+  "colorThemeLabel": {
+    "message": "Колірна тема"
+  },
+  "backgroundSectionLabel": {
+    "message": "Фон"
+  },
+  "uploadBackgroundLabel": {
+    "message": "Завантажити"
+  },
+  "removeBackgroundLabel": {
+    "message": "Видалити"
+  },
+  "backgroundDimLabel": {
+    "message": "Затемнення шпалер"
+  },
+  "showGoogleAppsLabel": {
+    "message": "Показувати сервіси Google"
+  },
+  "showGoogleAppsHint": {
+    "message": "Показувати або приховувати ярлики Google у заголовку"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Сервіси Google"
+  },
+  "googleAppsSectionHint": {
+    "message": "Виберіть сервіси для відображення та змініть їхній порядок"
+  },
+  "editGoogleAppsBtn": {
+    "message": "Редагувати"
+  },
+  "googleAppsModalTitle": {
+    "message": "Сервіси Google"
+  },
+  "googleAppsModalHint": {
+    "message": "Вмикайте/вимикайте сервіси та перетягуйте для зміни порядку"
+  },
+  "shortcutsBackupLabel": {
+    "message": "Ярлики"
+  },
+  "shortcutsBackupHint": {
+    "message": "Створюйте резервну копію ярликів або відновлюйте їх із файлу"
+  },
+  "exportShortcutsBtn": {
+    "message": "Експорт"
+  },
+  "importShortcutsBtn": {
+    "message": "Імпорт"
+  },
+  "importFromChromeBtn": {
+    "message": "Імпортувати з Chrome"
+  },
+  "chromeImportModalTitle": {
+    "message": "Імпорт із Chrome"
+  },
+  "chromeImportHint": {
+    "message": "Виберіть файл Preferences від Chrome для імпорту ярликів. Відкрийте chrome://version, щоб знайти \"Шлях до профілю\"."
+  },
+  "chromeImportDropzone": {
+    "message": "Перетягніть файл Preferences сюди або натисніть для вибору"
+  },
+  "chromeImportFoundOne": {
+    "message": "Знайдено 1 ярлик."
+  },
+  "chromeImportFoundMany": {
+    "message": "Знайдено {count} ярликів."
+  },
+  "chromeImportInvalidFile": {
+    "message": "Цей файл не схожий на файл Preferences Chrome."
+  },
+  "chromeImportNoShortcuts": {
+    "message": "У цьому профілі не знайдено ярликів."
+  },
+  "chromeImportConfirmBtn": {
+    "message": "Імпортувати"
+  },
+  "importInvalidFile": {
+    "message": "Не вдалося прочитати файл резервної копії ярликів."
+  },
+  "importConfirm": {
+    "message": "Це замінить ваші поточні ярлики. Продовжити?"
+  },
+  "imageTooLarge": {
+    "message": "Зображення завелике. Максимальний розмір: 5 МБ."
+  },
+  "imageSaveError": {
+    "message": "Не вдалося зберегти зображення."
+  },
+  "defaultPresets": {
+    "message": "Стандартні пресети"
+  },
+  "yourPresets": {
+    "message": "Ваші пресети"
+  }
+}
