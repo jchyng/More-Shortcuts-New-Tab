@@ -1,27 +1,197 @@
 {
-  "searchPlaceholder": { "message": "Search Google or type a URL" },
-  "addShortcutTitle": { "message": "Add Shortcut" },
-  "shortcutLimitReached": { "message": "You can add up to 30 shortcuts." },
-  "shortcutSaveError": { "message": "Could not save your changes. Your previous shortcuts are still intact." },
-  "addBtnLabel": { "message": "Add" },
-  "saveBtnLabel": { "message": "Save" },
-  "cancelBtnLabel": { "message": "Cancel" },
-  "modalHeaderAdd": { "message": "Add Shortcut" },
-  "modalHeaderEdit": { "message": "Edit Shortcut" },
-  "nameLabel": { "message": "Name" },
-  "urlLabel": { "message": "URL" },
-  "themeTitle": { "message": "Toggle Theme" },
-  "imgSearchTitle": { "message": "Image Search" },
-  "aiModeTitle": { "message": "AI Search Mode" },
-  "menuEdit": { "message": "Edit" },
-  "menuDelete": { "message": "Delete" },
-  "titleLoadingPlaceholder": { "message": "Fetching name..." },
-  "titleInputPlaceholder": { "message": "e.g. YouTube" },
-  "aiModeBtnText": { "message": "AI Mode" },
-  "importInvalidFile": { "message": "This file could not be read as a shortcuts export." },
-  "importConfirm": { "message": "This will replace your current shortcuts. Continue?" },
-  "chromeImportFoundOne": { "message": "Found 1 shortcut." },
-  "chromeImportFoundMany": { "message": "Found {count} shortcuts." },
-  "chromeImportInvalidFile": { "message": "This doesn't look like a Chrome Preferences file." },
-  "chromeImportNoShortcuts": { "message": "No shortcuts were found in this profile." }
+  "appName": {
+    "message": "More Shortcuts New Tab"
+  },
+  "appDesc": {
+    "message": "Break Chrome's 10-shortcut limit. Add up to 30 shortcuts to your new tab page with a clean, customizable, and searchable dashboard."
+  },
+  "searchPlaceholder": {
+    "message": "Search Google or type a URL"
+  },
+  "imgSearchTitle": {
+    "message": "Search by image with Google Lens"
+  },
+  "aiModeTitle": {
+    "message": "AI Search Mode"
+  },
+  "aiModeBtnText": {
+    "message": "AI Mode"
+  },
+  "addShortcutTitle": {
+    "message": "Add Shortcut"
+  },
+  "shortcutLimitReached": {
+    "message": "You can add up to 30 shortcuts."
+  },
+  "shortcutSaveError": {
+    "message": "Could not save your changes. Your previous shortcuts are still intact."
+  },
+  "modalHeaderAdd": {
+    "message": "Add Shortcut"
+  },
+  "modalHeaderEdit": {
+    "message": "Edit Shortcut"
+  },
+  "nameLabel": {
+    "message": "Name"
+  },
+  "urlLabel": {
+    "message": "URL"
+  },
+  "addBtnLabel": {
+    "message": "Add"
+  },
+  "saveBtnLabel": {
+    "message": "Save"
+  },
+  "cancelBtnLabel": {
+    "message": "Cancel"
+  },
+  "themeTitle": {
+    "message": "Toggle Theme"
+  },
+  "customizeTitle": {
+    "message": "Customize"
+  },
+  "menuEdit": {
+    "message": "Edit"
+  },
+  "menuDelete": {
+    "message": "Delete"
+  },
+  "menuDeleteConfirm": {
+    "message": "Delete shortcut?"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "Fetching name..."
+  },
+  "titleInputPlaceholder": {
+    "message": "e.g. YouTube"
+  },
+  "customizeModalTitle": {
+    "message": "Customize"
+  },
+  "themeLabel": {
+    "message": "Theme"
+  },
+  "themeSystem": {
+    "message": "System"
+  },
+  "themeLight": {
+    "message": "Light"
+  },
+  "themeDark": {
+    "message": "Dark"
+  },
+  "languageLabel": {
+    "message": "Language"
+  },
+  "languageAuto": {
+    "message": "Auto"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "Reverse search bar colors"
+  },
+  "reverseSearchColorsHint": {
+    "message": "Use the opposite color scheme for the search bar"
+  },
+  "use24HourClockLabel": {
+    "message": "Use 24-hour clock"
+  },
+  "use24HourClockHint": {
+    "message": "Show time in 24-hour format instead of AM/PM"
+  },
+  "colorThemeLabel": {
+    "message": "Color theme"
+  },
+  "backgroundSectionLabel": {
+    "message": "Background"
+  },
+  "uploadBackgroundLabel": {
+    "message": "Upload"
+  },
+  "removeBackgroundLabel": {
+    "message": "Remove"
+  },
+  "backgroundDimLabel": {
+    "message": "Wallpaper darkness"
+  },
+  "showGoogleAppsLabel": {
+    "message": "Show Google apps"
+  },
+  "showGoogleAppsHint": {
+    "message": "Show or hide the Google app shortcuts in the header"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Google apps"
+  },
+  "googleAppsSectionHint": {
+    "message": "Choose which Google app shortcuts appear in the header, and reorder them"
+  },
+  "editGoogleAppsBtn": {
+    "message": "Edit"
+  },
+  "googleAppsModalTitle": {
+    "message": "Google apps"
+  },
+  "googleAppsModalHint": {
+    "message": "Switch apps on or off, and drag them to reorder"
+  },
+  "shortcutsBackupLabel": {
+    "message": "Shortcuts"
+  },
+  "shortcutsBackupHint": {
+    "message": "Back up your shortcuts to a file, or restore them from one"
+  },
+  "exportShortcutsBtn": {
+    "message": "Export"
+  },
+  "importShortcutsBtn": {
+    "message": "Import"
+  },
+  "importFromChromeBtn": {
+    "message": "Import from Chrome"
+  },
+  "chromeImportModalTitle": {
+    "message": "Import from Chrome"
+  },
+  "chromeImportHint": {
+    "message": "Select Chrome's Preferences file to import its New Tab shortcuts. Find its location by opening chrome://version in Chrome and looking for \"Profile Path\"."
+  },
+  "chromeImportDropzone": {
+    "message": "Drag the Preferences file here, or click to choose it"
+  },
+  "chromeImportFoundOne": {
+    "message": "Found 1 shortcut."
+  },
+  "chromeImportFoundMany": {
+    "message": "Found {count} shortcuts."
+  },
+  "chromeImportInvalidFile": {
+    "message": "This doesn't look like a Chrome Preferences file."
+  },
+  "chromeImportNoShortcuts": {
+    "message": "No shortcuts were found in this profile."
+  },
+  "chromeImportConfirmBtn": {
+    "message": "Import"
+  },
+  "importInvalidFile": {
+    "message": "This file could not be read as a shortcuts export."
+  },
+  "importConfirm": {
+    "message": "This will replace your current shortcuts. Continue?"
+  },
+  "imageTooLarge": {
+    "message": "Image is too large. Maximum size is 5 MB."
+  },
+  "imageSaveError": {
+    "message": "Could not save this image."
+  },
+  "defaultPresets": {
+    "message": "Default presets"
+  },
+  "yourPresets": {
+    "message": "Your presets"
+  }
 }

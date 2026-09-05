@@ -1200,6 +1200,9 @@ img.favicon-loading {
   top: calc(100% + 5px);
   left: 0;
   right: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  scrollbar-width: thin;
   padding: 5px;
   border: 1px solid var(--search-border-default);
   border-radius: 8px;

@@ -1,6 +1,8 @@
 const SYNCED_PREF_KEYS = [
   "themeMode",
   "reverseSearchColors",
+  "use24HourClock",
+  "language",
   "colorTheme",
   "backgroundDim",
   "googleAppsHidden",

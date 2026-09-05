@@ -1,0 +1,933 @@
+// Internationalization (i18n) and Language Preference Module
+
+const SUPPORTED_LANGUAGES = {
+  ko: { name: "한국어", locale: "ko-KR" },
+  en: { name: "English", locale: "en-US" },
+  ja: { name: "日本語", locale: "ja-JP" },
+  zh_CN: { name: "简体中文", locale: "zh-CN" },
+  es: { name: "Español", locale: "es-ES" },
+  fr: { name: "Français", locale: "fr-FR" },
+  de: { name: "Deutsch", locale: "de-DE" },
+  pt_BR: { name: "Português (Brasil)", locale: "pt-BR" },
+  vi: { name: "Tiếng Việt", locale: "vi-VN" },
+  ru: { name: "Русский", locale: "ru-RU" },
+  id: { name: "Bahasa Indonesia", locale: "id-ID" },
+};
+
+const TRANSLATIONS = {
+  "en": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "Break Chrome's 10-shortcut limit. Add up to 30 shortcuts to your new tab page with a clean, customizable, and searchable dashboard.",
+    "searchPlaceholder": "Search Google or type a URL",
+    "imgSearchTitle": "Search by image with Google Lens",
+    "aiModeTitle": "AI Search Mode",
+    "aiModeBtnText": "AI Mode",
+    "addShortcutTitle": "Add Shortcut",
+    "shortcutLimitReached": "You can add up to 30 shortcuts.",
+    "shortcutSaveError": "Could not save your changes. Your previous shortcuts are still intact.",
+    "modalHeaderAdd": "Add Shortcut",
+    "modalHeaderEdit": "Edit Shortcut",
+    "nameLabel": "Name",
+    "urlLabel": "URL",
+    "addBtnLabel": "Add",
+    "saveBtnLabel": "Save",
+    "cancelBtnLabel": "Cancel",
+    "themeTitle": "Toggle Theme",
+    "customizeTitle": "Customize",
+    "menuEdit": "Edit",
+    "menuDelete": "Delete",
+    "menuDeleteConfirm": "Delete shortcut?",
+    "titleLoadingPlaceholder": "Fetching name...",
+    "titleInputPlaceholder": "e.g. YouTube",
+    "customizeModalTitle": "Customize",
+    "themeLabel": "Theme",
+    "themeSystem": "System",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "languageLabel": "Language",
+    "languageAuto": "Auto",
+    "reverseSearchColorsLabel": "Reverse search bar colors",
+    "reverseSearchColorsHint": "Use the opposite color scheme for the search bar",
+    "use24HourClockLabel": "Use 24-hour clock",
+    "use24HourClockHint": "Show time in 24-hour format instead of AM/PM",
+    "colorThemeLabel": "Color theme",
+    "backgroundSectionLabel": "Background",
+    "uploadBackgroundLabel": "Upload",
+    "removeBackgroundLabel": "Remove",
+    "backgroundDimLabel": "Wallpaper darkness",
+    "showGoogleAppsLabel": "Show Google apps",
+    "showGoogleAppsHint": "Show or hide the Google app shortcuts in the header",
+    "googleAppsSectionLabel": "Google apps",
+    "googleAppsSectionHint": "Choose which Google app shortcuts appear in the header, and reorder them",
+    "editGoogleAppsBtn": "Edit",
+    "googleAppsModalTitle": "Google apps",
+    "googleAppsModalHint": "Switch apps on or off, and drag them to reorder",
+    "shortcutsBackupLabel": "Shortcuts",
+    "shortcutsBackupHint": "Back up your shortcuts to a file, or restore them from one",
+    "exportShortcutsBtn": "Export",
+    "importShortcutsBtn": "Import",
+    "importFromChromeBtn": "Import from Chrome",
+    "chromeImportModalTitle": "Import from Chrome",
+    "chromeImportHint": "Select Chrome's Preferences file to import its New Tab shortcuts. Find its location by opening chrome://version in Chrome and looking for \"Profile Path\".",
+    "chromeImportDropzone": "Drag the Preferences file here, or click to choose it",
+    "chromeImportFoundOne": "Found 1 shortcut.",
+    "chromeImportFoundMany": "Found {count} shortcuts.",
+    "chromeImportInvalidFile": "This doesn't look like a Chrome Preferences file.",
+    "chromeImportNoShortcuts": "No shortcuts were found in this profile.",
+    "chromeImportConfirmBtn": "Import",
+    "importInvalidFile": "This file could not be read as a shortcuts export.",
+    "importConfirm": "This will replace your current shortcuts. Continue?",
+    "imageTooLarge": "Image is too large. Maximum size is 5 MB.",
+    "imageSaveError": "Could not save this image.",
+    "defaultPresets": "Default presets",
+    "yourPresets": "Your presets"
+  },
+  "ko": {
+    "appName": "더 많은 바로가기 새 탭",
+    "appDesc": "Chrome의 10개 바로가기 제한을 극복하세요. 깔끔하고 맞춤 설정 가능한 새 탭 대시보드에서 최대 30개의 바로가기를 추가하고 검색하세요.",
+    "searchPlaceholder": "Google 검색 또는 URL 입력",
+    "imgSearchTitle": "Google 렌즈로 이미지 검색",
+    "aiModeTitle": "AI 검색 모드",
+    "aiModeBtnText": "AI 모드",
+    "addShortcutTitle": "바로가기 추가",
+    "shortcutLimitReached": "바로가기는 최대 30개까지 추가할 수 있습니다.",
+    "shortcutSaveError": "변경 사항을 저장하지 못했습니다. 이전 바로가기는 그대로 유지됩니다.",
+    "modalHeaderAdd": "바로가기 추가",
+    "modalHeaderEdit": "바로가기 수정",
+    "nameLabel": "이름",
+    "urlLabel": "URL",
+    "addBtnLabel": "추가",
+    "saveBtnLabel": "저장",
+    "cancelBtnLabel": "취소",
+    "themeTitle": "테마 변경",
+    "customizeTitle": "맞춤설정",
+    "menuEdit": "수정",
+    "menuDelete": "삭제",
+    "menuDeleteConfirm": "바로가기를 삭제하시겠습니까?",
+    "titleLoadingPlaceholder": "이름 자동 입력 중...",
+    "titleInputPlaceholder": "예: 유튜브",
+    "customizeModalTitle": "페이지 맞춤설정",
+    "themeLabel": "테마",
+    "themeSystem": "시스템",
+    "themeLight": "라이트",
+    "themeDark": "다크",
+    "languageLabel": "언어",
+    "languageAuto": "자동",
+    "reverseSearchColorsLabel": "검색창 색상 반전",
+    "reverseSearchColorsHint": "검색창에 반대 색상 테마를 적용합니다",
+    "use24HourClockLabel": "24시간 시계 사용",
+    "use24HourClockHint": "오전/오후 대신 24시간 형식으로 시간을 표시합니다",
+    "colorThemeLabel": "색상 테마",
+    "backgroundSectionLabel": "배경",
+    "uploadBackgroundLabel": "업로드",
+    "removeBackgroundLabel": "제거",
+    "backgroundDimLabel": "배경 어둡기",
+    "showGoogleAppsLabel": "Google 앱 표시",
+    "showGoogleAppsHint": "헤더에 Google 앱 바로가기를 표시하거나 숨깁니다",
+    "googleAppsSectionLabel": "Google 앱",
+    "googleAppsSectionHint": "헤더에 표시할 Google 앱 바로가기를 선택하고 순서를 변경합니다",
+    "editGoogleAppsBtn": "수정",
+    "googleAppsModalTitle": "Google 앱",
+    "googleAppsModalHint": "앱을 켜거나 끄고, 드래그하여 순서를 바꿀 수 있습니다",
+    "shortcutsBackupLabel": "바로가기 관리",
+    "shortcutsBackupHint": "바로가기를 파일로 백업하거나 백업 파일에서 복원합니다",
+    "exportShortcutsBtn": "내보내기",
+    "importShortcutsBtn": "가져오기",
+    "importFromChromeBtn": "Chrome에서 가져오기",
+    "chromeImportModalTitle": "Chrome에서 가져오기",
+    "chromeImportHint": "Chrome의 Preferences 파일을 선택하여 새 탭 바로가기를 가져옵니다. Chrome에서 chrome://version 을 열어 \"프로필 경로\"에서 위치를 찾을 수 있습니다.",
+    "chromeImportDropzone": "Preferences 파일을 여기로 끌어다 놓거나 클릭하여 선택하세요",
+    "chromeImportFoundOne": "바로가기 1개를 찾았습니다.",
+    "chromeImportFoundMany": "바로가기 {count}개를 찾았습니다.",
+    "chromeImportInvalidFile": "Chrome Preferences 파일이 아닌 것 같습니다.",
+    "chromeImportNoShortcuts": "이 프로필에서 바로가기를 찾을 수 없습니다.",
+    "chromeImportConfirmBtn": "가져오기",
+    "importInvalidFile": "이 파일을 바로가기 내보내기 파일로 읽을 수 없습니다.",
+    "importConfirm": "현재 바로가기가 대체됩니다. 계속하시겠습니까?",
+    "imageTooLarge": "이미지 파일이 너무 큽니다. 최대 용량은 5MB입니다.",
+    "imageSaveError": "이미지를 저장하지 못했습니다.",
+    "defaultPresets": "기본 프리셋",
+    "yourPresets": "내 프리셋"
+  },
+  "ja": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "Chromeの10個ショートカット制限を解除。最大30個のショートカットを追加できるシンプルでカスタマイズ可能な新しいタブ。",
+    "searchPlaceholder": "Google で検索または URL を入力",
+    "imgSearchTitle": "Google レンズで画像を検索",
+    "aiModeTitle": "AI 検索モード",
+    "aiModeBtnText": "AI モード",
+    "addShortcutTitle": "ショートカットを追加",
+    "shortcutLimitReached": "ショートカットは最大30個まで追加できます。",
+    "shortcutSaveError": "変更を保存できませんでした。以前のショートカットは保持されています。",
+    "modalHeaderAdd": "ショートカットを追加",
+    "modalHeaderEdit": "ショートカットを編集",
+    "nameLabel": "名前",
+    "urlLabel": "URL",
+    "addBtnLabel": "追加",
+    "saveBtnLabel": "保存",
+    "cancelBtnLabel": "キャンセル",
+    "themeTitle": "テーマ切り替え",
+    "customizeTitle": "カスタマイズ",
+    "menuEdit": "編集",
+    "menuDelete": "削除",
+    "menuDeleteConfirm": "ショートカットを削除しますか？",
+    "titleLoadingPlaceholder": "名前を取得中...",
+    "titleInputPlaceholder": "例: YouTube",
+    "customizeModalTitle": "ページのカスタマイズ",
+    "themeLabel": "テーマ",
+    "themeSystem": "システム",
+    "themeLight": "ライト",
+    "themeDark": "ダーク",
+    "languageLabel": "言語",
+    "languageAuto": "自動",
+    "reverseSearchColorsLabel": "検索バーの色を反転",
+    "reverseSearchColorsHint": "検索バーに逆の配色を適用します",
+    "use24HourClockLabel": "24時間表示を使用",
+    "use24HourClockHint": "午前/午後の代わりに24時間形式で時刻を表示します",
+    "colorThemeLabel": "カラーテーマ",
+    "backgroundSectionLabel": "背景",
+    "uploadBackgroundLabel": "アップロード",
+    "removeBackgroundLabel": "削除",
+    "backgroundDimLabel": "壁紙の暗さ",
+    "showGoogleAppsLabel": "Google アプリを表示",
+    "showGoogleAppsHint": "ヘッダーの Google アプリショートカットの表示/非表示を切り替えます",
+    "googleAppsSectionLabel": "Google アプリ",
+    "googleAppsSectionHint": "ヘッダーに表示する Google アプリを選択し、並べ替えます",
+    "editGoogleAppsBtn": "編集",
+    "googleAppsModalTitle": "Google アプリ",
+    "googleAppsModalHint": "アプリのオン/オフを切り替え、ドラッグして並べ替えます",
+    "shortcutsBackupLabel": "ショートカット",
+    "shortcutsBackupHint": "ショートカットをファイルにバックアップ、または復元します",
+    "exportShortcutsBtn": "エクスポート",
+    "importShortcutsBtn": "インポート",
+    "importFromChromeBtn": "Chrome からインポート",
+    "chromeImportModalTitle": "Chrome からインポート",
+    "chromeImportHint": "Chrome の Preferences ファイルを選択してショートカットをインポートします。chrome://version を開き「プロファイル パス」で確認できます。",
+    "chromeImportDropzone": "Preferences ファイルをここにドラッグ、またはクリックして選択",
+    "chromeImportFoundOne": "1個のショートカットが見つかりました。",
+    "chromeImportFoundMany": "{count}個のショートカットが見つかりました。",
+    "chromeImportInvalidFile": "Chrome Preferences ファイルではないようです。",
+    "chromeImportNoShortcuts": "このプロファイルにはショートカットがありません。",
+    "chromeImportConfirmBtn": "インポート",
+    "importInvalidFile": "ショートカットのエクスポートファイルとして読み込めませんでした。",
+    "importConfirm": "現在のショートカットが上書きされます。続行しますか？",
+    "imageTooLarge": "画像が大きすぎます。最大サイズは 5 MB です。",
+    "imageSaveError": "画像を保存できませんでした。",
+    "defaultPresets": "デフォルト プリセット",
+    "yourPresets": "マイ プリセット"
+  },
+  "zh_CN": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "突破 Chrome 10 个快捷方式限制。在简洁、可自定义的新标签页中添加多达 30 个快捷方式。",
+    "searchPlaceholder": "在 Google 上搜索或输入网址",
+    "imgSearchTitle": "使用 Google 智能镜头搜索图片",
+    "aiModeTitle": "AI 搜索模式",
+    "aiModeBtnText": "AI 模式",
+    "addShortcutTitle": "添加快捷方式",
+    "shortcutLimitReached": "最多可添加 30 个快捷方式。",
+    "shortcutSaveError": "无法保存更改。之前的快捷方式保持不变。",
+    "modalHeaderAdd": "添加快捷方式",
+    "modalHeaderEdit": "编辑快捷方式",
+    "nameLabel": "名称",
+    "urlLabel": "网址",
+    "addBtnLabel": "添加",
+    "saveBtnLabel": "保存",
+    "cancelBtnLabel": "取消",
+    "themeTitle": "切换主题",
+    "customizeTitle": "自定义",
+    "menuEdit": "编辑",
+    "menuDelete": "删除",
+    "menuDeleteConfirm": "删除快捷方式？",
+    "titleLoadingPlaceholder": "正在获取名称...",
+    "titleInputPlaceholder": "例如：YouTube",
+    "customizeModalTitle": "自定义页面",
+    "themeLabel": "主题",
+    "themeSystem": "跟随系统",
+    "themeLight": "浅色",
+    "themeDark": "深色",
+    "languageLabel": "语言",
+    "languageAuto": "自动",
+    "reverseSearchColorsLabel": "反转搜索栏颜色",
+    "reverseSearchColorsHint": "为搜索栏使用相反的配色方案",
+    "use24HourClockLabel": "使用 24 小时制",
+    "use24HourClockHint": "以 24 小时格式显示时间而非上午/下午",
+    "colorThemeLabel": "颜色主题",
+    "backgroundSectionLabel": "背景",
+    "uploadBackgroundLabel": "上传",
+    "removeBackgroundLabel": "移除",
+    "backgroundDimLabel": "壁纸暗度",
+    "showGoogleAppsLabel": "显示 Google 应用",
+    "showGoogleAppsHint": "在顶部显示或隐藏 Google 应用快捷方式",
+    "googleAppsSectionLabel": "Google 应用",
+    "googleAppsSectionHint": "选择在顶部显示的 Google 应用并排序",
+    "editGoogleAppsBtn": "编辑",
+    "googleAppsModalTitle": "Google 应用",
+    "googleAppsModalHint": "开启或关闭应用，拖动以重新排序",
+    "shortcutsBackupLabel": "快捷方式",
+    "shortcutsBackupHint": "将快捷方式备份到文件或从文件恢复",
+    "exportShortcutsBtn": "导出",
+    "importShortcutsBtn": "导入",
+    "importFromChromeBtn": "从 Chrome 导入",
+    "chromeImportModalTitle": "从 Chrome 导入",
+    "chromeImportHint": "选择 Chrome 的 Preferences 文件以导入新标签页快捷方式。在 Chrome 中打开 chrome://version 查看\"个人资料路径\"。",
+    "chromeImportDropzone": "将 Preferences 文件拖放到此处，或点击选择",
+    "chromeImportFoundOne": "找到 1 个快捷方式。",
+    "chromeImportFoundMany": "找到 {count} 个快捷方式。",
+    "chromeImportInvalidFile": "这似乎不是 Chrome Preferences 文件。",
+    "chromeImportNoShortcuts": "此个人资料中未找到快捷方式。",
+    "chromeImportConfirmBtn": "导入",
+    "importInvalidFile": "无法读取此快捷方式导出文件。",
+    "importConfirm": "这将替换当前的快捷方式。是否继续？",
+    "imageTooLarge": "图片过大。最大支持 5 MB。",
+    "imageSaveError": "无法保存此图片。",
+    "defaultPresets": "默认预设",
+    "yourPresets": "我的预设"
+  },
+  "es": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "Supera el límite de 10 accesos directos de Chrome. Agrega hasta 30 accesos directos en una nueva pestaña personalizable.",
+    "searchPlaceholder": "Buscar en Google o escribir una URL",
+    "imgSearchTitle": "Buscar imágenes con Google Lens",
+    "aiModeTitle": "Modo de búsqueda con IA",
+    "aiModeBtnText": "Modo IA",
+    "addShortcutTitle": "Añadir acceso directo",
+    "shortcutLimitReached": "Puedes añadir hasta 30 accesos directos.",
+    "shortcutSaveError": "No se pudieron guardar los cambios. Tus accesos directos anteriores siguen intactos.",
+    "modalHeaderAdd": "Añadir acceso directo",
+    "modalHeaderEdit": "Editar acceso directo",
+    "nameLabel": "Nombre",
+    "urlLabel": "URL",
+    "addBtnLabel": "Añadir",
+    "saveBtnLabel": "Guardar",
+    "cancelBtnLabel": "Cancelar",
+    "themeTitle": "Cambiar tema",
+    "customizeTitle": "Personalizar",
+    "menuEdit": "Editar",
+    "menuDelete": "Eliminar",
+    "menuDeleteConfirm": "¿Eliminar acceso directo?",
+    "titleLoadingPlaceholder": "Obteniendo nombre...",
+    "titleInputPlaceholder": "ej. YouTube",
+    "customizeModalTitle": "Personalizar página",
+    "themeLabel": "Tema",
+    "themeSystem": "Sistema",
+    "themeLight": "Claro",
+    "themeDark": "Oscuro",
+    "languageLabel": "Idioma",
+    "languageAuto": "Automático",
+    "reverseSearchColorsLabel": "Invertir colores de la barra de búsqueda",
+    "reverseSearchColorsHint": "Usa el esquema de color opuesto para la barra de búsqueda",
+    "use24HourClockLabel": "Usar formato de 24 horas",
+    "use24HourClockHint": "Muestra la hora en formato de 24 horas en vez de AM/PM",
+    "colorThemeLabel": "Tema de color",
+    "backgroundSectionLabel": "Fondo",
+    "uploadBackgroundLabel": "Subir",
+    "removeBackgroundLabel": "Quitar",
+    "backgroundDimLabel": "Oscuridad del fondo",
+    "showGoogleAppsLabel": "Mostrar aplicaciones de Google",
+    "showGoogleAppsHint": "Muestra u oculta los accesos de Google en el encabezado",
+    "googleAppsSectionLabel": "Aplicaciones de Google",
+    "googleAppsSectionHint": "Elige qué aplicaciones aparecen en el encabezado y reordénalas",
+    "editGoogleAppsBtn": "Editar",
+    "googleAppsModalTitle": "Aplicaciones de Google",
+    "googleAppsModalHint": "Activa o desactiva apps y arrastra para reordenar",
+    "shortcutsBackupLabel": "Accesos directos",
+    "shortcutsBackupHint": "Haz una copia de seguridad o restaura desde un archivo",
+    "exportShortcutsBtn": "Exportar",
+    "importShortcutsBtn": "Importar",
+    "importFromChromeBtn": "Importar desde Chrome",
+    "chromeImportModalTitle": "Importar desde Chrome",
+    "chromeImportHint": "Selecciona el archivo Preferences de Chrome para importar sus accesos directos. Ábrelo en chrome://version y busca \"Ruta del perfil\".",
+    "chromeImportDropzone": "Arrastra el archivo Preferences aquí o haz clic para seleccionarlo",
+    "chromeImportFoundOne": "Se encontró 1 acceso directo.",
+    "chromeImportFoundMany": "Se encontraron {count} accesos directos.",
+    "chromeImportInvalidFile": "No parece ser un archivo Preferences de Chrome válido.",
+    "chromeImportNoShortcuts": "No se encontraron accesos directos en este perfil.",
+    "chromeImportConfirmBtn": "Importar",
+    "importInvalidFile": "No se pudo leer este archivo como copia de accesos directos.",
+    "importConfirm": "Esto reemplazará tus accesos directos actuales. ¿Continuar?",
+    "imageTooLarge": "La imagen es demasiado grande. El tamaño máximo es 5 MB.",
+    "imageSaveError": "No se pudo guardar esta imagen.",
+    "defaultPresets": "Preajustes predeterminados",
+    "yourPresets": "Tus preajustes"
+  },
+  "fr": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "Dépassez la limite de 10 raccourcis de Chrome. Ajoutez jusqu'à 30 raccourcis sur votre nouvel onglet personnalisé.",
+    "searchPlaceholder": "Rechercher sur Google ou saisir une URL",
+    "imgSearchTitle": "Rechercher une image avec Google Lens",
+    "aiModeTitle": "Mode de recherche IA",
+    "aiModeBtnText": "Mode IA",
+    "addShortcutTitle": "Ajouter un raccourci",
+    "shortcutLimitReached": "Vous pouvez ajouter jusqu'à 30 raccourcis.",
+    "shortcutSaveError": "Impossible d'enregistrer les modifications. Vos raccourcis précédents sont conservés.",
+    "modalHeaderAdd": "Ajouter un raccourci",
+    "modalHeaderEdit": "Modifier le raccourci",
+    "nameLabel": "Nom",
+    "urlLabel": "URL",
+    "addBtnLabel": "Ajouter",
+    "saveBtnLabel": "Enregistrer",
+    "cancelBtnLabel": "Annuler",
+    "themeTitle": "Changer de thème",
+    "customizeTitle": "Personnaliser",
+    "menuEdit": "Modifier",
+    "menuDelete": "Supprimer",
+    "menuDeleteConfirm": "Supprimer le raccourci ?",
+    "titleLoadingPlaceholder": "Récupération du nom...",
+    "titleInputPlaceholder": "ex. YouTube",
+    "customizeModalTitle": "Personnaliser la page",
+    "themeLabel": "Thème",
+    "themeSystem": "Système",
+    "themeLight": "Clair",
+    "themeDark": "Sombre",
+    "languageLabel": "Langue",
+    "languageAuto": "Automatique",
+    "reverseSearchColorsLabel": "Inverser les couleurs de la barre de recherche",
+    "reverseSearchColorsHint": "Utilise le thème de couleur opposé pour la barre de recherche",
+    "use24HourClockLabel": "Horloge 24 heures",
+    "use24HourClockHint": "Affiche l'heure au format 24 heures au lieu de AM/PM",
+    "colorThemeLabel": "Thème de couleur",
+    "backgroundSectionLabel": "Arrière-plan",
+    "uploadBackgroundLabel": "Importer",
+    "removeBackgroundLabel": "Supprimer",
+    "backgroundDimLabel": "Assombrissement du fond",
+    "showGoogleAppsLabel": "Afficher les applications Google",
+    "showGoogleAppsHint": "Affiche ou masque les raccourcis Google dans l'en-tête",
+    "googleAppsSectionLabel": "Applications Google",
+    "googleAppsSectionHint": "Choisissez les applications à afficher et réorganisez-les",
+    "editGoogleAppsBtn": "Modifier",
+    "googleAppsModalTitle": "Applications Google",
+    "googleAppsModalHint": "Activez ou désactivez les apps et glissez pour réorganiser",
+    "shortcutsBackupLabel": "Raccourcis",
+    "shortcutsBackupHint": "Sauvegardez ou restaurez vos raccourcis depuis un fichier",
+    "exportShortcutsBtn": "Exporter",
+    "importShortcutsBtn": "Importer",
+    "importFromChromeBtn": "Importer depuis Chrome",
+    "chromeImportModalTitle": "Importer depuis Chrome",
+    "chromeImportHint": "Sélectionnez le fichier Preferences de Chrome pour importer ses raccourcis. Ouvrez chrome://version pour trouver le \"Chemin d'accès au profil\".",
+    "chromeImportDropzone": "Glissez le fichier Preferences ici ou cliquez pour le choisir",
+    "chromeImportFoundOne": "1 raccourci trouvé.",
+    "chromeImportFoundMany": "{count} raccourcis trouvés.",
+    "chromeImportInvalidFile": "Ce fichier ne semble pas être un fichier Preferences Chrome.",
+    "chromeImportNoShortcuts": "Aucun raccourci trouvé dans ce profil.",
+    "chromeImportConfirmBtn": "Importer",
+    "importInvalidFile": "Impossible de lire ce fichier de sauvegarde.",
+    "importConfirm": "Cela remplacera vos raccourcis actuels. Continuer ?",
+    "imageTooLarge": "L'image est trop volumineuse. Taille maximale : 5 Mo.",
+    "imageSaveError": "Impossible d'enregistrer cette image.",
+    "defaultPresets": "Préréglages par défaut",
+    "yourPresets": "Vos préréglages"
+  },
+  "de": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "Überwinden Sie das Limit von 10 Verknüpfungen in Chrome. Fügen Sie bis zu 30 Verknüpfungen auf einer anpassbaren Neuer-Tab-Seite hinzu.",
+    "searchPlaceholder": "Google durchsuchen oder URL eingeben",
+    "imgSearchTitle": "Bildsuche mit Google Lens",
+    "aiModeTitle": "KI-Suchmodus",
+    "aiModeBtnText": "KI-Modus",
+    "addShortcutTitle": "Verknüpfung hinzufügen",
+    "shortcutLimitReached": "Sie können bis zu 30 Verknüpfungen hinzufügen.",
+    "shortcutSaveError": "Änderungen konnten nicht gespeichert werden. Ihre bisherigen Verknüpfungen bleiben erhalten.",
+    "modalHeaderAdd": "Verknüpfung hinzufügen",
+    "modalHeaderEdit": "Verknüpfung bearbeiten",
+    "nameLabel": "Name",
+    "urlLabel": "URL",
+    "addBtnLabel": "Hinzufügen",
+    "saveBtnLabel": "Speichern",
+    "cancelBtnLabel": "Abbrechen",
+    "themeTitle": "Design wechseln",
+    "customizeTitle": "Anpassen",
+    "menuEdit": "Bearbeiten",
+    "menuDelete": "Löschen",
+    "menuDeleteConfirm": "Verknüpfung löschen?",
+    "titleLoadingPlaceholder": "Name wird abgerufen...",
+    "titleInputPlaceholder": "z.B. YouTube",
+    "customizeModalTitle": "Seite anpassen",
+    "themeLabel": "Design",
+    "themeSystem": "System",
+    "themeLight": "Hell",
+    "themeDark": "Dunkel",
+    "languageLabel": "Sprache",
+    "languageAuto": "Automatisch",
+    "reverseSearchColorsLabel": "Suchleisten-Farben umkehren",
+    "reverseSearchColorsHint": "Nutzt das entgegengesetzte Farbschema für die Suchleiste",
+    "use24HourClockLabel": "24-Stunden-Format nutzen",
+    "use24HourClockHint": "Zeigt die Uhrzeit im 24-Stunden-Format statt AM/PM",
+    "colorThemeLabel": "Farbthema",
+    "backgroundSectionLabel": "Hintergrund",
+    "uploadBackgroundLabel": "Hochladen",
+    "removeBackgroundLabel": "Entfernen",
+    "backgroundDimLabel": "Hintergrund-Abdunkelung",
+    "showGoogleAppsLabel": "Google Apps anzeigen",
+    "showGoogleAppsHint": "Google App-Verknüpfungen in der Kopfzeile ein- oder ausblenden",
+    "googleAppsSectionLabel": "Google Apps",
+    "googleAppsSectionHint": "Wählen Sie Verknüpfungen für die Kopfzeile aus und ordnen Sie sie neu an",
+    "editGoogleAppsBtn": "Bearbeiten",
+    "googleAppsModalTitle": "Google Apps",
+    "googleAppsModalHint": "Apps ein-/ausschalten und durch Ziehen neu anordnen",
+    "shortcutsBackupLabel": "Verknüpfungen",
+    "shortcutsBackupHint": "Verknüpfungen als Datei sichern oder wiederherstellen",
+    "exportShortcutsBtn": "Exportieren",
+    "importShortcutsBtn": "Importieren",
+    "importFromChromeBtn": "Aus Chrome importieren",
+    "chromeImportModalTitle": "Aus Chrome importieren",
+    "chromeImportHint": "Wählen Sie die Preferences-Datei von Chrome aus. Öffnen Sie chrome://version für den \"Profilpfad\".",
+    "chromeImportDropzone": "Preferences-Datei hierher ziehen oder klicken",
+    "chromeImportFoundOne": "1 Verknüpfung gefunden.",
+    "chromeImportFoundMany": "{count} Verknüpfungen gefunden.",
+    "chromeImportInvalidFile": "Dies scheint keine gültige Chrome-Preferences-Datei zu sein.",
+    "chromeImportNoShortcuts": "Keine Verknüpfungen in diesem Profil gefunden.",
+    "chromeImportConfirmBtn": "Importieren",
+    "importInvalidFile": "Datei konnte nicht als Verknüpfungs-Export gelesen werden.",
+    "importConfirm": "Dies ersetzt Ihre aktuellen Verknüpfungen. Fortfahren?",
+    "imageTooLarge": "Bild ist zu groß. Maximale Größe: 5 MB.",
+    "imageSaveError": "Bild konnte nicht gespeichert werden.",
+    "defaultPresets": "Standard-Voreinstellungen",
+    "yourPresets": "Eigene Voreinstellungen"
+  },
+  "pt_BR": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "Supere o limite de 10 atalhos do Chrome. Adicione até 30 atalhos em uma nova guia personalizável e organizada.",
+    "searchPlaceholder": "Pesquise no Google ou digite um URL",
+    "imgSearchTitle": "Pesquisar imagem com o Google Lens",
+    "aiModeTitle": "Modo de pesquisa com IA",
+    "aiModeBtnText": "Modo IA",
+    "addShortcutTitle": "Adicionar atalho",
+    "shortcutLimitReached": "Você pode adicionar até 30 atalhos.",
+    "shortcutSaveError": "Não foi possível salvar as alterações. Seus atalhos anteriores continuam intactos.",
+    "modalHeaderAdd": "Adicionar atalho",
+    "modalHeaderEdit": "Editar atalho",
+    "nameLabel": "Nome",
+    "urlLabel": "URL",
+    "addBtnLabel": "Adicionar",
+    "saveBtnLabel": "Salvar",
+    "cancelBtnLabel": "Cancelar",
+    "themeTitle": "Alternar tema",
+    "customizeTitle": "Personalizar",
+    "menuEdit": "Editar",
+    "menuDelete": "Excluir",
+    "menuDeleteConfirm": "Excluir atalho?",
+    "titleLoadingPlaceholder": "Buscando nome...",
+    "titleInputPlaceholder": "ex: YouTube",
+    "customizeModalTitle": "Personalizar página",
+    "themeLabel": "Tema",
+    "themeSystem": "Sistema",
+    "themeLight": "Claro",
+    "themeDark": "Escuro",
+    "languageLabel": "Idioma",
+    "languageAuto": "Automático",
+    "reverseSearchColorsLabel": "Inverter cores da barra de pesquisa",
+    "reverseSearchColorsHint": "Usa o esquema de cores oposto para a barra de pesquisa",
+    "use24HourClockLabel": "Usar formato de 24 horas",
+    "use24HourClockHint": "Mostra o horário no formato de 24 horas em vez de AM/PM",
+    "colorThemeLabel": "Tema de cor",
+    "backgroundSectionLabel": "Plano de fundo",
+    "uploadBackgroundLabel": "Enviar",
+    "removeBackgroundLabel": "Remover",
+    "backgroundDimLabel": "Escurecimento do fundo",
+    "showGoogleAppsLabel": "Mostrar aplicativos Google",
+    "showGoogleAppsHint": "Mostra ou oculta os atalhos do Google no cabeçalho",
+    "googleAppsSectionLabel": "Aplicativos Google",
+    "googleAppsSectionHint": "Escolha quais aplicativos aparecem no cabeçalho e organize-os",
+    "editGoogleAppsBtn": "Editar",
+    "googleAppsModalTitle": "Aplicativos Google",
+    "googleAppsModalHint": "Ative/desative apps e arraste para reorganizar",
+    "shortcutsBackupLabel": "Atalhos",
+    "shortcutsBackupHint": "Faça backup dos seus atalhos em arquivo ou restaure-os",
+    "exportShortcutsBtn": "Exportar",
+    "importShortcutsBtn": "Importar",
+    "importFromChromeBtn": "Importar do Chrome",
+    "chromeImportModalTitle": "Importar do Chrome",
+    "chromeImportHint": "Selecione o arquivo Preferences do Chrome para importar os atalhos. Abra chrome://version para ver o \"Caminho de perfil\".",
+    "chromeImportDropzone": "Arraste o arquivo Preferences aqui ou clique para escolher",
+    "chromeImportFoundOne": "1 atalho encontrado.",
+    "chromeImportFoundMany": "{count} atalhos encontrados.",
+    "chromeImportInvalidFile": "Este não parece ser um arquivo Preferences do Chrome.",
+    "chromeImportNoShortcuts": "Nenhum atalho encontrado neste perfil.",
+    "chromeImportConfirmBtn": "Importar",
+    "importInvalidFile": "Não foi possível ler este arquivo de exportação.",
+    "importConfirm": "Isso substituirá seus atalhos atuais. Continuar?",
+    "imageTooLarge": "A imagem é muito grande. Tamanho máximo: 5 MB.",
+    "imageSaveError": "Não foi possível salvar esta imagem.",
+    "defaultPresets": "Predefinições padrão",
+    "yourPresets": "Suas predefinições"
+  },
+  "vi": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "Vượt qua giới hạn 10 lối tắt của Chrome. Thêm tối đa 30 lối tắt vào trang tab mới tùy chỉnh đẹp mắt.",
+    "searchPlaceholder": "Tìm kiếm trên Google hoặc nhập URL",
+    "imgSearchTitle": "Tìm kiếm bằng hình ảnh với Google Lens",
+    "aiModeTitle": "Chế độ tìm kiếm AI",
+    "aiModeBtnText": "Chế độ AI",
+    "addShortcutTitle": "Thêm lối tắt",
+    "shortcutLimitReached": "Bạn có thể thêm tối đa 30 lối tắt.",
+    "shortcutSaveError": "Không thể lưu thay đổi. Các lối tắt trước đó vẫn được giữ nguyên.",
+    "modalHeaderAdd": "Thêm lối tắt",
+    "modalHeaderEdit": "Chỉnh sửa lối tắt",
+    "nameLabel": "Tên",
+    "urlLabel": "URL",
+    "addBtnLabel": "Thêm",
+    "saveBtnLabel": "Lưu",
+    "cancelBtnLabel": "Hủy",
+    "themeTitle": "Chuyển đổi giao diện",
+    "customizeTitle": "Tùy chỉnh",
+    "menuEdit": "Sửa",
+    "menuDelete": "Xóa",
+    "menuDeleteConfirm": "Xóa lối tắt này?",
+    "titleLoadingPlaceholder": "Đang lấy tên...",
+    "titleInputPlaceholder": "vd: YouTube",
+    "customizeModalTitle": "Tùy chỉnh trang",
+    "themeLabel": "Giao diện",
+    "themeSystem": "Hệ thống",
+    "themeLight": "Sáng",
+    "themeDark": "Tối",
+    "languageLabel": "Ngôn ngữ",
+    "languageAuto": "Tự động",
+    "reverseSearchColorsLabel": "Đảo ngược màu thanh tìm kiếm",
+    "reverseSearchColorsHint": "Sử dụng bảng màu đối lập cho thanh tìm kiếm",
+    "use24HourClockLabel": "Sử dụng đồng hồ 24 giờ",
+    "use24HourClockHint": "Hiển thị thời gian ở định dạng 24 giờ thay vì AM/PM",
+    "colorThemeLabel": "Chủ đề màu sắc",
+    "backgroundSectionLabel": "Hình nền",
+    "uploadBackgroundLabel": "Tải lên",
+    "removeBackgroundLabel": "Xóa",
+    "backgroundDimLabel": "Độ tối hình nền",
+    "showGoogleAppsLabel": "Hiển thị ứng dụng Google",
+    "showGoogleAppsHint": "Hiển thị hoặc ẩn lối tắt Google trên thanh tiêu đề",
+    "googleAppsSectionLabel": "Ứng dụng Google",
+    "googleAppsSectionHint": "Chọn ứng dụng hiển thị và sắp xếp lại thứ tự",
+    "editGoogleAppsBtn": "Sửa",
+    "googleAppsModalTitle": "Ứng dụng Google",
+    "googleAppsModalHint": "Bật/tắt ứng dụng và kéo để sắp xếp lại",
+    "shortcutsBackupLabel": "Lối tắt",
+    "shortcutsBackupHint": "Sao lưu hoặc khôi phục lối tắt từ tệp tin",
+    "exportShortcutsBtn": "Xuất",
+    "importShortcutsBtn": "Nhập",
+    "importFromChromeBtn": "Nhập từ Chrome",
+    "chromeImportModalTitle": "Nhập từ Chrome",
+    "chromeImportHint": "Chọn tệp Preferences của Chrome để nhập lối tắt. Mở chrome://version để xem \"Đường dẫn hồ sơ\".",
+    "chromeImportDropzone": "Kéo tệp Preferences vào đây hoặc nhấp để chọn",
+    "chromeImportFoundOne": "Tìm thấy 1 lối tắt.",
+    "chromeImportFoundMany": "Tìm thấy {count} lối tắt.",
+    "chromeImportInvalidFile": "Đây không phải là tệp Preferences của Chrome.",
+    "chromeImportNoShortcuts": "Không tìm thấy lối tắt nào trong hồ sơ này.",
+    "chromeImportConfirmBtn": "Nhập",
+    "importInvalidFile": "Không thể đọc tệp sao lưu lối tắt này.",
+    "importConfirm": "Thao tác này sẽ ghi đè lối tắt hiện tại. Tiếp tục?",
+    "imageTooLarge": "Kích thước ảnh quá lớn. Dung lượng tối đa là 5 MB.",
+    "imageSaveError": "Không thể lưu hình ảnh này.",
+    "defaultPresets": "Cài đặt sẵn mặc định",
+    "yourPresets": "Cài đặt sẵn của bạn"
+  },
+  "ru": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "Преодолейте ограничение Chrome в 10 ярлыков. Добавьте до 30 ярлыков на настраиваемую страницу новой вкладки.",
+    "searchPlaceholder": "Поиск в Google или ввод URL",
+    "imgSearchTitle": "Поиск по картинке с Google Объективом",
+    "aiModeTitle": "Режим поиска с ИИ",
+    "aiModeBtnText": "ИИ-режим",
+    "addShortcutTitle": "Добавить ярлык",
+    "shortcutLimitReached": "Можно добавить не более 30 ярлыков.",
+    "shortcutSaveError": "Не удалось сохранить изменения. Предыдущие ярлыки сохранены.",
+    "modalHeaderAdd": "Добавить ярлык",
+    "modalHeaderEdit": "Изменить ярлык",
+    "nameLabel": "Название",
+    "urlLabel": "URL",
+    "addBtnLabel": "Добавить",
+    "saveBtnLabel": "Сохранить",
+    "cancelBtnLabel": "Отмена",
+    "themeTitle": "Сменить тему",
+    "customizeTitle": "Настроить",
+    "menuEdit": "Изменить",
+    "menuDelete": "Удалить",
+    "menuDeleteConfirm": "Удалить ярлык?",
+    "titleLoadingPlaceholder": "Получение названия...",
+    "titleInputPlaceholder": "например, YouTube",
+    "customizeModalTitle": "Настройка страницы",
+    "themeLabel": "Тема",
+    "themeSystem": "Системная",
+    "themeLight": "Светлая",
+    "themeDark": "Тёмная",
+    "languageLabel": "Язык",
+    "languageAuto": "Автоматически",
+    "reverseSearchColorsLabel": "Инвертировать цвета строки поиска",
+    "reverseSearchColorsHint": "Использовать контрастную цветовую схему для строки поиска",
+    "use24HourClockLabel": "24-часовой формат времени",
+    "use24HourClockHint": "Отображать время в 24-часовом формате вместо AM/PM",
+    "colorThemeLabel": "Цветовая схема",
+    "backgroundSectionLabel": "Фон",
+    "uploadBackgroundLabel": "Загрузить",
+    "removeBackgroundLabel": "Удалить",
+    "backgroundDimLabel": "Затемнение фона",
+    "showGoogleAppsLabel": "Показывать сервисы Google",
+    "showGoogleAppsHint": "Показывать или скрывать ярлыки сервисов Google в шапке",
+    "googleAppsSectionLabel": "Сервисы Google",
+    "googleAppsSectionHint": "Выберите сервисы для отображения и настройте их порядок",
+    "editGoogleAppsBtn": "Изменить",
+    "googleAppsModalTitle": "Сервисы Google",
+    "googleAppsModalHint": "Включайте/отключайте сервисы и перетаскивайте для изменения порядка",
+    "shortcutsBackupLabel": "Ярлыки",
+    "shortcutsBackupHint": "Сохраняйте ярлыки в файл или восстанавливайте из него",
+    "exportShortcutsBtn": "Экспорт",
+    "importShortcutsBtn": "Импорт",
+    "importFromChromeBtn": "Импорт из Chrome",
+    "chromeImportModalTitle": "Импорт из Chrome",
+    "chromeImportHint": "Выберите файл Preferences от Chrome для импорта ярлыков. Откройте chrome://version, чтобы найти \"Путь к профилю\".",
+    "chromeImportDropzone": "Перетащите файл Preferences сюда или нажмите для выбора",
+    "chromeImportFoundOne": "Найден 1 ярлык.",
+    "chromeImportFoundMany": "Найдено ярлыков: {count}.",
+    "chromeImportInvalidFile": "Файл не похож на файл Preferences Chrome.",
+    "chromeImportNoShortcuts": "В этом профиле не найдено ярлыков.",
+    "chromeImportConfirmBtn": "Импортировать",
+    "importInvalidFile": "Не удалось прочитать файл резервной копии ярлыков.",
+    "importConfirm": "Текущие ярлыки будут заменены. Продолжить?",
+    "imageTooLarge": "Изображение слишком большое. Максимальный размер: 5 МБ.",
+    "imageSaveError": "Не удалось сохранить изображение.",
+    "defaultPresets": "Стандартные пресеты",
+    "yourPresets": "Ваши пресеты"
+  },
+  "id": {
+    "appName": "More Shortcuts New Tab",
+    "appDesc": "Lewati batas 10 pintasan Chrome. Tambahkan hingga 30 pintasan ke tab baru yang bersih dan dapat disesuaikan.",
+    "searchPlaceholder": "Telusuri Google atau ketik URL",
+    "imgSearchTitle": "Telusuri gambar dengan Google Lens",
+    "aiModeTitle": "Mode Penelusuran AI",
+    "aiModeBtnText": "Mode AI",
+    "addShortcutTitle": "Tambah Pintasan",
+    "shortcutLimitReached": "Anda dapat menambahkan hingga 30 pintasan.",
+    "shortcutSaveError": "Tidak dapat menyimpan perubahan. Pintasan sebelumnya tetap aman.",
+    "modalHeaderAdd": "Tambah Pintasan",
+    "modalHeaderEdit": "Edit Pintasan",
+    "nameLabel": "Nama",
+    "urlLabel": "URL",
+    "addBtnLabel": "Tambah",
+    "saveBtnLabel": "Simpan",
+    "cancelBtnLabel": "Batal",
+    "themeTitle": "Ganti Tema",
+    "customizeTitle": "Sesuaikan",
+    "menuEdit": "Edit",
+    "menuDelete": "Hapus",
+    "menuDeleteConfirm": "Hapus pintasan?",
+    "titleLoadingPlaceholder": "Mengambil nama...",
+    "titleInputPlaceholder": "cth. YouTube",
+    "customizeModalTitle": "Sesuaikan Halaman",
+    "themeLabel": "Tema",
+    "themeSystem": "Sistem",
+    "themeLight": "Terang",
+    "themeDark": "Gelap",
+    "languageLabel": "Bahasa",
+    "languageAuto": "Otomatis",
+    "reverseSearchColorsLabel": "Balikkan warna bilah penelusuran",
+    "reverseSearchColorsHint": "Gunakan skema warna sebaliknya untuk bilah penelusuran",
+    "use24HourClockLabel": "Gunakan format 24 jam",
+    "use24HourClockHint": "Tampilkan waktu dalam format 24 jam bukan AM/PM",
+    "colorThemeLabel": "Tema warna",
+    "backgroundSectionLabel": "Latar Belakang",
+    "uploadBackgroundLabel": "Unggah",
+    "removeBackgroundLabel": "Hapus",
+    "backgroundDimLabel": "Kegelapan wallpaper",
+    "showGoogleAppsLabel": "Tampilkan aplikasi Google",
+    "showGoogleAppsHint": "Tampilkan atau sembunyikan pintasan aplikasi Google di header",
+    "googleAppsSectionLabel": "Aplikasi Google",
+    "googleAppsSectionHint": "Pilih aplikasi yang muncul di header dan atur urutannya",
+    "editGoogleAppsBtn": "Edit",
+    "googleAppsModalTitle": "Aplikasi Google",
+    "googleAppsModalHint": "Aktifkan/nonaktifkan aplikasi dan seret untuk mengatur urutan",
+    "shortcutsBackupLabel": "Pintasan",
+    "shortcutsBackupHint": "Cadangkan pintasan ke file atau pulihkan dari file",
+    "exportShortcutsBtn": "Ekspor",
+    "importShortcutsBtn": "Impor",
+    "importFromChromeBtn": "Impor dari Chrome",
+    "chromeImportModalTitle": "Impor dari Chrome",
+    "chromeImportHint": "Pilih file Preferences Chrome untuk mengimpor pintasannya. Buka chrome://version untuk melihat \"Jalur Profil\".",
+    "chromeImportDropzone": "Tarik file Preferences ke sini atau klik untuk memilih",
+    "chromeImportFoundOne": "Ditemukan 1 pintasan.",
+    "chromeImportFoundMany": "Ditemukan {count} pintasan.",
+    "chromeImportInvalidFile": "File ini tampaknya bukan file Preferences Chrome.",
+    "chromeImportNoShortcuts": "Tidak ada pintasan yang ditemukan di profil ini.",
+    "chromeImportConfirmBtn": "Impor",
+    "importInvalidFile": "File tidak dapat dibaca sebagai file ekspor pintasan.",
+    "importConfirm": "Ini akan menggantikan pintasan Anda saat ini. Lanjutkan?",
+    "imageTooLarge": "Ukuran gambar terlalu besar. Ukuran maksimum adalah 5 MB.",
+    "imageSaveError": "Tidak dapat menyimpan gambar ini.",
+    "defaultPresets": "Preset bawaan",
+    "yourPresets": "Preset Anda"
+  }
+};
+
+function detectBrowserLanguage() {
+  const browserLangs = navigator.languages || [navigator.language || "en"];
+  for (const raw of browserLangs) {
+    if (!raw) continue;
+    const clean = raw.toLowerCase();
+    if (clean.startsWith("ko")) return "ko";
+    if (clean.startsWith("ja")) return "ja";
+    if (clean.startsWith("zh")) return "zh_CN";
+    if (clean.startsWith("es")) return "es";
+    if (clean.startsWith("fr")) return "fr";
+    if (clean.startsWith("de")) return "de";
+    if (clean.startsWith("pt")) return "pt_BR";
+    if (clean.startsWith("vi")) return "vi";
+    if (clean.startsWith("ru")) return "ru";
+    if (clean.startsWith("id")) return "id";
+    if (clean.startsWith("en")) return "en";
+  }
+  return "en";
+}
+
+function getEffectiveLanguage() {
+  const pref = getPrefSync("language", "auto");
+  if (pref === "auto" || !SUPPORTED_LANGUAGES[pref]) {
+    return detectBrowserLanguage();
+  }
+  return pref;
+}
+
+function getTranslation(key, params) {
+  const effectiveLang = getEffectiveLanguage();
+  const dict = TRANSLATIONS[effectiveLang] || TRANSLATIONS.en || {};
+  let msg = dict[key] ?? TRANSLATIONS.en[key] ?? key;
+  if (params && typeof params === "object") {
+    for (const [k, v] of Object.entries(params)) {
+      msg = msg.replace(new RegExp(`\\{${k}\\}`, "g"), String(v));
+    }
+  }
+  return msg;
+}
+
+// Global translation proxy and helper
+const t = new Proxy(
+  (key, params) => getTranslation(key, params),
+  {
+    get: (_, prop) => getTranslation(prop),
+  }
+);
+
+function applyLocalization() {
+  const effectiveLang = getEffectiveLanguage();
+  const langConfig = SUPPORTED_LANGUAGES[effectiveLang] || SUPPORTED_LANGUAGES.en;
+  document.documentElement.lang = langConfig.locale;
+
+  // Translate elements with data-i18n
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.dataset.i18n;
+    el.textContent = t[key];
+  });
+
+  // Translate elements with data-i18n-title
+  document.querySelectorAll("[data-i18n-title]").forEach((el) => {
+    const key = el.dataset.i18nTitle;
+    el.title = t[key];
+  });
+
+  // Translate elements with data-i18n-placeholder
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const key = el.dataset.i18nPlaceholder;
+    el.placeholder = t[key];
+  });
+
+  // Translate elements with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+    const key = el.dataset.i18nAriaLabel;
+    el.setAttribute("aria-label", t[key]);
+  });
+
+  // Dynamic elements
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) searchInput.placeholder = t.searchPlaceholder;
+
+  const themeToggle = document.getElementById("themeToggle");
+  if (themeToggle) themeToggle.title = t.themeTitle;
+
+  const customizeBtn = document.getElementById("customizeBtn");
+  if (customizeBtn) customizeBtn.title = t.customizeTitle;
+
+  const imageSearchBtn = document.getElementById("imageSearchBtn");
+  if (imageSearchBtn) {
+    imageSearchBtn.title = t.imgSearchTitle;
+    imageSearchBtn.setAttribute("aria-label", t.imgSearchTitle);
+  }
+
+  const aiModeBtn = document.getElementById("aiModeBtn");
+  if (aiModeBtn) {
+    aiModeBtn.title = t.aiModeTitle;
+    const btnText = aiModeBtn.querySelector(".btn-text");
+    if (btnText) btnText.textContent = t.aiModeBtnText;
+  }
+
+  const modalTitle = document.getElementById("modalTitle");
+  if (modalTitle) modalTitle.placeholder = t.titleInputPlaceholder;
+
+  // Update language select UI
+  updateLanguagePickerUI();
+
+  // Re-render clock with active locale
+  if (typeof updateClock === "function") {
+    updateClock();
+  }
+
+  // Re-render presets if customize gallery exists
+  if (typeof renderWallpaperGallery === "function") {
+    renderWallpaperGallery();
+  }
+}
+
+function updateLanguagePickerUI() {
+  const currentPref = getPrefSync("language", "auto");
+  const valueLabel = document.getElementById("languageSelectValue");
+  const options = document.querySelectorAll("#languageOptions [data-value]");
+  const detectedLang = detectBrowserLanguage();
+  const detectedName = SUPPORTED_LANGUAGES[detectedLang]?.name || "English";
+
+  if (valueLabel) {
+    if (currentPref === "auto") {
+      valueLabel.textContent = `${t.languageAuto} (${detectedName})`;
+    } else {
+      valueLabel.textContent = SUPPORTED_LANGUAGES[currentPref]?.name || currentPref;
+    }
+  }
+
+  options.forEach((option) => {
+    const val = option.dataset.value;
+    const selected = val === currentPref;
+    option.classList.toggle("selected", selected);
+    option.setAttribute("aria-selected", String(selected));
+    if (val === "auto") {
+      option.textContent = `${t.languageAuto} (${detectedName})`;
+    }
+  });
+}
+
+function initLanguagePicker() {
+  const languagePicker = document.getElementById("languagePicker");
+  const languageSelect = document.getElementById("languageSelect");
+  const languageOptions = document.getElementById("languageOptions");
+
+  if (!languagePicker || !languageSelect || !languageOptions) return;
+
+  languageSelect.addEventListener("click", () => {
+    const isHidden = languageOptions.hidden;
+    languageOptions.hidden = !isHidden;
+    languageSelect.setAttribute("aria-expanded", String(isHidden));
+  });
+
+  languageOptions.addEventListener("click", (event) => {
+    const option = event.target.closest("[data-value]");
+    if (!option) return;
+
+    const lang = option.dataset.value;
+    setPref("language", lang);
+    languageOptions.hidden = true;
+    languageSelect.setAttribute("aria-expanded", "false");
+    applyLocalization();
+    if (typeof renderGrid === "function") {
+      renderGrid();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!languagePicker.contains(event.target)) {
+      languageOptions.hidden = true;
+      languageSelect.setAttribute("aria-expanded", "false");
+    }
+  });
+}

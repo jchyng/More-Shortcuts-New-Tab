@@ -1,27 +1,197 @@
 {
-  "searchPlaceholder": { "message": "Cari di Google atau masukkan URL" },
-  "addShortcutTitle": { "message": "Tambah Pintasan" },
-  "shortcutLimitReached": { "message": "Anda dapat menambahkan hingga 30 pintasan." },
-  "shortcutSaveError": { "message": "Perubahan tidak dapat disimpan. Pintasan Anda sebelumnya masih utuh." },
-  "addBtnLabel": { "message": "Tambah" },
-  "saveBtnLabel": { "message": "Simpan" },
-  "cancelBtnLabel": { "message": "Batal" },
-  "modalHeaderAdd": { "message": "Tambah Pintasan" },
-  "modalHeaderEdit": { "message": "Edit Pintasan" },
-  "nameLabel": { "message": "Nama" },
-  "urlLabel": { "message": "URL" },
-  "themeTitle": { "message": "Ganti Tema" },
-  "imgSearchTitle": { "message": "Penelusuran Gambar" },
-  "aiModeTitle": { "message": "Mode Pencarian AI" },
-  "menuEdit": { "message": "Edit" },
-  "menuDelete": { "message": "Hapus" },
-  "titleLoadingPlaceholder": { "message": "Mengambil nama..." },
-  "titleInputPlaceholder": { "message": "mis. YouTube" },
-  "aiModeBtnText": { "message": "Mode AI" },
-  "importInvalidFile": { "message": "File ini tidak dapat dibaca sebagai file ekspor pintasan." },
-  "importConfirm": { "message": "Ini akan mengganti pintasan Anda saat ini. Lanjutkan?" },
-  "chromeImportFoundOne": { "message": "Ditemukan 1 pintasan." },
-  "chromeImportFoundMany": { "message": "Ditemukan {count} pintasan." },
-  "chromeImportInvalidFile": { "message": "Ini sepertinya bukan file Preferences Chrome." },
-  "chromeImportNoShortcuts": { "message": "Tidak ada pintasan yang ditemukan di profil ini." }
+  "appName": {
+    "message": "More Shortcuts New Tab"
+  },
+  "appDesc": {
+    "message": "Lewati batas 10 pintasan Chrome. Tambahkan hingga 30 pintasan ke tab baru yang bersih dan dapat disesuaikan."
+  },
+  "searchPlaceholder": {
+    "message": "Telusuri Google atau ketik URL"
+  },
+  "imgSearchTitle": {
+    "message": "Telusuri gambar dengan Google Lens"
+  },
+  "aiModeTitle": {
+    "message": "Mode Penelusuran AI"
+  },
+  "aiModeBtnText": {
+    "message": "Mode AI"
+  },
+  "addShortcutTitle": {
+    "message": "Tambah Pintasan"
+  },
+  "shortcutLimitReached": {
+    "message": "Anda dapat menambahkan hingga 30 pintasan."
+  },
+  "shortcutSaveError": {
+    "message": "Tidak dapat menyimpan perubahan. Pintasan sebelumnya tetap aman."
+  },
+  "modalHeaderAdd": {
+    "message": "Tambah Pintasan"
+  },
+  "modalHeaderEdit": {
+    "message": "Edit Pintasan"
+  },
+  "nameLabel": {
+    "message": "Nama"
+  },
+  "urlLabel": {
+    "message": "URL"
+  },
+  "addBtnLabel": {
+    "message": "Tambah"
+  },
+  "saveBtnLabel": {
+    "message": "Simpan"
+  },
+  "cancelBtnLabel": {
+    "message": "Batal"
+  },
+  "themeTitle": {
+    "message": "Ganti Tema"
+  },
+  "customizeTitle": {
+    "message": "Sesuaikan"
+  },
+  "menuEdit": {
+    "message": "Edit"
+  },
+  "menuDelete": {
+    "message": "Hapus"
+  },
+  "menuDeleteConfirm": {
+    "message": "Hapus pintasan?"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "Mengambil nama..."
+  },
+  "titleInputPlaceholder": {
+    "message": "cth. YouTube"
+  },
+  "customizeModalTitle": {
+    "message": "Sesuaikan Halaman"
+  },
+  "themeLabel": {
+    "message": "Tema"
+  },
+  "themeSystem": {
+    "message": "Sistem"
+  },
+  "themeLight": {
+    "message": "Terang"
+  },
+  "themeDark": {
+    "message": "Gelap"
+  },
+  "languageLabel": {
+    "message": "Bahasa"
+  },
+  "languageAuto": {
+    "message": "Otomatis"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "Balikkan warna bilah penelusuran"
+  },
+  "reverseSearchColorsHint": {
+    "message": "Gunakan skema warna sebaliknya untuk bilah penelusuran"
+  },
+  "use24HourClockLabel": {
+    "message": "Gunakan format 24 jam"
+  },
+  "use24HourClockHint": {
+    "message": "Tampilkan waktu dalam format 24 jam bukan AM/PM"
+  },
+  "colorThemeLabel": {
+    "message": "Tema warna"
+  },
+  "backgroundSectionLabel": {
+    "message": "Latar Belakang"
+  },
+  "uploadBackgroundLabel": {
+    "message": "Unggah"
+  },
+  "removeBackgroundLabel": {
+    "message": "Hapus"
+  },
+  "backgroundDimLabel": {
+    "message": "Kegelapan wallpaper"
+  },
+  "showGoogleAppsLabel": {
+    "message": "Tampilkan aplikasi Google"
+  },
+  "showGoogleAppsHint": {
+    "message": "Tampilkan atau sembunyikan pintasan aplikasi Google di header"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Aplikasi Google"
+  },
+  "googleAppsSectionHint": {
+    "message": "Pilih aplikasi yang muncul di header dan atur urutannya"
+  },
+  "editGoogleAppsBtn": {
+    "message": "Edit"
+  },
+  "googleAppsModalTitle": {
+    "message": "Aplikasi Google"
+  },
+  "googleAppsModalHint": {
+    "message": "Aktifkan/nonaktifkan aplikasi dan seret untuk mengatur urutan"
+  },
+  "shortcutsBackupLabel": {
+    "message": "Pintasan"
+  },
+  "shortcutsBackupHint": {
+    "message": "Cadangkan pintasan ke file atau pulihkan dari file"
+  },
+  "exportShortcutsBtn": {
+    "message": "Ekspor"
+  },
+  "importShortcutsBtn": {
+    "message": "Impor"
+  },
+  "importFromChromeBtn": {
+    "message": "Impor dari Chrome"
+  },
+  "chromeImportModalTitle": {
+    "message": "Impor dari Chrome"
+  },
+  "chromeImportHint": {
+    "message": "Pilih file Preferences Chrome untuk mengimpor pintasannya. Buka chrome://version untuk melihat \"Jalur Profil\"."
+  },
+  "chromeImportDropzone": {
+    "message": "Tarik file Preferences ke sini atau klik untuk memilih"
+  },
+  "chromeImportFoundOne": {
+    "message": "Ditemukan 1 pintasan."
+  },
+  "chromeImportFoundMany": {
+    "message": "Ditemukan {count} pintasan."
+  },
+  "chromeImportInvalidFile": {
+    "message": "File ini tampaknya bukan file Preferences Chrome."
+  },
+  "chromeImportNoShortcuts": {
+    "message": "Tidak ada pintasan yang ditemukan di profil ini."
+  },
+  "chromeImportConfirmBtn": {
+    "message": "Impor"
+  },
+  "importInvalidFile": {
+    "message": "File tidak dapat dibaca sebagai file ekspor pintasan."
+  },
+  "importConfirm": {
+    "message": "Ini akan menggantikan pintasan Anda saat ini. Lanjutkan?"
+  },
+  "imageTooLarge": {
+    "message": "Ukuran gambar terlalu besar. Ukuran maksimum adalah 5 MB."
+  },
+  "imageSaveError": {
+    "message": "Tidak dapat menyimpan gambar ini."
+  },
+  "defaultPresets": {
+    "message": "Preset bawaan"
+  },
+  "yourPresets": {
+    "message": "Preset Anda"
+  }
 }

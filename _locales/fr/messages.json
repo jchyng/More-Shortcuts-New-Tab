@@ -1,27 +1,197 @@
 {
-  "searchPlaceholder": { "message": "Rechercher sur Google ou saisir une URL" },
-  "addShortcutTitle": { "message": "Ajouter un raccourci" },
-  "shortcutLimitReached": { "message": "Vous pouvez ajouter jusqu'à 30 raccourcis." },
-  "shortcutSaveError": { "message": "Impossible d'enregistrer vos modifications. Vos raccourcis précédents sont toujours intacts." },
-  "addBtnLabel": { "message": "Ajouter" },
-  "saveBtnLabel": { "message": "Enregistrer" },
-  "cancelBtnLabel": { "message": "Annuler" },
-  "modalHeaderAdd": { "message": "Ajouter un raccourci" },
-  "modalHeaderEdit": { "message": "Modifier le raccourci" },
-  "nameLabel": { "message": "Nom" },
-  "urlLabel": { "message": "URL" },
-  "themeTitle": { "message": "Changer de thème" },
-  "imgSearchTitle": { "message": "Recherche d'images" },
-  "aiModeTitle": { "message": "Mode de recherche IA" },
-  "menuEdit": { "message": "Modifier" },
-  "menuDelete": { "message": "Supprimer" },
-  "titleLoadingPlaceholder": { "message": "Récupération du nom..." },
-  "titleInputPlaceholder": { "message": "p. ex. YouTube" },
-  "aiModeBtnText": { "message": "Mode IA" },
-  "importInvalidFile": { "message": "Ce fichier n'a pas pu être lu comme un export de raccourcis." },
-  "importConfirm": { "message": "Cela remplacera vos raccourcis actuels. Continuer ?" },
-  "chromeImportFoundOne": { "message": "1 raccourci trouvé." },
-  "chromeImportFoundMany": { "message": "{count} raccourcis trouvés." },
-  "chromeImportInvalidFile": { "message": "Ce fichier ne ressemble pas à un fichier Preferences de Chrome." },
-  "chromeImportNoShortcuts": { "message": "Aucun raccourci trouvé dans ce profil." }
+  "appName": {
+    "message": "More Shortcuts New Tab"
+  },
+  "appDesc": {
+    "message": "Dépassez la limite de 10 raccourcis de Chrome. Ajoutez jusqu'à 30 raccourcis sur votre nouvel onglet personnalisé."
+  },
+  "searchPlaceholder": {
+    "message": "Rechercher sur Google ou saisir une URL"
+  },
+  "imgSearchTitle": {
+    "message": "Rechercher une image avec Google Lens"
+  },
+  "aiModeTitle": {
+    "message": "Mode de recherche IA"
+  },
+  "aiModeBtnText": {
+    "message": "Mode IA"
+  },
+  "addShortcutTitle": {
+    "message": "Ajouter un raccourci"
+  },
+  "shortcutLimitReached": {
+    "message": "Vous pouvez ajouter jusqu'à 30 raccourcis."
+  },
+  "shortcutSaveError": {
+    "message": "Impossible d'enregistrer les modifications. Vos raccourcis précédents sont conservés."
+  },
+  "modalHeaderAdd": {
+    "message": "Ajouter un raccourci"
+  },
+  "modalHeaderEdit": {
+    "message": "Modifier le raccourci"
+  },
+  "nameLabel": {
+    "message": "Nom"
+  },
+  "urlLabel": {
+    "message": "URL"
+  },
+  "addBtnLabel": {
+    "message": "Ajouter"
+  },
+  "saveBtnLabel": {
+    "message": "Enregistrer"
+  },
+  "cancelBtnLabel": {
+    "message": "Annuler"
+  },
+  "themeTitle": {
+    "message": "Changer de thème"
+  },
+  "customizeTitle": {
+    "message": "Personnaliser"
+  },
+  "menuEdit": {
+    "message": "Modifier"
+  },
+  "menuDelete": {
+    "message": "Supprimer"
+  },
+  "menuDeleteConfirm": {
+    "message": "Supprimer le raccourci ?"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "Récupération du nom..."
+  },
+  "titleInputPlaceholder": {
+    "message": "ex. YouTube"
+  },
+  "customizeModalTitle": {
+    "message": "Personnaliser la page"
+  },
+  "themeLabel": {
+    "message": "Thème"
+  },
+  "themeSystem": {
+    "message": "Système"
+  },
+  "themeLight": {
+    "message": "Clair"
+  },
+  "themeDark": {
+    "message": "Sombre"
+  },
+  "languageLabel": {
+    "message": "Langue"
+  },
+  "languageAuto": {
+    "message": "Automatique"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "Inverser les couleurs de la barre de recherche"
+  },
+  "reverseSearchColorsHint": {
+    "message": "Utilise le thème de couleur opposé pour la barre de recherche"
+  },
+  "use24HourClockLabel": {
+    "message": "Horloge 24 heures"
+  },
+  "use24HourClockHint": {
+    "message": "Affiche l'heure au format 24 heures au lieu de AM/PM"
+  },
+  "colorThemeLabel": {
+    "message": "Thème de couleur"
+  },
+  "backgroundSectionLabel": {
+    "message": "Arrière-plan"
+  },
+  "uploadBackgroundLabel": {
+    "message": "Importer"
+  },
+  "removeBackgroundLabel": {
+    "message": "Supprimer"
+  },
+  "backgroundDimLabel": {
+    "message": "Assombrissement du fond"
+  },
+  "showGoogleAppsLabel": {
+    "message": "Afficher les applications Google"
+  },
+  "showGoogleAppsHint": {
+    "message": "Affiche ou masque les raccourcis Google dans l'en-tête"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Applications Google"
+  },
+  "googleAppsSectionHint": {
+    "message": "Choisissez les applications à afficher et réorganisez-les"
+  },
+  "editGoogleAppsBtn": {
+    "message": "Modifier"
+  },
+  "googleAppsModalTitle": {
+    "message": "Applications Google"
+  },
+  "googleAppsModalHint": {
+    "message": "Activez ou désactivez les apps et glissez pour réorganiser"
+  },
+  "shortcutsBackupLabel": {
+    "message": "Raccourcis"
+  },
+  "shortcutsBackupHint": {
+    "message": "Sauvegardez ou restaurez vos raccourcis depuis un fichier"
+  },
+  "exportShortcutsBtn": {
+    "message": "Exporter"
+  },
+  "importShortcutsBtn": {
+    "message": "Importer"
+  },
+  "importFromChromeBtn": {
+    "message": "Importer depuis Chrome"
+  },
+  "chromeImportModalTitle": {
+    "message": "Importer depuis Chrome"
+  },
+  "chromeImportHint": {
+    "message": "Sélectionnez le fichier Preferences de Chrome pour importer ses raccourcis. Ouvrez chrome://version pour trouver le \"Chemin d'accès au profil\"."
+  },
+  "chromeImportDropzone": {
+    "message": "Glissez le fichier Preferences ici ou cliquez pour le choisir"
+  },
+  "chromeImportFoundOne": {
+    "message": "1 raccourci trouvé."
+  },
+  "chromeImportFoundMany": {
+    "message": "{count} raccourcis trouvés."
+  },
+  "chromeImportInvalidFile": {
+    "message": "Ce fichier ne semble pas être un fichier Preferences Chrome."
+  },
+  "chromeImportNoShortcuts": {
+    "message": "Aucun raccourci trouvé dans ce profil."
+  },
+  "chromeImportConfirmBtn": {
+    "message": "Importer"
+  },
+  "importInvalidFile": {
+    "message": "Impossible de lire ce fichier de sauvegarde."
+  },
+  "importConfirm": {
+    "message": "Cela remplacera vos raccourcis actuels. Continuer ?"
+  },
+  "imageTooLarge": {
+    "message": "L'image est trop volumineuse. Taille maximale : 5 Mo."
+  },
+  "imageSaveError": {
+    "message": "Impossible d'enregistrer cette image."
+  },
+  "defaultPresets": {
+    "message": "Préréglages par défaut"
+  },
+  "yourPresets": {
+    "message": "Vos préréglages"
+  }
 }

@@ -1,27 +1,197 @@
 {
-  "searchPlaceholder": { "message": "使用 Google 搜索或输入网址" },
-  "addShortcutTitle": { "message": "添加快捷方式" },
-  "shortcutLimitReached": { "message": "最多可添加 30 个快捷方式。" },
-  "shortcutSaveError": { "message": "无法保存您的更改。您之前的快捷方式仍然完好无损。" },
-  "addBtnLabel": { "message": "添加" },
-  "saveBtnLabel": { "message": "保存" },
-  "cancelBtnLabel": { "message": "取消" },
-  "modalHeaderAdd": { "message": "添加快捷方式" },
-  "modalHeaderEdit": { "message": "编辑快捷方式" },
-  "nameLabel": { "message": "名称" },
-  "urlLabel": { "message": "网址" },
-  "themeTitle": { "message": "切换主题" },
-  "imgSearchTitle": { "message": "图片搜索" },
-  "aiModeTitle": { "message": "AI 搜索模式" },
-  "menuEdit": { "message": "编辑" },
-  "menuDelete": { "message": "删除" },
-  "titleLoadingPlaceholder": { "message": "正在获取名称..." },
-  "titleInputPlaceholder": { "message": "例如：YouTube" },
-  "aiModeBtnText": { "message": "AI 模式" },
-  "importInvalidFile": { "message": "无法将此文件识别为快捷方式导出文件。" },
-  "importConfirm": { "message": "这将替换您当前的快捷方式。是否继续？" },
-  "chromeImportFoundOne": { "message": "找到 1 个快捷方式。" },
-  "chromeImportFoundMany": { "message": "找到 {count} 个快捷方式。" },
-  "chromeImportInvalidFile": { "message": "这似乎不是 Chrome 的 Preferences 文件。" },
-  "chromeImportNoShortcuts": { "message": "在此配置文件中未找到快捷方式。" }
+  "appName": {
+    "message": "More Shortcuts New Tab"
+  },
+  "appDesc": {
+    "message": "突破 Chrome 10 个快捷方式限制。在简洁、可自定义的新标签页中添加多达 30 个快捷方式。"
+  },
+  "searchPlaceholder": {
+    "message": "在 Google 上搜索或输入网址"
+  },
+  "imgSearchTitle": {
+    "message": "使用 Google 智能镜头搜索图片"
+  },
+  "aiModeTitle": {
+    "message": "AI 搜索模式"
+  },
+  "aiModeBtnText": {
+    "message": "AI 模式"
+  },
+  "addShortcutTitle": {
+    "message": "添加快捷方式"
+  },
+  "shortcutLimitReached": {
+    "message": "最多可添加 30 个快捷方式。"
+  },
+  "shortcutSaveError": {
+    "message": "无法保存更改。之前的快捷方式保持不变。"
+  },
+  "modalHeaderAdd": {
+    "message": "添加快捷方式"
+  },
+  "modalHeaderEdit": {
+    "message": "编辑快捷方式"
+  },
+  "nameLabel": {
+    "message": "名称"
+  },
+  "urlLabel": {
+    "message": "网址"
+  },
+  "addBtnLabel": {
+    "message": "添加"
+  },
+  "saveBtnLabel": {
+    "message": "保存"
+  },
+  "cancelBtnLabel": {
+    "message": "取消"
+  },
+  "themeTitle": {
+    "message": "切换主题"
+  },
+  "customizeTitle": {
+    "message": "自定义"
+  },
+  "menuEdit": {
+    "message": "编辑"
+  },
+  "menuDelete": {
+    "message": "删除"
+  },
+  "menuDeleteConfirm": {
+    "message": "删除快捷方式？"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "正在获取名称..."
+  },
+  "titleInputPlaceholder": {
+    "message": "例如：YouTube"
+  },
+  "customizeModalTitle": {
+    "message": "自定义页面"
+  },
+  "themeLabel": {
+    "message": "主题"
+  },
+  "themeSystem": {
+    "message": "跟随系统"
+  },
+  "themeLight": {
+    "message": "浅色"
+  },
+  "themeDark": {
+    "message": "深色"
+  },
+  "languageLabel": {
+    "message": "语言"
+  },
+  "languageAuto": {
+    "message": "自动"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "反转搜索栏颜色"
+  },
+  "reverseSearchColorsHint": {
+    "message": "为搜索栏使用相反的配色方案"
+  },
+  "use24HourClockLabel": {
+    "message": "使用 24 小时制"
+  },
+  "use24HourClockHint": {
+    "message": "以 24 小时格式显示时间而非上午/下午"
+  },
+  "colorThemeLabel": {
+    "message": "颜色主题"
+  },
+  "backgroundSectionLabel": {
+    "message": "背景"
+  },
+  "uploadBackgroundLabel": {
+    "message": "上传"
+  },
+  "removeBackgroundLabel": {
+    "message": "移除"
+  },
+  "backgroundDimLabel": {
+    "message": "壁纸暗度"
+  },
+  "showGoogleAppsLabel": {
+    "message": "显示 Google 应用"
+  },
+  "showGoogleAppsHint": {
+    "message": "在顶部显示或隐藏 Google 应用快捷方式"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Google 应用"
+  },
+  "googleAppsSectionHint": {
+    "message": "选择在顶部显示的 Google 应用并排序"
+  },
+  "editGoogleAppsBtn": {
+    "message": "编辑"
+  },
+  "googleAppsModalTitle": {
+    "message": "Google 应用"
+  },
+  "googleAppsModalHint": {
+    "message": "开启或关闭应用，拖动以重新排序"
+  },
+  "shortcutsBackupLabel": {
+    "message": "快捷方式"
+  },
+  "shortcutsBackupHint": {
+    "message": "将快捷方式备份到文件或从文件恢复"
+  },
+  "exportShortcutsBtn": {
+    "message": "导出"
+  },
+  "importShortcutsBtn": {
+    "message": "导入"
+  },
+  "importFromChromeBtn": {
+    "message": "从 Chrome 导入"
+  },
+  "chromeImportModalTitle": {
+    "message": "从 Chrome 导入"
+  },
+  "chromeImportHint": {
+    "message": "选择 Chrome 的 Preferences 文件以导入新标签页快捷方式。在 Chrome 中打开 chrome://version 查看\"个人资料路径\"。"
+  },
+  "chromeImportDropzone": {
+    "message": "将 Preferences 文件拖放到此处，或点击选择"
+  },
+  "chromeImportFoundOne": {
+    "message": "找到 1 个快捷方式。"
+  },
+  "chromeImportFoundMany": {
+    "message": "找到 {count} 个快捷方式。"
+  },
+  "chromeImportInvalidFile": {
+    "message": "这似乎不是 Chrome Preferences 文件。"
+  },
+  "chromeImportNoShortcuts": {
+    "message": "此个人资料中未找到快捷方式。"
+  },
+  "chromeImportConfirmBtn": {
+    "message": "导入"
+  },
+  "importInvalidFile": {
+    "message": "无法读取此快捷方式导出文件。"
+  },
+  "importConfirm": {
+    "message": "这将替换当前的快捷方式。是否继续？"
+  },
+  "imageTooLarge": {
+    "message": "图片过大。最大支持 5 MB。"
+  },
+  "imageSaveError": {
+    "message": "无法保存此图片。"
+  },
+  "defaultPresets": {
+    "message": "默认预设"
+  },
+  "yourPresets": {
+    "message": "我的预设"
+  }
 }

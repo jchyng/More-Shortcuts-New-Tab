@@ -1,27 +1,197 @@
 {
-  "searchPlaceholder": { "message": "Google 검색 또는 URL 입력" },
-  "addShortcutTitle": { "message": "바로가기 추가" },
-  "shortcutLimitReached": { "message": "바로가기는 최대 30개까지 추가할 수 있습니다." },
-  "shortcutSaveError": { "message": "변경 사항을 저장하지 못했습니다. 이전 바로가기는 그대로 유지됩니다." },
-  "addBtnLabel": { "message": "추가" },
-  "saveBtnLabel": { "message": "저장" },
-  "cancelBtnLabel": { "message": "취소" },
-  "modalHeaderAdd": { "message": "바로가기 추가" },
-  "modalHeaderEdit": { "message": "바로가기 수정" },
-  "nameLabel": { "message": "이름" },
-  "urlLabel": { "message": "URL" },
-  "themeTitle": { "message": "테마 변경" },
-  "imgSearchTitle": { "message": "이미지 검색" },
-  "aiModeTitle": { "message": "AI 검색 모드" },
-  "menuEdit": { "message": "수정" },
-  "menuDelete": { "message": "삭제" },
-  "titleLoadingPlaceholder": { "message": "이름 자동 입력 중..." },
-  "titleInputPlaceholder": { "message": "예: 유튜브" },
-  "aiModeBtnText": { "message": "AI 모드" },
-  "importInvalidFile": { "message": "이 파일을 바로가기 내보내기 파일로 읽을 수 없습니다." },
-  "importConfirm": { "message": "현재 바로가기가 대체됩니다. 계속하시겠습니까?" },
-  "chromeImportFoundOne": { "message": "바로가기 1개를 찾았습니다." },
-  "chromeImportFoundMany": { "message": "바로가기 {count}개를 찾았습니다." },
-  "chromeImportInvalidFile": { "message": "Chrome Preferences 파일이 아닌 것 같습니다." },
-  "chromeImportNoShortcuts": { "message": "이 프로필에서 바로가기를 찾을 수 없습니다." }
+  "appName": {
+    "message": "더 많은 바로가기 새 탭"
+  },
+  "appDesc": {
+    "message": "Chrome의 10개 바로가기 제한을 극복하세요. 깔끔하고 맞춤 설정 가능한 새 탭 대시보드에서 최대 30개의 바로가기를 추가하고 검색하세요."
+  },
+  "searchPlaceholder": {
+    "message": "Google 검색 또는 URL 입력"
+  },
+  "imgSearchTitle": {
+    "message": "Google 렌즈로 이미지 검색"
+  },
+  "aiModeTitle": {
+    "message": "AI 검색 모드"
+  },
+  "aiModeBtnText": {
+    "message": "AI 모드"
+  },
+  "addShortcutTitle": {
+    "message": "바로가기 추가"
+  },
+  "shortcutLimitReached": {
+    "message": "바로가기는 최대 30개까지 추가할 수 있습니다."
+  },
+  "shortcutSaveError": {
+    "message": "변경 사항을 저장하지 못했습니다. 이전 바로가기는 그대로 유지됩니다."
+  },
+  "modalHeaderAdd": {
+    "message": "바로가기 추가"
+  },
+  "modalHeaderEdit": {
+    "message": "바로가기 수정"
+  },
+  "nameLabel": {
+    "message": "이름"
+  },
+  "urlLabel": {
+    "message": "URL"
+  },
+  "addBtnLabel": {
+    "message": "추가"
+  },
+  "saveBtnLabel": {
+    "message": "저장"
+  },
+  "cancelBtnLabel": {
+    "message": "취소"
+  },
+  "themeTitle": {
+    "message": "테마 변경"
+  },
+  "customizeTitle": {
+    "message": "맞춤설정"
+  },
+  "menuEdit": {
+    "message": "수정"
+  },
+  "menuDelete": {
+    "message": "삭제"
+  },
+  "menuDeleteConfirm": {
+    "message": "바로가기를 삭제하시겠습니까?"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "이름 자동 입력 중..."
+  },
+  "titleInputPlaceholder": {
+    "message": "예: 유튜브"
+  },
+  "customizeModalTitle": {
+    "message": "페이지 맞춤설정"
+  },
+  "themeLabel": {
+    "message": "테마"
+  },
+  "themeSystem": {
+    "message": "시스템"
+  },
+  "themeLight": {
+    "message": "라이트"
+  },
+  "themeDark": {
+    "message": "다크"
+  },
+  "languageLabel": {
+    "message": "언어"
+  },
+  "languageAuto": {
+    "message": "자동"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "검색창 색상 반전"
+  },
+  "reverseSearchColorsHint": {
+    "message": "검색창에 반대 색상 테마를 적용합니다"
+  },
+  "use24HourClockLabel": {
+    "message": "24시간 시계 사용"
+  },
+  "use24HourClockHint": {
+    "message": "오전/오후 대신 24시간 형식으로 시간을 표시합니다"
+  },
+  "colorThemeLabel": {
+    "message": "색상 테마"
+  },
+  "backgroundSectionLabel": {
+    "message": "배경"
+  },
+  "uploadBackgroundLabel": {
+    "message": "업로드"
+  },
+  "removeBackgroundLabel": {
+    "message": "제거"
+  },
+  "backgroundDimLabel": {
+    "message": "배경 어둡기"
+  },
+  "showGoogleAppsLabel": {
+    "message": "Google 앱 표시"
+  },
+  "showGoogleAppsHint": {
+    "message": "헤더에 Google 앱 바로가기를 표시하거나 숨깁니다"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Google 앱"
+  },
+  "googleAppsSectionHint": {
+    "message": "헤더에 표시할 Google 앱 바로가기를 선택하고 순서를 변경합니다"
+  },
+  "editGoogleAppsBtn": {
+    "message": "수정"
+  },
+  "googleAppsModalTitle": {
+    "message": "Google 앱"
+  },
+  "googleAppsModalHint": {
+    "message": "앱을 켜거나 끄고, 드래그하여 순서를 바꿀 수 있습니다"
+  },
+  "shortcutsBackupLabel": {
+    "message": "바로가기 관리"
+  },
+  "shortcutsBackupHint": {
+    "message": "바로가기를 파일로 백업하거나 백업 파일에서 복원합니다"
+  },
+  "exportShortcutsBtn": {
+    "message": "내보내기"
+  },
+  "importShortcutsBtn": {
+    "message": "가져오기"
+  },
+  "importFromChromeBtn": {
+    "message": "Chrome에서 가져오기"
+  },
+  "chromeImportModalTitle": {
+    "message": "Chrome에서 가져오기"
+  },
+  "chromeImportHint": {
+    "message": "Chrome의 Preferences 파일을 선택하여 새 탭 바로가기를 가져옵니다. Chrome에서 chrome://version 을 열어 \"프로필 경로\"에서 위치를 찾을 수 있습니다."
+  },
+  "chromeImportDropzone": {
+    "message": "Preferences 파일을 여기로 끌어다 놓거나 클릭하여 선택하세요"
+  },
+  "chromeImportFoundOne": {
+    "message": "바로가기 1개를 찾았습니다."
+  },
+  "chromeImportFoundMany": {
+    "message": "바로가기 {count}개를 찾았습니다."
+  },
+  "chromeImportInvalidFile": {
+    "message": "Chrome Preferences 파일이 아닌 것 같습니다."
+  },
+  "chromeImportNoShortcuts": {
+    "message": "이 프로필에서 바로가기를 찾을 수 없습니다."
+  },
+  "chromeImportConfirmBtn": {
+    "message": "가져오기"
+  },
+  "importInvalidFile": {
+    "message": "이 파일을 바로가기 내보내기 파일로 읽을 수 없습니다."
+  },
+  "importConfirm": {
+    "message": "현재 바로가기가 대체됩니다. 계속하시겠습니까?"
+  },
+  "imageTooLarge": {
+    "message": "이미지 파일이 너무 큽니다. 최대 용량은 5MB입니다."
+  },
+  "imageSaveError": {
+    "message": "이미지를 저장하지 못했습니다."
+  },
+  "defaultPresets": {
+    "message": "기본 프리셋"
+  },
+  "yourPresets": {
+    "message": "내 프리셋"
+  }
 }

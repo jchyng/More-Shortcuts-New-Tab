@@ -1,27 +1,197 @@
 {
-  "searchPlaceholder": { "message": "Pesquisar no Google ou digitar um URL" },
-  "addShortcutTitle": { "message": "Adicionar atalho" },
-  "shortcutLimitReached": { "message": "Você pode adicionar até 30 atalhos." },
-  "shortcutSaveError": { "message": "Não foi possível salvar suas alterações. Seus atalhos anteriores continuam intactos." },
-  "addBtnLabel": { "message": "Adicionar" },
-  "saveBtnLabel": { "message": "Salvar" },
-  "cancelBtnLabel": { "message": "Cancelar" },
-  "modalHeaderAdd": { "message": "Adicionar atalho" },
-  "modalHeaderEdit": { "message": "Editar atalho" },
-  "nameLabel": { "message": "Nome" },
-  "urlLabel": { "message": "URL" },
-  "themeTitle": { "message": "Alternar tema" },
-  "imgSearchTitle": { "message": "Pesquisa de imagens" },
-  "aiModeTitle": { "message": "Modo de pesquisa por IA" },
-  "menuEdit": { "message": "Editar" },
-  "menuDelete": { "message": "Excluir" },
-  "titleLoadingPlaceholder": { "message": "Obtendo nome..." },
-  "titleInputPlaceholder": { "message": "ex.: YouTube" },
-  "aiModeBtnText": { "message": "Modo IA" },
-  "importInvalidFile": { "message": "Não foi possível ler este arquivo como uma exportação de atalhos." },
-  "importConfirm": { "message": "Isso substituirá seus atalhos atuais. Continuar?" },
-  "chromeImportFoundOne": { "message": "1 atalho encontrado." },
-  "chromeImportFoundMany": { "message": "{count} atalhos encontrados." },
-  "chromeImportInvalidFile": { "message": "Isso não parece ser um arquivo Preferences do Chrome." },
-  "chromeImportNoShortcuts": { "message": "Nenhum atalho foi encontrado neste perfil." }
+  "appName": {
+    "message": "More Shortcuts New Tab"
+  },
+  "appDesc": {
+    "message": "Supere o limite de 10 atalhos do Chrome. Adicione até 30 atalhos em uma nova guia personalizável e organizada."
+  },
+  "searchPlaceholder": {
+    "message": "Pesquise no Google ou digite um URL"
+  },
+  "imgSearchTitle": {
+    "message": "Pesquisar imagem com o Google Lens"
+  },
+  "aiModeTitle": {
+    "message": "Modo de pesquisa com IA"
+  },
+  "aiModeBtnText": {
+    "message": "Modo IA"
+  },
+  "addShortcutTitle": {
+    "message": "Adicionar atalho"
+  },
+  "shortcutLimitReached": {
+    "message": "Você pode adicionar até 30 atalhos."
+  },
+  "shortcutSaveError": {
+    "message": "Não foi possível salvar as alterações. Seus atalhos anteriores continuam intactos."
+  },
+  "modalHeaderAdd": {
+    "message": "Adicionar atalho"
+  },
+  "modalHeaderEdit": {
+    "message": "Editar atalho"
+  },
+  "nameLabel": {
+    "message": "Nome"
+  },
+  "urlLabel": {
+    "message": "URL"
+  },
+  "addBtnLabel": {
+    "message": "Adicionar"
+  },
+  "saveBtnLabel": {
+    "message": "Salvar"
+  },
+  "cancelBtnLabel": {
+    "message": "Cancelar"
+  },
+  "themeTitle": {
+    "message": "Alternar tema"
+  },
+  "customizeTitle": {
+    "message": "Personalizar"
+  },
+  "menuEdit": {
+    "message": "Editar"
+  },
+  "menuDelete": {
+    "message": "Excluir"
+  },
+  "menuDeleteConfirm": {
+    "message": "Excluir atalho?"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "Buscando nome..."
+  },
+  "titleInputPlaceholder": {
+    "message": "ex: YouTube"
+  },
+  "customizeModalTitle": {
+    "message": "Personalizar página"
+  },
+  "themeLabel": {
+    "message": "Tema"
+  },
+  "themeSystem": {
+    "message": "Sistema"
+  },
+  "themeLight": {
+    "message": "Claro"
+  },
+  "themeDark": {
+    "message": "Escuro"
+  },
+  "languageLabel": {
+    "message": "Idioma"
+  },
+  "languageAuto": {
+    "message": "Automático"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "Inverter cores da barra de pesquisa"
+  },
+  "reverseSearchColorsHint": {
+    "message": "Usa o esquema de cores oposto para a barra de pesquisa"
+  },
+  "use24HourClockLabel": {
+    "message": "Usar formato de 24 horas"
+  },
+  "use24HourClockHint": {
+    "message": "Mostra o horário no formato de 24 horas em vez de AM/PM"
+  },
+  "colorThemeLabel": {
+    "message": "Tema de cor"
+  },
+  "backgroundSectionLabel": {
+    "message": "Plano de fundo"
+  },
+  "uploadBackgroundLabel": {
+    "message": "Enviar"
+  },
+  "removeBackgroundLabel": {
+    "message": "Remover"
+  },
+  "backgroundDimLabel": {
+    "message": "Escurecimento do fundo"
+  },
+  "showGoogleAppsLabel": {
+    "message": "Mostrar aplicativos Google"
+  },
+  "showGoogleAppsHint": {
+    "message": "Mostra ou oculta os atalhos do Google no cabeçalho"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Aplicativos Google"
+  },
+  "googleAppsSectionHint": {
+    "message": "Escolha quais aplicativos aparecem no cabeçalho e organize-os"
+  },
+  "editGoogleAppsBtn": {
+    "message": "Editar"
+  },
+  "googleAppsModalTitle": {
+    "message": "Aplicativos Google"
+  },
+  "googleAppsModalHint": {
+    "message": "Ative/desative apps e arraste para reorganizar"
+  },
+  "shortcutsBackupLabel": {
+    "message": "Atalhos"
+  },
+  "shortcutsBackupHint": {
+    "message": "Faça backup dos seus atalhos em arquivo ou restaure-os"
+  },
+  "exportShortcutsBtn": {
+    "message": "Exportar"
+  },
+  "importShortcutsBtn": {
+    "message": "Importar"
+  },
+  "importFromChromeBtn": {
+    "message": "Importar do Chrome"
+  },
+  "chromeImportModalTitle": {
+    "message": "Importar do Chrome"
+  },
+  "chromeImportHint": {
+    "message": "Selecione o arquivo Preferences do Chrome para importar os atalhos. Abra chrome://version para ver o \"Caminho de perfil\"."
+  },
+  "chromeImportDropzone": {
+    "message": "Arraste o arquivo Preferences aqui ou clique para escolher"
+  },
+  "chromeImportFoundOne": {
+    "message": "1 atalho encontrado."
+  },
+  "chromeImportFoundMany": {
+    "message": "{count} atalhos encontrados."
+  },
+  "chromeImportInvalidFile": {
+    "message": "Este não parece ser um arquivo Preferences do Chrome."
+  },
+  "chromeImportNoShortcuts": {
+    "message": "Nenhum atalho encontrado neste perfil."
+  },
+  "chromeImportConfirmBtn": {
+    "message": "Importar"
+  },
+  "importInvalidFile": {
+    "message": "Não foi possível ler este arquivo de exportação."
+  },
+  "importConfirm": {
+    "message": "Isso substituirá seus atalhos atuais. Continuar?"
+  },
+  "imageTooLarge": {
+    "message": "A imagem é muito grande. Tamanho máximo: 5 MB."
+  },
+  "imageSaveError": {
+    "message": "Não foi possível salvar esta imagem."
+  },
+  "defaultPresets": {
+    "message": "Predefinições padrão"
+  },
+  "yourPresets": {
+    "message": "Suas predefinições"
+  }
 }

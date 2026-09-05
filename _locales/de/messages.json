@@ -1,27 +1,197 @@
 {
-  "searchPlaceholder": { "message": "Google-Suche oder URL eingeben" },
-  "addShortcutTitle": { "message": "Verknüpfung hinzufügen" },
-  "shortcutLimitReached": { "message": "Du kannst bis zu 30 Verknüpfungen hinzufügen." },
-  "shortcutSaveError": { "message": "Änderungen konnten nicht gespeichert werden. Deine vorherigen Verknüpfungen sind weiterhin vorhanden." },
-  "addBtnLabel": { "message": "Hinzufügen" },
-  "saveBtnLabel": { "message": "Speichern" },
-  "cancelBtnLabel": { "message": "Abbrechen" },
-  "modalHeaderAdd": { "message": "Verknüpfung hinzufügen" },
-  "modalHeaderEdit": { "message": "Verknüpfung bearbeiten" },
-  "nameLabel": { "message": "Name" },
-  "urlLabel": { "message": "URL" },
-  "themeTitle": { "message": "Design wechseln" },
-  "imgSearchTitle": { "message": "Bildersuche" },
-  "aiModeTitle": { "message": "KI-Suchmodus" },
-  "menuEdit": { "message": "Bearbeiten" },
-  "menuDelete": { "message": "Löschen" },
-  "titleLoadingPlaceholder": { "message": "Name wird abgerufen..." },
-  "titleInputPlaceholder": { "message": "z. B. YouTube" },
-  "aiModeBtnText": { "message": "KI-Modus" },
-  "importInvalidFile": { "message": "Diese Datei konnte nicht als Verknüpfungs-Export gelesen werden." },
-  "importConfirm": { "message": "Dadurch werden deine aktuellen Verknüpfungen ersetzt. Fortfahren?" },
-  "chromeImportFoundOne": { "message": "1 Verknüpfung gefunden." },
-  "chromeImportFoundMany": { "message": "{count} Verknüpfungen gefunden." },
-  "chromeImportInvalidFile": { "message": "Das sieht nicht nach einer Chrome-Preferences-Datei aus." },
-  "chromeImportNoShortcuts": { "message": "In diesem Profil wurden keine Verknüpfungen gefunden." }
+  "appName": {
+    "message": "More Shortcuts New Tab"
+  },
+  "appDesc": {
+    "message": "Überwinden Sie das Limit von 10 Verknüpfungen in Chrome. Fügen Sie bis zu 30 Verknüpfungen auf einer anpassbaren Neuer-Tab-Seite hinzu."
+  },
+  "searchPlaceholder": {
+    "message": "Google durchsuchen oder URL eingeben"
+  },
+  "imgSearchTitle": {
+    "message": "Bildsuche mit Google Lens"
+  },
+  "aiModeTitle": {
+    "message": "KI-Suchmodus"
+  },
+  "aiModeBtnText": {
+    "message": "KI-Modus"
+  },
+  "addShortcutTitle": {
+    "message": "Verknüpfung hinzufügen"
+  },
+  "shortcutLimitReached": {
+    "message": "Sie können bis zu 30 Verknüpfungen hinzufügen."
+  },
+  "shortcutSaveError": {
+    "message": "Änderungen konnten nicht gespeichert werden. Ihre bisherigen Verknüpfungen bleiben erhalten."
+  },
+  "modalHeaderAdd": {
+    "message": "Verknüpfung hinzufügen"
+  },
+  "modalHeaderEdit": {
+    "message": "Verknüpfung bearbeiten"
+  },
+  "nameLabel": {
+    "message": "Name"
+  },
+  "urlLabel": {
+    "message": "URL"
+  },
+  "addBtnLabel": {
+    "message": "Hinzufügen"
+  },
+  "saveBtnLabel": {
+    "message": "Speichern"
+  },
+  "cancelBtnLabel": {
+    "message": "Abbrechen"
+  },
+  "themeTitle": {
+    "message": "Design wechseln"
+  },
+  "customizeTitle": {
+    "message": "Anpassen"
+  },
+  "menuEdit": {
+    "message": "Bearbeiten"
+  },
+  "menuDelete": {
+    "message": "Löschen"
+  },
+  "menuDeleteConfirm": {
+    "message": "Verknüpfung löschen?"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "Name wird abgerufen..."
+  },
+  "titleInputPlaceholder": {
+    "message": "z.B. YouTube"
+  },
+  "customizeModalTitle": {
+    "message": "Seite anpassen"
+  },
+  "themeLabel": {
+    "message": "Design"
+  },
+  "themeSystem": {
+    "message": "System"
+  },
+  "themeLight": {
+    "message": "Hell"
+  },
+  "themeDark": {
+    "message": "Dunkel"
+  },
+  "languageLabel": {
+    "message": "Sprache"
+  },
+  "languageAuto": {
+    "message": "Automatisch"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "Suchleisten-Farben umkehren"
+  },
+  "reverseSearchColorsHint": {
+    "message": "Nutzt das entgegengesetzte Farbschema für die Suchleiste"
+  },
+  "use24HourClockLabel": {
+    "message": "24-Stunden-Format nutzen"
+  },
+  "use24HourClockHint": {
+    "message": "Zeigt die Uhrzeit im 24-Stunden-Format statt AM/PM"
+  },
+  "colorThemeLabel": {
+    "message": "Farbthema"
+  },
+  "backgroundSectionLabel": {
+    "message": "Hintergrund"
+  },
+  "uploadBackgroundLabel": {
+    "message": "Hochladen"
+  },
+  "removeBackgroundLabel": {
+    "message": "Entfernen"
+  },
+  "backgroundDimLabel": {
+    "message": "Hintergrund-Abdunkelung"
+  },
+  "showGoogleAppsLabel": {
+    "message": "Google Apps anzeigen"
+  },
+  "showGoogleAppsHint": {
+    "message": "Google App-Verknüpfungen in der Kopfzeile ein- oder ausblenden"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Google Apps"
+  },
+  "googleAppsSectionHint": {
+    "message": "Wählen Sie Verknüpfungen für die Kopfzeile aus und ordnen Sie sie neu an"
+  },
+  "editGoogleAppsBtn": {
+    "message": "Bearbeiten"
+  },
+  "googleAppsModalTitle": {
+    "message": "Google Apps"
+  },
+  "googleAppsModalHint": {
+    "message": "Apps ein-/ausschalten und durch Ziehen neu anordnen"
+  },
+  "shortcutsBackupLabel": {
+    "message": "Verknüpfungen"
+  },
+  "shortcutsBackupHint": {
+    "message": "Verknüpfungen als Datei sichern oder wiederherstellen"
+  },
+  "exportShortcutsBtn": {
+    "message": "Exportieren"
+  },
+  "importShortcutsBtn": {
+    "message": "Importieren"
+  },
+  "importFromChromeBtn": {
+    "message": "Aus Chrome importieren"
+  },
+  "chromeImportModalTitle": {
+    "message": "Aus Chrome importieren"
+  },
+  "chromeImportHint": {
+    "message": "Wählen Sie die Preferences-Datei von Chrome aus. Öffnen Sie chrome://version für den \"Profilpfad\"."
+  },
+  "chromeImportDropzone": {
+    "message": "Preferences-Datei hierher ziehen oder klicken"
+  },
+  "chromeImportFoundOne": {
+    "message": "1 Verknüpfung gefunden."
+  },
+  "chromeImportFoundMany": {
+    "message": "{count} Verknüpfungen gefunden."
+  },
+  "chromeImportInvalidFile": {
+    "message": "Dies scheint keine gültige Chrome-Preferences-Datei zu sein."
+  },
+  "chromeImportNoShortcuts": {
+    "message": "Keine Verknüpfungen in diesem Profil gefunden."
+  },
+  "chromeImportConfirmBtn": {
+    "message": "Importieren"
+  },
+  "importInvalidFile": {
+    "message": "Datei konnte nicht als Verknüpfungs-Export gelesen werden."
+  },
+  "importConfirm": {
+    "message": "Dies ersetzt Ihre aktuellen Verknüpfungen. Fortfahren?"
+  },
+  "imageTooLarge": {
+    "message": "Bild ist zu groß. Maximale Größe: 5 MB."
+  },
+  "imageSaveError": {
+    "message": "Bild konnte nicht gespeichert werden."
+  },
+  "defaultPresets": {
+    "message": "Standard-Voreinstellungen"
+  },
+  "yourPresets": {
+    "message": "Eigene Voreinstellungen"
+  }
 }

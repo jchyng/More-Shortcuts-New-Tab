@@ -1,27 +1,197 @@
 {
-  "searchPlaceholder": { "message": "Tìm kiếm trên Google hoặc nhập URL" },
-  "addShortcutTitle": { "message": "Thêm lối tắt" },
-  "shortcutLimitReached": { "message": "Bạn có thể thêm tối đa 30 lối tắt." },
-  "shortcutSaveError": { "message": "Không thể lưu thay đổi của bạn. Các lối tắt trước đó của bạn vẫn còn nguyên." },
-  "addBtnLabel": { "message": "Thêm" },
-  "saveBtnLabel": { "message": "Lưu" },
-  "cancelBtnLabel": { "message": "Hủy" },
-  "modalHeaderAdd": { "message": "Thêm lối tắt" },
-  "modalHeaderEdit": { "message": "Chỉnh sửa lối tắt" },
-  "nameLabel": { "message": "Tên" },
-  "urlLabel": { "message": "URL" },
-  "themeTitle": { "message": "Đổi giao diện" },
-  "imgSearchTitle": { "message": "Tìm kiếm bằng hình ảnh" },
-  "aiModeTitle": { "message": "Chế độ tìm kiếm AI" },
-  "menuEdit": { "message": "Chỉnh sửa" },
-  "menuDelete": { "message": "Xóa" },
-  "titleLoadingPlaceholder": { "message": "Đang lấy tên..." },
-  "titleInputPlaceholder": { "message": "vd: YouTube" },
-  "aiModeBtnText": { "message": "Chế độ AI" },
-  "importInvalidFile": { "message": "Không thể đọc tệp này dưới dạng tệp xuất lối tắt." },
-  "importConfirm": { "message": "Thao tác này sẽ thay thế các lối tắt hiện tại của bạn. Tiếp tục?" },
-  "chromeImportFoundOne": { "message": "Đã tìm thấy 1 lối tắt." },
-  "chromeImportFoundMany": { "message": "Đã tìm thấy {count} lối tắt." },
-  "chromeImportInvalidFile": { "message": "Tệp này có vẻ không phải là tệp Preferences của Chrome." },
-  "chromeImportNoShortcuts": { "message": "Không tìm thấy lối tắt nào trong hồ sơ này." }
+  "appName": {
+    "message": "More Shortcuts New Tab"
+  },
+  "appDesc": {
+    "message": "Vượt qua giới hạn 10 lối tắt của Chrome. Thêm tối đa 30 lối tắt vào trang tab mới tùy chỉnh đẹp mắt."
+  },
+  "searchPlaceholder": {
+    "message": "Tìm kiếm trên Google hoặc nhập URL"
+  },
+  "imgSearchTitle": {
+    "message": "Tìm kiếm bằng hình ảnh với Google Lens"
+  },
+  "aiModeTitle": {
+    "message": "Chế độ tìm kiếm AI"
+  },
+  "aiModeBtnText": {
+    "message": "Chế độ AI"
+  },
+  "addShortcutTitle": {
+    "message": "Thêm lối tắt"
+  },
+  "shortcutLimitReached": {
+    "message": "Bạn có thể thêm tối đa 30 lối tắt."
+  },
+  "shortcutSaveError": {
+    "message": "Không thể lưu thay đổi. Các lối tắt trước đó vẫn được giữ nguyên."
+  },
+  "modalHeaderAdd": {
+    "message": "Thêm lối tắt"
+  },
+  "modalHeaderEdit": {
+    "message": "Chỉnh sửa lối tắt"
+  },
+  "nameLabel": {
+    "message": "Tên"
+  },
+  "urlLabel": {
+    "message": "URL"
+  },
+  "addBtnLabel": {
+    "message": "Thêm"
+  },
+  "saveBtnLabel": {
+    "message": "Lưu"
+  },
+  "cancelBtnLabel": {
+    "message": "Hủy"
+  },
+  "themeTitle": {
+    "message": "Chuyển đổi giao diện"
+  },
+  "customizeTitle": {
+    "message": "Tùy chỉnh"
+  },
+  "menuEdit": {
+    "message": "Sửa"
+  },
+  "menuDelete": {
+    "message": "Xóa"
+  },
+  "menuDeleteConfirm": {
+    "message": "Xóa lối tắt này?"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "Đang lấy tên..."
+  },
+  "titleInputPlaceholder": {
+    "message": "vd: YouTube"
+  },
+  "customizeModalTitle": {
+    "message": "Tùy chỉnh trang"
+  },
+  "themeLabel": {
+    "message": "Giao diện"
+  },
+  "themeSystem": {
+    "message": "Hệ thống"
+  },
+  "themeLight": {
+    "message": "Sáng"
+  },
+  "themeDark": {
+    "message": "Tối"
+  },
+  "languageLabel": {
+    "message": "Ngôn ngữ"
+  },
+  "languageAuto": {
+    "message": "Tự động"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "Đảo ngược màu thanh tìm kiếm"
+  },
+  "reverseSearchColorsHint": {
+    "message": "Sử dụng bảng màu đối lập cho thanh tìm kiếm"
+  },
+  "use24HourClockLabel": {
+    "message": "Sử dụng đồng hồ 24 giờ"
+  },
+  "use24HourClockHint": {
+    "message": "Hiển thị thời gian ở định dạng 24 giờ thay vì AM/PM"
+  },
+  "colorThemeLabel": {
+    "message": "Chủ đề màu sắc"
+  },
+  "backgroundSectionLabel": {
+    "message": "Hình nền"
+  },
+  "uploadBackgroundLabel": {
+    "message": "Tải lên"
+  },
+  "removeBackgroundLabel": {
+    "message": "Xóa"
+  },
+  "backgroundDimLabel": {
+    "message": "Độ tối hình nền"
+  },
+  "showGoogleAppsLabel": {
+    "message": "Hiển thị ứng dụng Google"
+  },
+  "showGoogleAppsHint": {
+    "message": "Hiển thị hoặc ẩn lối tắt Google trên thanh tiêu đề"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Ứng dụng Google"
+  },
+  "googleAppsSectionHint": {
+    "message": "Chọn ứng dụng hiển thị và sắp xếp lại thứ tự"
+  },
+  "editGoogleAppsBtn": {
+    "message": "Sửa"
+  },
+  "googleAppsModalTitle": {
+    "message": "Ứng dụng Google"
+  },
+  "googleAppsModalHint": {
+    "message": "Bật/tắt ứng dụng và kéo để sắp xếp lại"
+  },
+  "shortcutsBackupLabel": {
+    "message": "Lối tắt"
+  },
+  "shortcutsBackupHint": {
+    "message": "Sao lưu hoặc khôi phục lối tắt từ tệp tin"
+  },
+  "exportShortcutsBtn": {
+    "message": "Xuất"
+  },
+  "importShortcutsBtn": {
+    "message": "Nhập"
+  },
+  "importFromChromeBtn": {
+    "message": "Nhập từ Chrome"
+  },
+  "chromeImportModalTitle": {
+    "message": "Nhập từ Chrome"
+  },
+  "chromeImportHint": {
+    "message": "Chọn tệp Preferences của Chrome để nhập lối tắt. Mở chrome://version để xem \"Đường dẫn hồ sơ\"."
+  },
+  "chromeImportDropzone": {
+    "message": "Kéo tệp Preferences vào đây hoặc nhấp để chọn"
+  },
+  "chromeImportFoundOne": {
+    "message": "Tìm thấy 1 lối tắt."
+  },
+  "chromeImportFoundMany": {
+    "message": "Tìm thấy {count} lối tắt."
+  },
+  "chromeImportInvalidFile": {
+    "message": "Đây không phải là tệp Preferences của Chrome."
+  },
+  "chromeImportNoShortcuts": {
+    "message": "Không tìm thấy lối tắt nào trong hồ sơ này."
+  },
+  "chromeImportConfirmBtn": {
+    "message": "Nhập"
+  },
+  "importInvalidFile": {
+    "message": "Không thể đọc tệp sao lưu lối tắt này."
+  },
+  "importConfirm": {
+    "message": "Thao tác này sẽ ghi đè lối tắt hiện tại. Tiếp tục?"
+  },
+  "imageTooLarge": {
+    "message": "Kích thước ảnh quá lớn. Dung lượng tối đa là 5 MB."
+  },
+  "imageSaveError": {
+    "message": "Không thể lưu hình ảnh này."
+  },
+  "defaultPresets": {
+    "message": "Cài đặt sẵn mặc định"
+  },
+  "yourPresets": {
+    "message": "Cài đặt sẵn của bạn"
+  }
 }

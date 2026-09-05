@@ -166,7 +166,7 @@ function closeAllMenus() {
 }
 
 async function deleteShortcut(id) {
-  if (confirm(t.menuDelete + "?")) {
+  if (confirm(t.menuDeleteConfirm || t.menuDelete + "?")) {
     const nextShortcuts = shortcuts.filter((item) => item.id !== id);
     try {
       await saveShortcuts(nextShortcuts);

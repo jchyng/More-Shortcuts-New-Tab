@@ -95,18 +95,18 @@
 
     <dialog id="addModal">
         <form id="addForm" method="dialog">
-            <h3 id="modalHeader">Add Shortcut</h3>
+            <h3 id="modalHeader" data-i18n="modalHeaderAdd">Add Shortcut</h3>
             <div class="input-group">
-                <label for="modalUrl">URL</label>
+                <label for="modalUrl" data-i18n="urlLabel">URL</label>
                 <input type="text" inputmode="url" id="modalUrl" placeholder="https://" required autofocus>
             </div>
             <div class="input-group">
-                <label for="modalTitle">Name</label>
+                <label for="modalTitle" data-i18n="nameLabel">Name</label>
                 <input type="text" id="modalTitle" placeholder="e.g. YouTube" required>
             </div>
             <div class="modal-actions">
-                <button type="button" id="cancelBtn">Cancel</button>
-                <button type="submit" class="primary" id="submitBtn">Add</button>
+                <button type="button" id="cancelBtn" data-i18n="cancelBtnLabel">Cancel</button>
+                <button type="submit" class="primary" id="submitBtn" data-i18n="addBtnLabel">Add</button>
             </div>
         </form>
     </dialog>
@@ -114,7 +114,7 @@
     <dialog id="customizeModal" class="customize-modal">
         <div class="customize-content">
             <div class="customize-header">
-                <h3>Customize</h3>
+                <h3 data-i18n="customizeModalTitle">Customize</h3>
 
                 <button id="closeCustomizeBtn" class="icon-btn">
                     <span class="material-icons">close</span>
@@ -122,25 +122,50 @@
             </div>
 
             <div class="customize-section">
-                <label for="themeSelect">Theme</label>
+                <label for="themeSelect" data-i18n="themeLabel">Theme</label>
 
                 <div class="theme-picker" id="themePicker">
                     <button id="themeSelect" class="theme-picker-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
-                        <span id="themeSelectValue">System</span>
+                        <span id="themeSelectValue" data-i18n="themeSystem">System</span>
                         <span class="material-icons theme-picker-arrow">expand_more</span>
                     </button>
                     <div class="theme-picker-options" id="themeOptions" role="listbox" hidden>
-                        <button type="button" role="option" data-value="system">System</button>
-                        <button type="button" role="option" data-value="light">Light</button>
-                        <button type="button" role="option" data-value="dark">Dark</button>
+                        <button type="button" role="option" data-value="system" data-i18n="themeSystem">System</button>
+                        <button type="button" role="option" data-value="light" data-i18n="themeLight">Light</button>
+                        <button type="button" role="option" data-value="dark" data-i18n="themeDark">Dark</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="customize-section">
+                <label for="languageSelect" data-i18n="languageLabel">Language</label>
+
+                <div class="theme-picker" id="languagePicker">
+                    <button id="languageSelect" class="theme-picker-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span id="languageSelectValue">Auto</span>
+                        <span class="material-icons theme-picker-arrow">expand_more</span>
+                    </button>
+                    <div class="theme-picker-options" id="languageOptions" role="listbox" hidden>
+                        <button type="button" role="option" data-value="auto" data-i18n="languageAuto">Auto</button>
+                        <button type="button" role="option" data-value="ko">한국어</button>
+                        <button type="button" role="option" data-value="en">English</button>
+                        <button type="button" role="option" data-value="ja">日本語</button>
+                        <button type="button" role="option" data-value="zh_CN">简体中文</button>
+                        <button type="button" role="option" data-value="es">Español</button>
+                        <button type="button" role="option" data-value="fr">Français</button>
+                        <button type="button" role="option" data-value="de">Deutsch</button>
+                        <button type="button" role="option" data-value="pt_BR">Português (Brasil)</button>
+                        <button type="button" role="option" data-value="vi">Tiếng Việt</button>
+                        <button type="button" role="option" data-value="ru">Русский</button>
+                        <button type="button" role="option" data-value="id">Bahasa Indonesia</button>
                     </div>
                 </div>
             </div>
 
             <div class="customize-section customize-toggle-row">
                 <div>
-                    <label for="reverseSearchColors">Reverse search bar colors</label>
-                    <span class="customize-hint">Use the opposite color scheme for the search bar</span>
+                    <label for="reverseSearchColors" data-i18n="reverseSearchColorsLabel">Reverse search bar colors</label>
+                    <span class="customize-hint" data-i18n="reverseSearchColorsHint">Use the opposite color scheme for the search bar</span>
                 </div>
                 <label class="toggle-switch" for="reverseSearchColors">
                     <input type="checkbox" id="reverseSearchColors">
@@ -150,8 +175,8 @@
 
             <div class="customize-section customize-toggle-row">
                 <div>
-                    <label for="use24HourClock">Use 24-hour clock</label>
-                    <span class="customize-hint">Show time in 24-hour format instead of AM/PM</span>
+                    <label for="use24HourClock" data-i18n="use24HourClockLabel">Use 24-hour clock</label>
+                    <span class="customize-hint" data-i18n="use24HourClockHint">Show time in 24-hour format instead of AM/PM</span>
                 </div>
                 <label class="toggle-switch" for="use24HourClock">
                     <input type="checkbox" id="use24HourClock">
@@ -160,7 +185,7 @@
             </div>
 
             <div class="customize-section">
-                <label>Color theme</label>
+                <label data-i18n="colorThemeLabel">Color theme</label>
                 <div class="color-theme-grid" id="colorThemeOptions" aria-label="Color theme">
                     <button type="button" class="color-theme-swatch neutral" data-theme-color="neutral" data-color="" title="Neutral" aria-label="Neutral"></button>
                     <button type="button" class="color-theme-swatch" data-theme-color="black" data-color="#111111" title="Black" aria-label="Black"></button>
@@ -180,14 +205,14 @@
             </div>
 
             <div class="customize-section">
-                <label>Background</label>
+                <label data-i18n="backgroundSectionLabel">Background</label>
 
                 <div class="wallpaper-gallery" id="wallpaperGallery"></div>
 
                 <div class="upload-row">
                     <label for="backgroundInput" class="customize-btn">
                         <span class="material-icons">upload</span>
-                        Upload
+                        <span data-i18n="uploadBackgroundLabel">Upload</span>
                     </label>
                     <input
                             type="file"
@@ -198,13 +223,13 @@
 
                     <button id="removeBackgroundBtn" class="customize-btn" type="button">
                         <span class="material-icons">delete_outline</span>
-                        Remove
+                        <span data-i18n="removeBackgroundLabel">Remove</span>
                     </button>
                 </div>
             </div>
 
             <div class="customize-section">
-                <label for="backgroundDim">
+                <label for="backgroundDim" data-i18n="backgroundDimLabel">
                     Wallpaper darkness
                 </label>
 
@@ -219,8 +244,8 @@
 
             <div class="customize-section customize-toggle-row">
                 <div>
-                    <label for="hideAllGoogleApps">Show Google apps</label>
-                    <span class="customize-hint">Show or hide the Google app shortcuts in the header</span>
+                    <label for="hideAllGoogleApps" data-i18n="showGoogleAppsLabel">Show Google apps</label>
+                    <span class="customize-hint" data-i18n="showGoogleAppsHint">Show or hide the Google app shortcuts in the header</span>
                 </div>
                 <label class="toggle-switch" for="hideAllGoogleApps">
                     <input type="checkbox" id="hideAllGoogleApps" checked>
@@ -229,30 +254,30 @@
             </div>
 
             <div class="customize-section">
-                <label>Google apps</label>
-                <span class="customize-hint">Choose which Google app shortcuts appear in the header, and reorder them</span>
+                <label data-i18n="googleAppsSectionLabel">Google apps</label>
+                <span class="customize-hint" data-i18n="googleAppsSectionHint">Choose which Google app shortcuts appear in the header, and reorder them</span>
 
                 <div class="upload-row">
                     <button id="editGoogleAppsBtn" class="customize-btn" type="button">
                         <span class="material-icons">tune</span>
-                        Edit
+                        <span data-i18n="editGoogleAppsBtn">Edit</span>
                     </button>
                 </div>
             </div>
 
             <div class="customize-section">
-                <label>Shortcuts</label>
-                <span class="customize-hint">Back up your shortcuts to a file, or restore them from one</span>
+                <label data-i18n="shortcutsBackupLabel">Shortcuts</label>
+                <span class="customize-hint" data-i18n="shortcutsBackupHint">Back up your shortcuts to a file, or restore them from one</span>
 
                 <div class="upload-row">
                     <button id="exportShortcutsBtn" class="customize-btn" type="button">
                         <span class="material-icons">download</span>
-                        Export
+                        <span data-i18n="exportShortcutsBtn">Export</span>
                     </button>
 
                     <label for="importShortcutsInput" class="customize-btn">
                         <span class="material-icons">upload</span>
-                        Import
+                        <span data-i18n="importShortcutsBtn">Import</span>
                     </label>
                     <input
                             type="file"
@@ -265,7 +290,7 @@
                 <div class="upload-row">
                     <button id="importFromChromeBtn" class="customize-btn" type="button">
                         <span class="material-icons">travel_explore</span>
-                        Import from Chrome
+                        <span data-i18n="importFromChromeBtn">Import from Chrome</span>
                     </button>
                 </div>
             </div>
@@ -275,7 +300,7 @@
     <dialog id="googleAppsModal" class="customize-modal">
         <div class="customize-content">
             <div class="customize-header">
-                <h3>Google apps</h3>
+                <h3 data-i18n="googleAppsModalTitle">Google apps</h3>
 
                 <button id="closeGoogleAppsBtn" class="icon-btn">
                     <span class="material-icons">close</span>
@@ -283,7 +308,7 @@
             </div>
 
             <div class="customize-section">
-                <span class="customize-hint">Switch apps on or off, and drag them to reorder</span>
+                <span class="customize-hint" data-i18n="googleAppsModalHint">Switch apps on or off, and drag them to reorder</span>
 
                 <div id="googleAppList" class="google-app-list">
                     <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="gmail">
@@ -415,7 +440,7 @@
     <dialog id="chromeImportModal" class="customize-modal">
         <div class="customize-content">
             <div class="customize-header">
-                <h3>Import from Chrome</h3>
+                <h3 data-i18n="chromeImportModalTitle">Import from Chrome</h3>
 
                 <button id="closeChromeImportBtn" class="icon-btn">
                     <span class="material-icons">close</span>
@@ -423,7 +448,7 @@
             </div>
 
             <div class="customize-section" id="chromeImportIntro">
-                <p class="chrome-import-hint">
+                <p class="chrome-import-hint" data-i18n="chromeImportHint">
                     Select Chrome's <code>Preferences</code> file to import its New Tab shortcuts.
                     Find its location by opening <code>chrome://version</code> in Chrome and looking
                     for "Profile Path".
@@ -431,7 +456,7 @@
 
                 <div class="chrome-import-dropzone" id="chromeImportDropzone" tabindex="0" role="button">
                     <span class="material-icons">upload_file</span>
-                    <span>Drag the <code>Preferences</code> file here, or click to choose it</span>
+                    <span data-i18n="chromeImportDropzone">Drag the <code>Preferences</code> file here, or click to choose it</span>
                 </div>
                 <input type="file" id="chromeImportFileInput" hidden>
             </div>
@@ -440,8 +465,8 @@
                 <span class="chrome-import-summary" id="chromeImportSummary"></span>
                 <div class="chrome-import-list" id="chromeImportList"></div>
                 <div class="modal-actions">
-                    <button type="button" id="chromeImportCancelBtn">Cancel</button>
-                    <button type="button" class="primary" id="chromeImportConfirmBtn">Import</button>
+                    <button type="button" id="chromeImportCancelBtn" data-i18n="cancelBtnLabel">Cancel</button>
+                    <button type="button" class="primary" id="chromeImportConfirmBtn" data-i18n="chromeImportConfirmBtn">Import</button>
                 </div>
             </div>
 
@@ -452,6 +477,7 @@
     </dialog>
 
     <script src="js/prefs.js"></script>
+    <script src="js/i18n.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/favicons.js"></script>
     <script src="js/dragdrop.js"></script>

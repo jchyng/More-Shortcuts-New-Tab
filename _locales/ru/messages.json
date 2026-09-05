@@ -1,27 +1,197 @@
 {
-  "searchPlaceholder": { "message": "Поиск в Google или введите URL" },
-  "addShortcutTitle": { "message": "Добавить ярлык" },
-  "shortcutLimitReached": { "message": "Вы можете добавить до 30 ярлыков." },
-  "shortcutSaveError": { "message": "Не удалось сохранить изменения. Ваши предыдущие ярлыки остались без изменений." },
-  "addBtnLabel": { "message": "Добавить" },
-  "saveBtnLabel": { "message": "Сохранить" },
-  "cancelBtnLabel": { "message": "Отмена" },
-  "modalHeaderAdd": { "message": "Добавить ярлык" },
-  "modalHeaderEdit": { "message": "Изменить ярлык" },
-  "nameLabel": { "message": "Название" },
-  "urlLabel": { "message": "URL" },
-  "themeTitle": { "message": "Сменить тему" },
-  "imgSearchTitle": { "message": "Поиск по картинкам" },
-  "aiModeTitle": { "message": "Режим ИИ-поиска" },
-  "menuEdit": { "message": "Изменить" },
-  "menuDelete": { "message": "Удалить" },
-  "titleLoadingPlaceholder": { "message": "Получение названия..." },
-  "titleInputPlaceholder": { "message": "напр. YouTube" },
-  "aiModeBtnText": { "message": "Режим ИИ" },
-  "importInvalidFile": { "message": "Не удалось прочитать этот файл как экспорт ярлыков." },
-  "importConfirm": { "message": "Это заменит ваши текущие ярлыки. Продолжить?" },
-  "chromeImportFoundOne": { "message": "Найден 1 ярлык." },
-  "chromeImportFoundMany": { "message": "Найдено ярлыков: {count}." },
-  "chromeImportInvalidFile": { "message": "Похоже, это не файл Preferences Chrome." },
-  "chromeImportNoShortcuts": { "message": "В этом профиле ярлыки не найдены." }
+  "appName": {
+    "message": "More Shortcuts New Tab"
+  },
+  "appDesc": {
+    "message": "Преодолейте ограничение Chrome в 10 ярлыков. Добавьте до 30 ярлыков на настраиваемую страницу новой вкладки."
+  },
+  "searchPlaceholder": {
+    "message": "Поиск в Google или ввод URL"
+  },
+  "imgSearchTitle": {
+    "message": "Поиск по картинке с Google Объективом"
+  },
+  "aiModeTitle": {
+    "message": "Режим поиска с ИИ"
+  },
+  "aiModeBtnText": {
+    "message": "ИИ-режим"
+  },
+  "addShortcutTitle": {
+    "message": "Добавить ярлык"
+  },
+  "shortcutLimitReached": {
+    "message": "Можно добавить не более 30 ярлыков."
+  },
+  "shortcutSaveError": {
+    "message": "Не удалось сохранить изменения. Предыдущие ярлыки сохранены."
+  },
+  "modalHeaderAdd": {
+    "message": "Добавить ярлык"
+  },
+  "modalHeaderEdit": {
+    "message": "Изменить ярлык"
+  },
+  "nameLabel": {
+    "message": "Название"
+  },
+  "urlLabel": {
+    "message": "URL"
+  },
+  "addBtnLabel": {
+    "message": "Добавить"
+  },
+  "saveBtnLabel": {
+    "message": "Сохранить"
+  },
+  "cancelBtnLabel": {
+    "message": "Отмена"
+  },
+  "themeTitle": {
+    "message": "Сменить тему"
+  },
+  "customizeTitle": {
+    "message": "Настроить"
+  },
+  "menuEdit": {
+    "message": "Изменить"
+  },
+  "menuDelete": {
+    "message": "Удалить"
+  },
+  "menuDeleteConfirm": {
+    "message": "Удалить ярлык?"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "Получение названия..."
+  },
+  "titleInputPlaceholder": {
+    "message": "например, YouTube"
+  },
+  "customizeModalTitle": {
+    "message": "Настройка страницы"
+  },
+  "themeLabel": {
+    "message": "Тема"
+  },
+  "themeSystem": {
+    "message": "Системная"
+  },
+  "themeLight": {
+    "message": "Светлая"
+  },
+  "themeDark": {
+    "message": "Тёмная"
+  },
+  "languageLabel": {
+    "message": "Язык"
+  },
+  "languageAuto": {
+    "message": "Автоматически"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "Инвертировать цвета строки поиска"
+  },
+  "reverseSearchColorsHint": {
+    "message": "Использовать контрастную цветовую схему для строки поиска"
+  },
+  "use24HourClockLabel": {
+    "message": "24-часовой формат времени"
+  },
+  "use24HourClockHint": {
+    "message": "Отображать время в 24-часовом формате вместо AM/PM"
+  },
+  "colorThemeLabel": {
+    "message": "Цветовая схема"
+  },
+  "backgroundSectionLabel": {
+    "message": "Фон"
+  },
+  "uploadBackgroundLabel": {
+    "message": "Загрузить"
+  },
+  "removeBackgroundLabel": {
+    "message": "Удалить"
+  },
+  "backgroundDimLabel": {
+    "message": "Затемнение фона"
+  },
+  "showGoogleAppsLabel": {
+    "message": "Показывать сервисы Google"
+  },
+  "showGoogleAppsHint": {
+    "message": "Показывать или скрывать ярлыки сервисов Google в шапке"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Сервисы Google"
+  },
+  "googleAppsSectionHint": {
+    "message": "Выберите сервисы для отображения и настройте их порядок"
+  },
+  "editGoogleAppsBtn": {
+    "message": "Изменить"
+  },
+  "googleAppsModalTitle": {
+    "message": "Сервисы Google"
+  },
+  "googleAppsModalHint": {
+    "message": "Включайте/отключайте сервисы и перетаскивайте для изменения порядка"
+  },
+  "shortcutsBackupLabel": {
+    "message": "Ярлыки"
+  },
+  "shortcutsBackupHint": {
+    "message": "Сохраняйте ярлыки в файл или восстанавливайте из него"
+  },
+  "exportShortcutsBtn": {
+    "message": "Экспорт"
+  },
+  "importShortcutsBtn": {
+    "message": "Импорт"
+  },
+  "importFromChromeBtn": {
+    "message": "Импорт из Chrome"
+  },
+  "chromeImportModalTitle": {
+    "message": "Импорт из Chrome"
+  },
+  "chromeImportHint": {
+    "message": "Выберите файл Preferences от Chrome для импорта ярлыков. Откройте chrome://version, чтобы найти \"Путь к профилю\"."
+  },
+  "chromeImportDropzone": {
+    "message": "Перетащите файл Preferences сюда или нажмите для выбора"
+  },
+  "chromeImportFoundOne": {
+    "message": "Найден 1 ярлык."
+  },
+  "chromeImportFoundMany": {
+    "message": "Найдено ярлыков: {count}."
+  },
+  "chromeImportInvalidFile": {
+    "message": "Файл не похож на файл Preferences Chrome."
+  },
+  "chromeImportNoShortcuts": {
+    "message": "В этом профиле не найдено ярлыков."
+  },
+  "chromeImportConfirmBtn": {
+    "message": "Импортировать"
+  },
+  "importInvalidFile": {
+    "message": "Не удалось прочитать файл резервной копии ярлыков."
+  },
+  "importConfirm": {
+    "message": "Текущие ярлыки будут заменены. Продолжить?"
+  },
+  "imageTooLarge": {
+    "message": "Изображение слишком большое. Максимальный размер: 5 МБ."
+  },
+  "imageSaveError": {
+    "message": "Не удалось сохранить изображение."
+  },
+  "defaultPresets": {
+    "message": "Стандартные пресеты"
+  },
+  "yourPresets": {
+    "message": "Ваши пресеты"
+  }
 }

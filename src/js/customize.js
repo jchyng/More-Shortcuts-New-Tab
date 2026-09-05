@@ -200,7 +200,7 @@ function initCustomize() {
     if (!file) return;
 
     if (file.size > 5 * 1024 * 1024) {
-      alert("Image is too large. Maximum size is 5 MB.");
+      alert(t.imageTooLarge || "Image is too large. Maximum size is 5 MB.");
       return;
     }
 
@@ -216,7 +216,7 @@ function initCustomize() {
     } catch (error) {
       console.error("Could not process wallpaper:", error);
       setWallpaperGalleryLoading(false);
-      alert("Could not save this image.");
+      alert(t.imageSaveError || "Could not save this image.");
     }
 
     // Allow re-selecting the same file later (e.g. after removing it)
@@ -370,6 +370,19 @@ function applyChangedPref(key, value) {
 
   if (key === "googleAppOrder") {
     applyGoogleAppOrder(getGoogleAppOrder());
+    return;
+  }
+
+  if (key === "use24HourClock") {
+    const enabled = value === "true";
+    const toggle = document.getElementById("use24HourClock");
+    if (toggle) toggle.checked = enabled;
+    updateClock();
+    return;
+  }
+
+  if (key === "language") {
+    applyLocalization();
     return;
   }
 
@@ -779,7 +792,7 @@ async function renderWallpaperGallery() {
   gallery.classList.remove("loading");
 
   if (defaults.length) {
-    gallery.appendChild(createWallpaperGroupLabel("Default presets"));
+    gallery.appendChild(createWallpaperGroupLabel(t.defaultPresets || "Default presets"));
     const row = document.createElement("div");
     row.className = "wallpaper-row";
     defaults.forEach((wallpaper) =>
@@ -789,9 +802,10 @@ async function renderWallpaperGallery() {
   }
 
   if (userWallpapers.length) {
+    const yourPresetsText = t.yourPresets || "Your presets";
     gallery.appendChild(
       createWallpaperGroupLabel(
-        `Your presets (${userWallpapers.length}/${MAX_USER_WALLPAPERS})`,
+        `${yourPresetsText} (${userWallpapers.length}/${MAX_USER_WALLPAPERS})`,
       ),
     );
     const row = document.createElement("div");

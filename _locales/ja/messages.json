@@ -1,27 +1,197 @@
 {
-  "searchPlaceholder": { "message": "Google 検索または URL を入力" },
-  "addShortcutTitle": { "message": "ショートカットを追加" },
-  "shortcutLimitReached": { "message": "ショートカットは最大30個まで追加できます。" },
-  "shortcutSaveError": { "message": "変更を保存できませんでした。以前のショートカットはそのまま残っています。" },
-  "addBtnLabel": { "message": "追加" },
-  "saveBtnLabel": { "message": "保存" },
-  "cancelBtnLabel": { "message": "キャンセル" },
-  "modalHeaderAdd": { "message": "ショートカットを追加" },
-  "modalHeaderEdit": { "message": "ショートカットを編集" },
-  "nameLabel": { "message": "名前" },
-  "urlLabel": { "message": "URL" },
-  "themeTitle": { "message": "テーマを切り替え" },
-  "imgSearchTitle": { "message": "画像検索" },
-  "aiModeTitle": { "message": "AI検索モード" },
-  "menuEdit": { "message": "編集" },
-  "menuDelete": { "message": "削除" },
-  "titleLoadingPlaceholder": { "message": "名前を取得中..." },
-  "titleInputPlaceholder": { "message": "例: YouTube" },
-  "aiModeBtnText": { "message": "AIモード" },
-  "importInvalidFile": { "message": "このファイルはショートカットのエクスポートとして読み込めませんでした。" },
-  "importConfirm": { "message": "現在のショートカットが置き換えられます。続行しますか？" },
-  "chromeImportFoundOne": { "message": "1件のショートカットが見つかりました。" },
-  "chromeImportFoundMany": { "message": "{count}件のショートカットが見つかりました。" },
-  "chromeImportInvalidFile": { "message": "これはChromeのPreferencesファイルではないようです。" },
-  "chromeImportNoShortcuts": { "message": "このプロファイルにはショートカットが見つかりませんでした。" }
+  "appName": {
+    "message": "More Shortcuts New Tab"
+  },
+  "appDesc": {
+    "message": "Chromeの10個ショートカット制限を解除。最大30個のショートカットを追加できるシンプルでカスタマイズ可能な新しいタブ。"
+  },
+  "searchPlaceholder": {
+    "message": "Google で検索または URL を入力"
+  },
+  "imgSearchTitle": {
+    "message": "Google レンズで画像を検索"
+  },
+  "aiModeTitle": {
+    "message": "AI 検索モード"
+  },
+  "aiModeBtnText": {
+    "message": "AI モード"
+  },
+  "addShortcutTitle": {
+    "message": "ショートカットを追加"
+  },
+  "shortcutLimitReached": {
+    "message": "ショートカットは最大30個まで追加できます。"
+  },
+  "shortcutSaveError": {
+    "message": "変更を保存できませんでした。以前のショートカットは保持されています。"
+  },
+  "modalHeaderAdd": {
+    "message": "ショートカットを追加"
+  },
+  "modalHeaderEdit": {
+    "message": "ショートカットを編集"
+  },
+  "nameLabel": {
+    "message": "名前"
+  },
+  "urlLabel": {
+    "message": "URL"
+  },
+  "addBtnLabel": {
+    "message": "追加"
+  },
+  "saveBtnLabel": {
+    "message": "保存"
+  },
+  "cancelBtnLabel": {
+    "message": "キャンセル"
+  },
+  "themeTitle": {
+    "message": "テーマ切り替え"
+  },
+  "customizeTitle": {
+    "message": "カスタマイズ"
+  },
+  "menuEdit": {
+    "message": "編集"
+  },
+  "menuDelete": {
+    "message": "削除"
+  },
+  "menuDeleteConfirm": {
+    "message": "ショートカットを削除しますか？"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "名前を取得中..."
+  },
+  "titleInputPlaceholder": {
+    "message": "例: YouTube"
+  },
+  "customizeModalTitle": {
+    "message": "ページのカスタマイズ"
+  },
+  "themeLabel": {
+    "message": "テーマ"
+  },
+  "themeSystem": {
+    "message": "システム"
+  },
+  "themeLight": {
+    "message": "ライト"
+  },
+  "themeDark": {
+    "message": "ダーク"
+  },
+  "languageLabel": {
+    "message": "言語"
+  },
+  "languageAuto": {
+    "message": "自動"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "検索バーの色を反転"
+  },
+  "reverseSearchColorsHint": {
+    "message": "検索バーに逆の配色を適用します"
+  },
+  "use24HourClockLabel": {
+    "message": "24時間表示を使用"
+  },
+  "use24HourClockHint": {
+    "message": "午前/午後の代わりに24時間形式で時刻を表示します"
+  },
+  "colorThemeLabel": {
+    "message": "カラーテーマ"
+  },
+  "backgroundSectionLabel": {
+    "message": "背景"
+  },
+  "uploadBackgroundLabel": {
+    "message": "アップロード"
+  },
+  "removeBackgroundLabel": {
+    "message": "削除"
+  },
+  "backgroundDimLabel": {
+    "message": "壁紙の暗さ"
+  },
+  "showGoogleAppsLabel": {
+    "message": "Google アプリを表示"
+  },
+  "showGoogleAppsHint": {
+    "message": "ヘッダーの Google アプリショートカットの表示/非表示を切り替えます"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Google アプリ"
+  },
+  "googleAppsSectionHint": {
+    "message": "ヘッダーに表示する Google アプリを選択し、並べ替えます"
+  },
+  "editGoogleAppsBtn": {
+    "message": "編集"
+  },
+  "googleAppsModalTitle": {
+    "message": "Google アプリ"
+  },
+  "googleAppsModalHint": {
+    "message": "アプリのオン/オフを切り替え、ドラッグして並べ替えます"
+  },
+  "shortcutsBackupLabel": {
+    "message": "ショートカット"
+  },
+  "shortcutsBackupHint": {
+    "message": "ショートカットをファイルにバックアップ、または復元します"
+  },
+  "exportShortcutsBtn": {
+    "message": "エクスポート"
+  },
+  "importShortcutsBtn": {
+    "message": "インポート"
+  },
+  "importFromChromeBtn": {
+    "message": "Chrome からインポート"
+  },
+  "chromeImportModalTitle": {
+    "message": "Chrome からインポート"
+  },
+  "chromeImportHint": {
+    "message": "Chrome の Preferences ファイルを選択してショートカットをインポートします。chrome://version を開き「プロファイル パス」で確認できます。"
+  },
+  "chromeImportDropzone": {
+    "message": "Preferences ファイルをここにドラッグ、またはクリックして選択"
+  },
+  "chromeImportFoundOne": {
+    "message": "1個のショートカットが見つかりました。"
+  },
+  "chromeImportFoundMany": {
+    "message": "{count}個のショートカットが見つかりました。"
+  },
+  "chromeImportInvalidFile": {
+    "message": "Chrome Preferences ファイルではないようです。"
+  },
+  "chromeImportNoShortcuts": {
+    "message": "このプロファイルにはショートカットがありません。"
+  },
+  "chromeImportConfirmBtn": {
+    "message": "インポート"
+  },
+  "importInvalidFile": {
+    "message": "ショートカットのエクスポートファイルとして読み込めませんでした。"
+  },
+  "importConfirm": {
+    "message": "現在のショートカットが上書きされます。続行しますか？"
+  },
+  "imageTooLarge": {
+    "message": "画像が大きすぎます。最大サイズは 5 MB です。"
+  },
+  "imageSaveError": {
+    "message": "画像を保存できませんでした。"
+  },
+  "defaultPresets": {
+    "message": "デフォルト プリセット"
+  },
+  "yourPresets": {
+    "message": "マイ プリセット"
+  }
 }

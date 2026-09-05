@@ -1,27 +1,197 @@
 {
-  "searchPlaceholder": { "message": "Buscar en Google o escribe una URL" },
-  "addShortcutTitle": { "message": "Añadir acceso directo" },
-  "shortcutLimitReached": { "message": "Puedes añadir hasta 30 accesos directos." },
-  "shortcutSaveError": { "message": "No se pudieron guardar los cambios. Tus accesos directos anteriores siguen intactos." },
-  "addBtnLabel": { "message": "Añadir" },
-  "saveBtnLabel": { "message": "Guardar" },
-  "cancelBtnLabel": { "message": "Cancelar" },
-  "modalHeaderAdd": { "message": "Añadir acceso directo" },
-  "modalHeaderEdit": { "message": "Editar acceso directo" },
-  "nameLabel": { "message": "Nombre" },
-  "urlLabel": { "message": "URL" },
-  "themeTitle": { "message": "Cambiar tema" },
-  "imgSearchTitle": { "message": "Búsqueda de imágenes" },
-  "aiModeTitle": { "message": "Modo de búsqueda con IA" },
-  "menuEdit": { "message": "Editar" },
-  "menuDelete": { "message": "Eliminar" },
-  "titleLoadingPlaceholder": { "message": "Obteniendo nombre..." },
-  "titleInputPlaceholder": { "message": "p. ej., YouTube" },
-  "aiModeBtnText": { "message": "Modo IA" },
-  "importInvalidFile": { "message": "No se pudo leer este archivo como una exportación de accesos directos." },
-  "importConfirm": { "message": "Esto reemplazará tus accesos directos actuales. ¿Continuar?" },
-  "chromeImportFoundOne": { "message": "Se encontró 1 acceso directo." },
-  "chromeImportFoundMany": { "message": "Se encontraron {count} accesos directos." },
-  "chromeImportInvalidFile": { "message": "Esto no parece un archivo Preferences de Chrome." },
-  "chromeImportNoShortcuts": { "message": "No se encontraron accesos directos en este perfil." }
+  "appName": {
+    "message": "More Shortcuts New Tab"
+  },
+  "appDesc": {
+    "message": "Supera el límite de 10 accesos directos de Chrome. Agrega hasta 30 accesos directos en una nueva pestaña personalizable."
+  },
+  "searchPlaceholder": {
+    "message": "Buscar en Google o escribir una URL"
+  },
+  "imgSearchTitle": {
+    "message": "Buscar imágenes con Google Lens"
+  },
+  "aiModeTitle": {
+    "message": "Modo de búsqueda con IA"
+  },
+  "aiModeBtnText": {
+    "message": "Modo IA"
+  },
+  "addShortcutTitle": {
+    "message": "Añadir acceso directo"
+  },
+  "shortcutLimitReached": {
+    "message": "Puedes añadir hasta 30 accesos directos."
+  },
+  "shortcutSaveError": {
+    "message": "No se pudieron guardar los cambios. Tus accesos directos anteriores siguen intactos."
+  },
+  "modalHeaderAdd": {
+    "message": "Añadir acceso directo"
+  },
+  "modalHeaderEdit": {
+    "message": "Editar acceso directo"
+  },
+  "nameLabel": {
+    "message": "Nombre"
+  },
+  "urlLabel": {
+    "message": "URL"
+  },
+  "addBtnLabel": {
+    "message": "Añadir"
+  },
+  "saveBtnLabel": {
+    "message": "Guardar"
+  },
+  "cancelBtnLabel": {
+    "message": "Cancelar"
+  },
+  "themeTitle": {
+    "message": "Cambiar tema"
+  },
+  "customizeTitle": {
+    "message": "Personalizar"
+  },
+  "menuEdit": {
+    "message": "Editar"
+  },
+  "menuDelete": {
+    "message": "Eliminar"
+  },
+  "menuDeleteConfirm": {
+    "message": "¿Eliminar acceso directo?"
+  },
+  "titleLoadingPlaceholder": {
+    "message": "Obteniendo nombre..."
+  },
+  "titleInputPlaceholder": {
+    "message": "ej. YouTube"
+  },
+  "customizeModalTitle": {
+    "message": "Personalizar página"
+  },
+  "themeLabel": {
+    "message": "Tema"
+  },
+  "themeSystem": {
+    "message": "Sistema"
+  },
+  "themeLight": {
+    "message": "Claro"
+  },
+  "themeDark": {
+    "message": "Oscuro"
+  },
+  "languageLabel": {
+    "message": "Idioma"
+  },
+  "languageAuto": {
+    "message": "Automático"
+  },
+  "reverseSearchColorsLabel": {
+    "message": "Invertir colores de la barra de búsqueda"
+  },
+  "reverseSearchColorsHint": {
+    "message": "Usa el esquema de color opuesto para la barra de búsqueda"
+  },
+  "use24HourClockLabel": {
+    "message": "Usar formato de 24 horas"
+  },
+  "use24HourClockHint": {
+    "message": "Muestra la hora en formato de 24 horas en vez de AM/PM"
+  },
+  "colorThemeLabel": {
+    "message": "Tema de color"
+  },
+  "backgroundSectionLabel": {
+    "message": "Fondo"
+  },
+  "uploadBackgroundLabel": {
+    "message": "Subir"
+  },
+  "removeBackgroundLabel": {
+    "message": "Quitar"
+  },
+  "backgroundDimLabel": {
+    "message": "Oscuridad del fondo"
+  },
+  "showGoogleAppsLabel": {
+    "message": "Mostrar aplicaciones de Google"
+  },
+  "showGoogleAppsHint": {
+    "message": "Muestra u oculta los accesos de Google en el encabezado"
+  },
+  "googleAppsSectionLabel": {
+    "message": "Aplicaciones de Google"
+  },
+  "googleAppsSectionHint": {
+    "message": "Elige qué aplicaciones aparecen en el encabezado y reordénalas"
+  },
+  "editGoogleAppsBtn": {
+    "message": "Editar"
+  },
+  "googleAppsModalTitle": {
+    "message": "Aplicaciones de Google"
+  },
+  "googleAppsModalHint": {
+    "message": "Activa o desactiva apps y arrastra para reordenar"
+  },
+  "shortcutsBackupLabel": {
+    "message": "Accesos directos"
+  },
+  "shortcutsBackupHint": {
+    "message": "Haz una copia de seguridad o restaura desde un archivo"
+  },
+  "exportShortcutsBtn": {
+    "message": "Exportar"
+  },
+  "importShortcutsBtn": {
+    "message": "Importar"
+  },
+  "importFromChromeBtn": {
+    "message": "Importar desde Chrome"
+  },
+  "chromeImportModalTitle": {
+    "message": "Importar desde Chrome"
+  },
+  "chromeImportHint": {
+    "message": "Selecciona el archivo Preferences de Chrome para importar sus accesos directos. Ábrelo en chrome://version y busca \"Ruta del perfil\"."
+  },
+  "chromeImportDropzone": {
+    "message": "Arrastra el archivo Preferences aquí o haz clic para seleccionarlo"
+  },
+  "chromeImportFoundOne": {
+    "message": "Se encontró 1 acceso directo."
+  },
+  "chromeImportFoundMany": {
+    "message": "Se encontraron {count} accesos directos."
+  },
+  "chromeImportInvalidFile": {
+    "message": "No parece ser un archivo Preferences de Chrome válido."
+  },
+  "chromeImportNoShortcuts": {
+    "message": "No se encontraron accesos directos en este perfil."
+  },
+  "chromeImportConfirmBtn": {
+    "message": "Importar"
+  },
+  "importInvalidFile": {
+    "message": "No se pudo leer este archivo como copia de accesos directos."
+  },
+  "importConfirm": {
+    "message": "Esto reemplazará tus accesos directos actuales. ¿Continuar?"
+  },
+  "imageTooLarge": {
+    "message": "La imagen es demasiado grande. El tamaño máximo es 5 MB."
+  },
+  "imageSaveError": {
+    "message": "No se pudo guardar esta imagen."
+  },
+  "defaultPresets": {
+    "message": "Preajustes predeterminados"
+  },
+  "yourPresets": {
+    "message": "Tus preajustes"
+  }
 }
