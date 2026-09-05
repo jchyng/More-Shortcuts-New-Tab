@@ -10,21 +10,41 @@
 </head>
 <body>
     <header class="top-header">
-        <a href="https://mail.google.com" class="header-link" title="Gmail">
+        <div class="google-apps-group" id="googleAppsGroup">
+        <a href="https://mail.google.com" class="header-link" title="Gmail" data-google-app="gmail" draggable="true">
             <img src="../assets/icons/gmail.png" alt="Gmail" class="header-icon">Gmail
         </a>
-        <a href="https://drive.google.com/drive/my-drive" class="header-link" title="Google Drive">
+        <a href="https://drive.google.com/drive/my-drive" class="header-link" title="Google Drive" data-google-app="drive" draggable="true">
             <img src="../assets/icons/google-drive.png" alt="Google Drive" class="header-icon">Drive
         </a>
-        <a href="https://meet.google.com" class="header-link" title="Google Meet">
+        <a href="https://meet.google.com" class="header-link" title="Google Meet" data-google-app="meet" draggable="true">
             <img src="../assets/icons/google-meet.svg" alt="Google Meet" class="header-icon">Meet
         </a>
-        <a href="https://calendar.google.com" class="header-link" title="Google Calendar">
+        <a href="https://calendar.google.com" class="header-link" title="Google Calendar" data-google-app="calendar" draggable="true">
             <img src="../assets/icons/google-calendar.png" alt="Google Calendar" class="header-icon">Calendar
         </a>
-        <a href="https://photos.google.com" class="header-link" title="Google Photos">
+        <a href="https://photos.google.com" class="header-link" title="Google Photos" data-google-app="photos" draggable="true">
             <img src="../assets/icons/google-photos.png" alt="Google Photos" class="header-icon">Photos
         </a>
+        <a href="https://maps.google.com" class="header-link" title="Google Maps" data-google-app="maps" draggable="true">
+            <img src="../assets/icons/google-maps.webp" alt="Google Maps" class="header-icon">Maps
+        </a>
+        <a href="https://docs.google.com" class="header-link" title="Google Docs" data-google-app="docs" draggable="true">
+            <img src="../assets/icons/google-docs.webp" alt="Google Docs" class="header-icon">Docs
+        </a>
+        <a href="https://slides.google.com" class="header-link" title="Google Slides" data-google-app="slides" draggable="true">
+            <img src="../assets/icons/google-slides.webp" alt="Google Slides" class="header-icon">Slides
+        </a>
+        <a href="https://sheets.google.com" class="header-link" title="Google Sheets" data-google-app="sheets" draggable="true">
+            <img src="../assets/icons/google-sheets.webp" alt="Google Sheets" class="header-icon">Sheets
+        </a>
+        <a href="https://keep.google.com" class="header-link" title="Google Keep" data-google-app="keep" draggable="true">
+            <img src="../assets/icons/google-keep.webp" alt="Google Keep" class="header-icon">Keep
+        </a>
+        <a href="https://gemini.google.com" class="header-link" title="Google Gemini" data-google-app="gemini" draggable="true">
+            <img src="../assets/icons/google-gemini.webp" alt="Google Gemini" class="header-icon">Gemini
+        </a>
+        </div>
         <button id="themeToggle" class="icon-btn" title="Toggle Theme">
             <span class="material-icons">dark_mode</span>
         </button>
@@ -78,7 +98,7 @@
             <h3 id="modalHeader">Add Shortcut</h3>
             <div class="input-group">
                 <label for="modalUrl">URL</label>
-                <input type="url" id="modalUrl" placeholder="https://" required autofocus>
+                <input type="text" inputmode="url" id="modalUrl" placeholder="https://" required autofocus>
             </div>
             <div class="input-group">
                 <label for="modalTitle">Name</label>
@@ -196,14 +216,248 @@
                         value="20"
                 >
             </div>
+
+            <div class="customize-section customize-toggle-row">
+                <div>
+                    <label for="hideAllGoogleApps">Show Google apps</label>
+                    <span class="customize-hint">Show or hide the Google app shortcuts in the header</span>
+                </div>
+                <label class="toggle-switch" for="hideAllGoogleApps">
+                    <input type="checkbox" id="hideAllGoogleApps" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="customize-section">
+                <label>Google apps</label>
+                <span class="customize-hint">Choose which Google app shortcuts appear in the header, and reorder them</span>
+
+                <div class="upload-row">
+                    <button id="editGoogleAppsBtn" class="customize-btn" type="button">
+                        <span class="material-icons">tune</span>
+                        Edit
+                    </button>
+                </div>
+            </div>
+
+            <div class="customize-section">
+                <label>Shortcuts</label>
+                <span class="customize-hint">Back up your shortcuts to a file, or restore them from one</span>
+
+                <div class="upload-row">
+                    <button id="exportShortcutsBtn" class="customize-btn" type="button">
+                        <span class="material-icons">download</span>
+                        Export
+                    </button>
+
+                    <label for="importShortcutsInput" class="customize-btn">
+                        <span class="material-icons">upload</span>
+                        Import
+                    </label>
+                    <input
+                            type="file"
+                            id="importShortcutsInput"
+                            accept="application/json,.json"
+                            hidden
+                    >
+                </div>
+
+                <div class="upload-row">
+                    <button id="importFromChromeBtn" class="customize-btn" type="button">
+                        <span class="material-icons">travel_explore</span>
+                        Import from Chrome
+                    </button>
+                </div>
+            </div>
         </div>
     </dialog>
 
+    <dialog id="googleAppsModal" class="customize-modal">
+        <div class="customize-content">
+            <div class="customize-header">
+                <h3>Google apps</h3>
+
+                <button id="closeGoogleAppsBtn" class="icon-btn">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+
+            <div class="customize-section">
+                <span class="customize-hint">Switch apps on or off, and drag them to reorder</span>
+
+                <div id="googleAppList" class="google-app-list">
+                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="gmail">
+                        <div class="google-app-row-label">
+                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
+                            <img src="../assets/icons/gmail.png" alt="Gmail" class="google-app-icon">
+                            <label for="googleAppToggle-gmail">Gmail</label>
+                        </div>
+                        <label class="toggle-switch" for="googleAppToggle-gmail">
+                            <input type="checkbox" id="googleAppToggle-gmail" data-google-app="gmail" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="drive">
+                        <div class="google-app-row-label">
+                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
+                            <img src="../assets/icons/google-drive.png" alt="Google Drive" class="google-app-icon">
+                            <label for="googleAppToggle-drive">Drive</label>
+                        </div>
+                        <label class="toggle-switch" for="googleAppToggle-drive">
+                            <input type="checkbox" id="googleAppToggle-drive" data-google-app="drive" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="meet">
+                        <div class="google-app-row-label">
+                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
+                            <img src="../assets/icons/google-meet.svg" alt="Google Meet" class="google-app-icon">
+                            <label for="googleAppToggle-meet">Meet</label>
+                        </div>
+                        <label class="toggle-switch" for="googleAppToggle-meet">
+                            <input type="checkbox" id="googleAppToggle-meet" data-google-app="meet" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="calendar">
+                        <div class="google-app-row-label">
+                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
+                            <img src="../assets/icons/google-calendar.png" alt="Google Calendar" class="google-app-icon">
+                            <label for="googleAppToggle-calendar">Calendar</label>
+                        </div>
+                        <label class="toggle-switch" for="googleAppToggle-calendar">
+                            <input type="checkbox" id="googleAppToggle-calendar" data-google-app="calendar" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="photos">
+                        <div class="google-app-row-label">
+                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
+                            <img src="../assets/icons/google-photos.png" alt="Google Photos" class="google-app-icon">
+                            <label for="googleAppToggle-photos">Photos</label>
+                        </div>
+                        <label class="toggle-switch" for="googleAppToggle-photos">
+                            <input type="checkbox" id="googleAppToggle-photos" data-google-app="photos" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="maps">
+                        <div class="google-app-row-label">
+                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
+                            <img src="../assets/icons/google-maps.webp" alt="Google Maps" class="google-app-icon">
+                            <label for="googleAppToggle-maps">Maps</label>
+                        </div>
+                        <label class="toggle-switch" for="googleAppToggle-maps">
+                            <input type="checkbox" id="googleAppToggle-maps" data-google-app="maps" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="docs">
+                        <div class="google-app-row-label">
+                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
+                            <img src="../assets/icons/google-docs.webp" alt="Google Docs" class="google-app-icon">
+                            <label for="googleAppToggle-docs">Docs</label>
+                        </div>
+                        <label class="toggle-switch" for="googleAppToggle-docs">
+                            <input type="checkbox" id="googleAppToggle-docs" data-google-app="docs" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="slides">
+                        <div class="google-app-row-label">
+                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
+                            <img src="../assets/icons/google-slides.webp" alt="Google Slides" class="google-app-icon">
+                            <label for="googleAppToggle-slides">Slides</label>
+                        </div>
+                        <label class="toggle-switch" for="googleAppToggle-slides">
+                            <input type="checkbox" id="googleAppToggle-slides" data-google-app="slides" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="sheets">
+                        <div class="google-app-row-label">
+                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
+                            <img src="../assets/icons/google-sheets.webp" alt="Google Sheets" class="google-app-icon">
+                            <label for="googleAppToggle-sheets">Sheets</label>
+                        </div>
+                        <label class="toggle-switch" for="googleAppToggle-sheets">
+                            <input type="checkbox" id="googleAppToggle-sheets" data-google-app="sheets" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="keep">
+                        <div class="google-app-row-label">
+                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
+                            <img src="../assets/icons/google-keep.webp" alt="Google Keep" class="google-app-icon">
+                            <label for="googleAppToggle-keep">Keep</label>
+                        </div>
+                        <label class="toggle-switch" for="googleAppToggle-keep">
+                            <input type="checkbox" id="googleAppToggle-keep" data-google-app="keep" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="gemini">
+                        <div class="google-app-row-label">
+                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
+                            <img src="../assets/icons/google-gemini.webp" alt="Google Gemini" class="google-app-icon">
+                            <label for="googleAppToggle-gemini">Gemini</label>
+                        </div>
+                        <label class="toggle-switch" for="googleAppToggle-gemini">
+                            <input type="checkbox" id="googleAppToggle-gemini" data-google-app="gemini" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="chromeImportModal" class="customize-modal">
+        <div class="customize-content">
+            <div class="customize-header">
+                <h3>Import from Chrome</h3>
+
+                <button id="closeChromeImportBtn" class="icon-btn">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+
+            <div class="customize-section" id="chromeImportIntro">
+                <p class="chrome-import-hint">
+                    Select Chrome's <code>Preferences</code> file to import its New Tab shortcuts.
+                    Find its location by opening <code>chrome://version</code> in Chrome and looking
+                    for "Profile Path".
+                </p>
+
+                <div class="chrome-import-dropzone" id="chromeImportDropzone" tabindex="0" role="button">
+                    <span class="material-icons">upload_file</span>
+                    <span>Drag the <code>Preferences</code> file here, or click to choose it</span>
+                </div>
+                <input type="file" id="chromeImportFileInput" hidden>
+            </div>
+
+            <div class="customize-section" id="chromeImportPreview" hidden>
+                <span class="chrome-import-summary" id="chromeImportSummary"></span>
+                <div class="chrome-import-list" id="chromeImportList"></div>
+                <div class="modal-actions">
+                    <button type="button" id="chromeImportCancelBtn">Cancel</button>
+                    <button type="button" class="primary" id="chromeImportConfirmBtn">Import</button>
+                </div>
+            </div>
+
+            <div class="customize-section" id="chromeImportError" hidden>
+                <span class="chrome-import-error" id="chromeImportErrorText"></span>
+            </div>
+        </div>
+    </dialog>
+
+    <script src="js/prefs.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/favicons.js"></script>
     <script src="js/dragdrop.js"></script>
     <script src="js/shortcuts.js"></script>
     <script src="js/modal.js"></script>
+    <script src="js/chromeImport.js"></script>
     <script src="js/search.js"></script>
     <script src="js/clock.js"></script>
     <script src="js/theme.js"></script>

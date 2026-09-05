@@ -5,6 +5,7 @@ async function initShortcuts() {
   const result = await chrome.storage.sync.get(["myShortcuts"]);
   shortcuts = result.myShortcuts ?? [];
   renderGrid();
+  pruneFaviconCache(shortcuts);
 }
 
 async function saveShortcuts(nextShortcuts) {

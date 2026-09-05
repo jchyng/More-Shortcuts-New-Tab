@@ -101,7 +101,7 @@ function setupSearch() {
 
   function renderSuggestions(suggestions) {
     suggestionsList.innerHTML = '';
-    selectedIndex = -1; // Reset selection on new suggestions
+    selectedIndex = -1;
 
     if (suggestions.length === 0) {
       hideSuggestions();

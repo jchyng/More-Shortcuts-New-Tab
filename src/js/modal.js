@@ -45,7 +45,6 @@ function setupAddModal() {
     titleFetchTimeout = setTimeout(fetchPageTitle, 600);
   });
 
-  // Fetch immediately when leaving the URL field.
   urlInput.addEventListener("blur", () => {
     clearTimeout(titleFetchTimeout);
     fetchPageTitle();

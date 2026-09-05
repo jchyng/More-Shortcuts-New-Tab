@@ -27,7 +27,6 @@ function renderGrid() {
       pageDiv.appendChild(createItemEl(item));
     });
 
-    // Add the "+" button to the last page if there's room.
     if (
       shortcuts.length < MAX_SHORTCUTS &&
       i === totalPages - 1 &&
@@ -38,7 +37,6 @@ function renderGrid() {
 
     wrapper.appendChild(pageDiv);
 
-    // Pagination dots only show once there's more than one page.
     if (totalPages > 1) {
       const dot = document.createElement("div");
       dot.className = `dot ${i === currentPage ? "active" : ""}`;
@@ -61,10 +59,7 @@ function createItemEl(item) {
 
   // Suppress the click that would otherwise fire right after a drag/drop.
   a.onclick = (e) => {
-    if (
-      container.classList.contains("dragging") ||
-      container.classList.contains("dropped")
-    ) {
+    if (container.classList.contains("dragging")) {
       e.preventDefault();
     }
   };
@@ -204,4 +199,83 @@ function goToPage(index) {
   document.querySelectorAll(".dot").forEach((dot, idx) => {
     dot.classList.toggle("active", idx === currentPage);
   });
+}
+
+function exportShortcuts() {
+  const payload = {
+    type: "more-shortcuts-newtab",
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    shortcuts: shortcuts.map(({ title, url }) => ({ title, url })),
+  };
+
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {
+    type: "application/json",
+  });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `shortcuts-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function normalizeImportedUrl(url) {
+  const trimmed = url.trim();
+  return trimmed.startsWith("http://") || trimmed.startsWith("https://")
+    ? trimmed
+    : `https://${trimmed}`;
+}
+
+async function importShortcutsFromFile(file) {
+  let parsed;
+  try {
+    parsed = JSON.parse(await file.text());
+  } catch {
+    alert(t.importInvalidFile || "This file could not be read as a shortcuts export.");
+    return;
+  }
+
+  const imported = Array.isArray(parsed) ? parsed : parsed?.shortcuts;
+  const validItems = Array.isArray(imported)
+    ? imported.filter(
+        (item) =>
+          item &&
+          typeof item.title === "string" &&
+          typeof item.url === "string" &&
+          item.title.trim() &&
+          item.url.trim(),
+      )
+    : [];
+
+  if (!validItems.length) {
+    alert(t.importInvalidFile || "This file could not be read as a shortcuts export.");
+    return;
+  }
+
+  if (
+    !confirm(
+      t.importConfirm ||
+        "This will replace your current shortcuts. Continue?",
+    )
+  )
+    return;
+
+  const nextShortcuts = validItems.slice(0, MAX_SHORTCUTS).map((item, index) => ({
+    title: item.title.trim(),
+    url: normalizeImportedUrl(item.url),
+    id: Date.now() + index,
+  }));
+
+  try {
+    await saveShortcuts(nextShortcuts);
+    shortcuts = nextShortcuts;
+  } catch (error) {
+    showShortcutSaveError(error);
+  }
+  currentPage = 0;
+  renderGrid();
 }

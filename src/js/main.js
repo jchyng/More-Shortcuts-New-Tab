@@ -28,12 +28,14 @@ document.addEventListener("DOMContentLoaded", () => {
   applyEnglishText();
   initTheme();
   initCustomize();
+  reconcilePrefs(applyChangedPref);
   loadBackground();
   updateClock();
   setInterval(updateClock, 1000);
   initShortcuts();
   setupSearch();
   setupAddModal();
+  setupChromeImport();
 
   document.addEventListener("click", (e) => {
     if (
@@ -48,24 +50,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("addModal");
     const searchInput = document.getElementById("searchInput");
     if (!modal.open && !draggedItem) {
-      // Don't move pages while an item is being dragged.
       if (e.key === "ArrowRight") movePage(1);
       if (e.key === "ArrowLeft") movePage(-1);
 
-      // Focus the search box with "/" (unless already focused on an input).
       if (e.key === "/" && document.activeElement !== searchInput) {
         e.preventDefault();
         searchInput.focus();
       }
     }
 
-    // Blur the search box on Escape.
     if (e.key === "Escape" && document.activeElement === searchInput) {
       searchInput.blur();
     }
   });
 
-  // Handle dragging outside the page area (e.g. edge scrolling).
   document.addEventListener("dragover", handleGlobalDragOver);
 });
 

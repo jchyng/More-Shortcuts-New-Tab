@@ -99,6 +99,11 @@ body[data-theme="light"].has-color-theme {
   --icon-circle-bg: color-mix(in srgb, var(--palette-color) 38%, #242526);
 }
 
+body[data-theme="light"]:not(.has-color-theme) {
+  --page-text-main: #16181a;
+  --date-text-color: #16181a;
+}
+
 body[data-color-theme="black"].has-color-theme {
   --page-accent: #111111;
   --icon-circle-bg: #111111;
@@ -146,15 +151,30 @@ body.has-wallpaper::before {
   gap: 20px;
   z-index: 100;
 }
+.google-apps-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.google-apps-group[hidden] {
+  display: none;
+}
 .header-link {
   text-decoration: none;
   color: var(--page-text-main);
   font-size: 13px;
   display: flex;
   align-items: center;
+  transition: transform 0.2s ease;
 }
 .header-link:hover {
   opacity: 0.8;
+}
+.header-link[hidden] {
+  display: none;
+}
+.header-link.dragging {
+  opacity: 0.4;
 }
 .header-icon {
   width: 20px;
@@ -981,6 +1001,52 @@ img.favicon-loading {
   gap: 16px;
 }
 
+.customize-section .customize-toggle-row {
+  display: flex;
+  margin-bottom: 0;
+}
+
+.google-app-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.google-app-row {
+  padding: 6px 4px;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.google-app-row-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.google-app-drag-handle {
+  cursor: grab;
+  color: var(--text-sub);
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.google-app-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.google-app-row:active .google-app-drag-handle {
+  cursor: grabbing;
+}
+
+.google-app-row.dragging {
+  opacity: 0.4;
+}
+
 .customize-hint {
   display: block;
   max-width: 230px;
@@ -1341,4 +1407,104 @@ img.favicon-loading {
 .wallpaper-remove-btn:hover {
   opacity: 1;
   transform: scale(1.08);
+}
+
+/* --- Chrome shortcuts import --- */
+.chrome-import-hint {
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.chrome-import-hint code {
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--search-bg);
+  font-size: 10px;
+}
+
+.chrome-import-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 28px 16px;
+  border: 1px dashed var(--search-border-default);
+  border-radius: 10px;
+  color: var(--text-sub);
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.chrome-import-dropzone:hover,
+.chrome-import-dropzone:focus-visible,
+.chrome-import-dropzone.dragover {
+  border-color: var(--customize-active);
+  background: var(--hover-bg);
+  outline: none;
+}
+
+.chrome-import-dropzone .material-icons {
+  font-size: 26px;
+  color: var(--text-sub);
+}
+
+.chrome-import-summary {
+  color: var(--text-sub);
+  font-size: 12px;
+}
+
+.chrome-import-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.chrome-import-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 6px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.chrome-import-row:hover {
+  background: var(--hover-bg);
+}
+
+.chrome-import-row input[type="checkbox"] {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.chrome-import-row-text {
+  min-width: 0;
+}
+
+.chrome-import-row-title {
+  overflow: hidden;
+  color: var(--text-main);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chrome-import-row-url {
+  overflow: hidden;
+  color: var(--text-sub);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chrome-import-error {
+  color: #ef6b73;
+  font-size: 12px;
 }

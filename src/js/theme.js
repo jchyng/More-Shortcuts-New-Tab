@@ -14,7 +14,7 @@ function applyTheme(mode) {
 }
 
 function initTheme() {
-  const savedTheme = localStorage.getItem("themeMode") || "system";
+  const savedTheme = getPrefSync("themeMode", "system");
 
   applyTheme(savedTheme);
 
@@ -28,7 +28,7 @@ function initTheme() {
     const current = document.body.getAttribute("data-theme");
     const next = current === "dark" ? "light" : "dark";
 
-    localStorage.setItem("themeMode", next);
+    setPref("themeMode", next);
 
     if (themeSelect) {
       setThemePickerValue(next);
@@ -40,7 +40,7 @@ function initTheme() {
   window
     .matchMedia("(prefers-color-scheme: dark)")
     .addEventListener("change", () => {
-      const mode = localStorage.getItem("themeMode") || "system";
+      const mode = getPrefSync("themeMode", "system");
 
       if (mode === "system") {
         applyTheme("system");

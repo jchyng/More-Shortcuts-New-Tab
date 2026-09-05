@@ -1,8 +1,63 @@
 const MAX_USER_WALLPAPERS = 8;
-const MAX_DEFAULT_WALLPAPERS = 100;
 const MAX_WALLPAPER_EDGE = 1920;
 const WALLPAPER_THUMB_SIZE = 160;
 const MAX_WALLPAPER_DATA_URL_LENGTH = 700 * 1024;
+const GOOGLE_APP_IDS = [
+  "gmail",
+  "drive",
+  "meet",
+  "calendar",
+  "photos",
+  "maps",
+  "docs",
+  "slides",
+  "sheets",
+  "keep",
+  "gemini",
+];
+
+function createSlidingDialog(modal) {
+  let closeTimer;
+
+  const close = () => {
+    if (!modal.open || modal.classList.contains("closing")) return;
+
+    modal.classList.add("closing");
+    closeTimer = window.setTimeout(() => {
+      modal.close();
+      modal.classList.remove("closing");
+    }, 200);
+  };
+
+  const open = () => {
+    window.clearTimeout(closeTimer);
+    modal.classList.remove("closing");
+    modal.showModal();
+  };
+
+  modal.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    close();
+  });
+
+  modal.addEventListener("click", (event) => {
+    // Only the dialog's own backdrop area can be the click target directly;
+    // clicks on descendants (including a synthetic click bubbling from a
+    // programmatically-triggered hidden file input, which reports (0,0))
+    // must not be mistaken for a backdrop click.
+    if (event.target !== modal) return;
+
+    const rect = modal.getBoundingClientRect();
+    const clickedOutsidePanel =
+      event.clientX < rect.left ||
+      event.clientX > rect.right ||
+      event.clientY < rect.top ||
+      event.clientY > rect.bottom;
+    if (clickedOutsidePanel) close();
+  });
+
+  return { open, close };
+}
 
 function initCustomize() {
   // Remove data created by the old "Recent" wallpapers feature.
@@ -20,46 +75,34 @@ function initCustomize() {
   const backgroundInput = document.getElementById("backgroundInput");
   const removeBackgroundBtn = document.getElementById("removeBackgroundBtn");
   const backgroundDim = document.getElementById("backgroundDim");
-  let closeTimer;
+  const exportShortcutsBtn = document.getElementById("exportShortcutsBtn");
+  const importShortcutsInput = document.getElementById("importShortcutsInput");
+  const googleAppsModal = document.getElementById("googleAppsModal");
+  const editGoogleAppsBtn = document.getElementById("editGoogleAppsBtn");
+  const closeGoogleAppsBtn = document.getElementById("closeGoogleAppsBtn");
+  const googleAppList = document.getElementById("googleAppList");
+  const googleAppsGroup = document.getElementById("googleAppsGroup");
+  const hideAllGoogleApps = document.getElementById("hideAllGoogleApps");
+  const googleAppToggles = document.querySelectorAll("[id^='googleAppToggle-']");
 
-  const closeCustomize = () => {
-    if (!modal.open || modal.classList.contains("closing")) return;
-
-    modal.classList.add("closing");
-    closeTimer = window.setTimeout(() => {
-      modal.close();
-      modal.classList.remove("closing");
-    }, 200);
-  };
+  const customizeDialog = createSlidingDialog(modal);
+  const googleAppsDialog = createSlidingDialog(googleAppsModal);
 
   customizeBtn.addEventListener("click", () => {
-    if (modal.open) {
-      closeCustomize();
-      return;
-    }
-
-    window.clearTimeout(closeTimer);
-    modal.classList.remove("closing");
-    modal.showModal();
+    if (modal.open) customizeDialog.close();
+    else customizeDialog.open();
   });
 
   closeBtn.addEventListener("click", () => {
-    closeCustomize();
+    customizeDialog.close();
   });
 
-  modal.addEventListener("cancel", (event) => {
-    event.preventDefault();
-    closeCustomize();
+  editGoogleAppsBtn.addEventListener("click", () => {
+    googleAppsDialog.open();
   });
 
-  modal.addEventListener("click", (event) => {
-    const rect = modal.getBoundingClientRect();
-    const clickedOutsidePanel =
-      event.clientX < rect.left ||
-      event.clientX > rect.right ||
-      event.clientY < rect.top ||
-      event.clientY > rect.bottom;
-    if (clickedOutsidePanel) closeCustomize();
+  closeGoogleAppsBtn.addEventListener("click", () => {
+    googleAppsDialog.close();
   });
 
   themeSelect.addEventListener("click", () => {
@@ -74,7 +117,7 @@ function initCustomize() {
 
     const mode = option.dataset.value;
 
-    localStorage.setItem("themeMode", mode);
+    setPref("themeMode", mode);
     setThemePickerValue(mode);
     applyTheme(mode);
 
@@ -90,7 +133,7 @@ function initCustomize() {
   });
 
   const savedReverseColors =
-    localStorage.getItem("reverseSearchColors") === "true";
+    getPrefSync("reverseSearchColors", "false") === "true";
   reverseSearchColors.checked = savedReverseColors;
   document.body.classList.toggle(
     "reverse-search-colors",
@@ -99,38 +142,19 @@ function initCustomize() {
 
   reverseSearchColors.addEventListener("change", () => {
     const enabled = reverseSearchColors.checked;
-    localStorage.setItem("reverseSearchColors", String(enabled));
+    setPref("reverseSearchColors", String(enabled));
     document.body.classList.toggle("reverse-search-colors", enabled);
   });
 
-  use24HourClock.checked = localStorage.getItem("use24HourClock") === "true";
-  use24HourClock.addEventListener("change", () => {
-    localStorage.setItem("use24HourClock", String(use24HourClock.checked));
-    updateClock();
-  });
-
-  const applyColorTheme = (name, color) => {
-    const isNeutral = name === "neutral";
-    document.body.classList.toggle("has-color-theme", !isNeutral);
-    document.body.dataset.colorTheme = name;
-
-    if (isNeutral) {
-      document.body.style.removeProperty("--palette-color");
-    } else {
-      document.body.style.setProperty("--palette-color", color);
-    }
-
-    colorThemeOptions.querySelectorAll("[data-theme-color]").forEach((swatch) => {
-      if (swatch.dataset.color) {
-        swatch.style.setProperty("--swatch-color", swatch.dataset.color);
-      }
-      const selected = swatch.dataset.themeColor === name;
-      swatch.classList.toggle("selected", selected);
-      swatch.setAttribute("aria-pressed", String(selected));
+  if (use24HourClock) {
+    use24HourClock.checked = getPrefSync("use24HourClock", "false") === "true";
+    use24HourClock.addEventListener("change", () => {
+      setPref("use24HourClock", String(use24HourClock.checked));
+      updateClock();
     });
-  };
+  }
 
-  const savedColorTheme = localStorage.getItem("colorTheme") || "neutral";
+  const savedColorTheme = getPrefSync("colorTheme", "neutral");
   const savedSwatch = colorThemeOptions.querySelector(
     `[data-theme-color="${savedColorTheme}"]`,
   );
@@ -144,11 +168,11 @@ function initCustomize() {
     if (!swatch) return;
 
     const name = swatch.dataset.themeColor;
-    localStorage.setItem("colorTheme", name);
+    setPref("colorTheme", name);
     applyColorTheme(name, swatch.dataset.color);
   });
 
-  const savedDim = localStorage.getItem("backgroundDim") || "20";
+  const savedDim = getPrefSync("backgroundDim", "20");
 
   backgroundDim.value = savedDim;
 
@@ -158,10 +182,16 @@ function initCustomize() {
   backgroundDim.addEventListener("input", () => {
     const value = backgroundDim.value;
 
-    localStorage.setItem("backgroundDim", value);
+    // Local-only write while dragging; syncing every tick would burst
+    // past chrome.storage.sync's per-minute write quota.
+    setPrefLocal("backgroundDim", value);
 
     setBackgroundDim(value);
     updateRangeFill(backgroundDim);
+  });
+
+  backgroundDim.addEventListener("change", () => {
+    setPref("backgroundDim", backgroundDim.value);
   });
 
   backgroundInput.addEventListener("change", async () => {
@@ -201,7 +231,45 @@ function initCustomize() {
     await renderWallpaperGallery();
   });
 
+  googleAppToggles.forEach((toggle) => {
+    const app = toggle.dataset.googleApp;
+    const isVisible = getPrefSync(`googleApp_${app}Hidden`, "false") !== "true";
+    toggle.checked = isVisible;
+    setGoogleAppVisibility(app, isVisible);
+
+    toggle.addEventListener("change", () => {
+      setPref(`googleApp_${app}Hidden`, String(!toggle.checked));
+      setGoogleAppVisibility(app, toggle.checked);
+    });
+  });
+
+  const allGoogleAppsHidden = getPrefSync("googleAppsHidden", "false") === "true";
+  hideAllGoogleApps.checked = !allGoogleAppsHidden;
+  googleAppsGroup.hidden = allGoogleAppsHidden;
+
+  hideAllGoogleApps.addEventListener("change", () => {
+    const hideAll = !hideAllGoogleApps.checked;
+    setPref("googleAppsHidden", String(hideAll));
+    setGoogleAppsGroupVisibility(googleAppsGroup, !hideAll);
+  });
+
+  applyGoogleAppOrder(getGoogleAppOrder());
+  attachGoogleAppDragAndDrop(googleAppsGroup, ".header-link", true);
+  attachGoogleAppDragAndDrop(googleAppList, ".google-app-row", false);
+
+  exportShortcutsBtn.addEventListener("click", () => {
+    exportShortcuts();
+  });
+
+  importShortcutsInput.addEventListener("change", async () => {
+    const file = importShortcutsInput.files[0];
+    if (!file) return;
+    await importShortcutsFromFile(file);
+    importShortcutsInput.value = "";
+  });
+
   initializeWallpaperGallery();
+  pruneStaleWallpaperThumbnails();
 }
 
 async function initializeWallpaperGallery() {
@@ -231,6 +299,258 @@ async function loadBackground() {
   }
 }
 
+function setGoogleAppVisibility(app, isVisible) {
+  const link = document.querySelector(`.header-link[data-google-app="${app}"]`);
+  if (link) link.hidden = !isVisible;
+}
+
+function applyColorTheme(name, color) {
+  const isNeutral = name === "neutral";
+  document.body.classList.toggle("has-color-theme", !isNeutral);
+  document.body.dataset.colorTheme = name;
+
+  if (isNeutral) {
+    document.body.style.removeProperty("--palette-color");
+  } else {
+    document.body.style.setProperty("--palette-color", color);
+  }
+
+  const colorThemeOptions = document.getElementById("colorThemeOptions");
+  colorThemeOptions?.querySelectorAll("[data-theme-color]").forEach((swatch) => {
+    if (swatch.dataset.color) {
+      swatch.style.setProperty("--swatch-color", swatch.dataset.color);
+    }
+    const selected = swatch.dataset.themeColor === name;
+    swatch.classList.toggle("selected", selected);
+    swatch.setAttribute("aria-pressed", String(selected));
+  });
+}
+
+// Re-applies a single preference after reconcilePrefs() pulls in a value
+// that changed on another device.
+function applyChangedPref(key, value) {
+  if (key === "themeMode") {
+    applyTheme(value);
+    setThemePickerValue(value);
+    return;
+  }
+
+  if (key === "reverseSearchColors") {
+    const enabled = value === "true";
+    const toggle = document.getElementById("reverseSearchColors");
+    if (toggle) toggle.checked = enabled;
+    document.body.classList.toggle("reverse-search-colors", enabled);
+    return;
+  }
+
+  if (key === "colorTheme") {
+    const colorThemeOptions = document.getElementById("colorThemeOptions");
+    const swatch = colorThemeOptions?.querySelector(`[data-theme-color="${value}"]`);
+    applyColorTheme(swatch ? value : "neutral", swatch?.dataset.color || "");
+    return;
+  }
+
+  if (key === "backgroundDim") {
+    const input = document.getElementById("backgroundDim");
+    if (!input) return;
+    input.value = value;
+    setBackgroundDim(value);
+    updateRangeFill(input);
+    return;
+  }
+
+  if (key === "googleAppsHidden") {
+    const hideAll = value === "true";
+    const toggle = document.getElementById("hideAllGoogleApps");
+    if (toggle) toggle.checked = !hideAll;
+    const group = document.getElementById("googleAppsGroup");
+    if (group) setGoogleAppsGroupVisibility(group, !hideAll);
+    return;
+  }
+
+  if (key === "googleAppOrder") {
+    applyGoogleAppOrder(getGoogleAppOrder());
+    return;
+  }
+
+  if (key.startsWith("googleApp_") && key.endsWith("Hidden")) {
+    const app = key.slice("googleApp_".length, -"Hidden".length);
+    const isVisible = value !== "true";
+    const toggle = document.getElementById(`googleAppToggle-${app}`);
+    if (toggle) toggle.checked = isVisible;
+    setGoogleAppVisibility(app, isVisible);
+  }
+}
+
+const GOOGLE_APPS_STAGGER_MS = 45;
+const GOOGLE_APPS_FADE_MS = 220;
+
+// Animates the whole group in/out: showing builds the bar right-to-left,
+// hiding collapses it left-to-right, each icon staggered after the last.
+function setGoogleAppsGroupVisibility(group, show) {
+  const items = [...group.querySelectorAll(".header-link:not([hidden])")];
+
+  if (!items.length) {
+    group.hidden = !show;
+    return;
+  }
+
+  const token = Symbol();
+  group._googleAppsAnimToken = token;
+
+  items.forEach((item) => {
+    item.style.transition = "none";
+  });
+
+  if (show) {
+    group.hidden = false;
+    items.forEach((item) => {
+      item.style.opacity = "0";
+      item.style.transform = "translateY(-4px)";
+    });
+  }
+
+  void group.offsetWidth; // commit the "from" state before transitioning
+
+  items.forEach((item, index) => {
+    const order = show ? items.length - 1 - index : index;
+    const delay = order * GOOGLE_APPS_STAGGER_MS;
+    item.style.transition = `opacity ${GOOGLE_APPS_FADE_MS}ms ease ${delay}ms, transform ${GOOGLE_APPS_FADE_MS}ms ease ${delay}ms`;
+    item.style.opacity = show ? "" : "0";
+    item.style.transform = show ? "" : "translateY(-4px)";
+  });
+
+  const totalDuration =
+    (items.length - 1) * GOOGLE_APPS_STAGGER_MS + GOOGLE_APPS_FADE_MS;
+
+  window.setTimeout(() => {
+    if (group._googleAppsAnimToken !== token) return;
+
+    if (!show) group.hidden = true;
+    items.forEach((item) => {
+      item.style.transition = "";
+      item.style.opacity = "";
+      item.style.transform = "";
+    });
+  }, totalDuration);
+}
+
+function getGoogleAppOrder() {
+  let stored;
+  try {
+    stored = JSON.parse(getPrefSync("googleAppOrder", null));
+  } catch {
+    stored = null;
+  }
+
+  const known = Array.isArray(stored)
+    ? stored.filter((app) => GOOGLE_APP_IDS.includes(app))
+    : [];
+  const missing = GOOGLE_APP_IDS.filter((app) => !known.includes(app));
+
+  return [...known, ...missing];
+}
+
+function reorderElements(container, order, getElement, beforeNode = null) {
+  const fragment = document.createDocumentFragment();
+  order.forEach((app) => {
+    const element = getElement(app);
+    if (element) fragment.appendChild(element);
+  });
+  container.insertBefore(fragment, beforeNode);
+}
+
+function applyGoogleAppOrder(order) {
+  reorderElements(document.getElementById("googleAppList"), order, (app) =>
+    document.querySelector(`.google-app-row[data-google-app="${app}"]`),
+  );
+
+  reorderElements(document.getElementById("googleAppsGroup"), order, (app) =>
+    document.querySelector(`.header-link[data-google-app="${app}"]`),
+  );
+}
+
+function saveGoogleAppOrder(order) {
+  setPref("googleAppOrder", JSON.stringify(order));
+  applyGoogleAppOrder(order);
+}
+
+// FLIP-style animation: record positions, run the DOM change, animate the delta.
+function animateGoogleAppReorder(container, itemSelector, moveAction) {
+  const items = [...container.querySelectorAll(itemSelector)];
+  const positions = new Map();
+
+  items.forEach((item) => {
+    const rect = item.getBoundingClientRect();
+    positions.set(item, { left: rect.left, top: rect.top });
+  });
+
+  moveAction();
+
+  items.forEach((item) => {
+    const oldPos = positions.get(item);
+    if (!oldPos) return;
+
+    const rect = item.getBoundingClientRect();
+    const deltaX = oldPos.left - rect.left;
+    const deltaY = oldPos.top - rect.top;
+
+    if (deltaX === 0 && deltaY === 0) return;
+
+    item.style.transition = "none";
+    item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+    requestAnimationFrame(() => {
+      item.getBoundingClientRect(); // force reflow
+      item.style.transition = "";
+      item.style.transform = "";
+    });
+  });
+}
+
+function attachGoogleAppDragAndDrop(container, itemSelector, horizontal) {
+  let dragged = null;
+
+  container.addEventListener("dragstart", (event) => {
+    const item = event.target.closest(itemSelector);
+    if (!item) return;
+    dragged = item;
+    item.classList.add("dragging");
+    event.dataTransfer.effectAllowed = "move";
+  });
+
+  container.addEventListener("dragend", (event) => {
+    const item = event.target.closest(itemSelector);
+    if (item) item.classList.remove("dragging");
+    if (!dragged) return;
+    dragged = null;
+
+    const order = [...container.querySelectorAll(itemSelector)].map(
+      (element) => element.dataset.googleApp,
+    );
+    saveGoogleAppOrder(order);
+  });
+
+  container.addEventListener("dragover", (event) => {
+    event.preventDefault();
+    const item = event.target.closest(itemSelector);
+    if (!dragged || !item || item === dragged) return;
+
+    const rect = item.getBoundingClientRect();
+    const isAfter = horizontal
+      ? event.clientX - rect.left > rect.width / 2
+      : event.clientY - rect.top > rect.height / 2;
+
+    animateGoogleAppReorder(container, itemSelector, () => {
+      container.insertBefore(dragged, isAfter ? item.nextSibling : item);
+    });
+  });
+
+  container.addEventListener("drop", (event) => {
+    if (dragged) event.preventDefault();
+  });
+}
+
 function applyBackground(image) {
   document.body.style.backgroundImage = `url("${image}")`;
 
@@ -258,7 +578,6 @@ function updateRangeFill(input) {
   input.style.background = `linear-gradient(to right, var(--slider-fill) ${pct}%, var(--slider-track) ${pct}%)`;
 }
 
-// --- Preset wallpapers ---
 function readFileAsDataUrl(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -318,23 +637,12 @@ async function createOptimizedWallpaper(source) {
   return { full, thumbnail };
 }
 
-async function wallpaperExists(url) {
-  try {
-    const response = await fetch(url, { method: "HEAD" });
-    return response.ok;
-  } catch {
-    return false;
-  }
-}
+const DEFAULT_WALLPAPER_FILES = ["1.jpg", "2.jpg", "3.jpg"];
 
 async function getDefaultWallpapers() {
-  const wallpapers = [];
-  for (let index = 1; index <= MAX_DEFAULT_WALLPAPERS; index += 1) {
-    const full = chrome.runtime.getURL(`assets/wallpapers/${index}.jpg`);
-    if (!(await wallpaperExists(full))) break;
-    wallpapers.push({ full });
-  }
-  return wallpapers;
+  return DEFAULT_WALLPAPER_FILES.map((filename) => ({
+    full: chrome.runtime.getURL(`assets/wallpapers/${filename}`),
+  }));
 }
 
 async function getUserWallpapers() {
@@ -382,6 +690,16 @@ async function getDefaultWallpaperThumbnail(wallpaper) {
   const thumbnail = await resizeImage(wallpaper.full, WALLPAPER_THUMB_SIZE, 0.72);
   await chrome.storage.local.set({ [key]: thumbnail });
   return thumbnail;
+}
+
+async function pruneStaleWallpaperThumbnails() {
+  const version = chrome.runtime.getManifest().version;
+  const currentPrefix = `wallpaperThumb_${version}_`;
+  const all = await chrome.storage.local.get(null);
+  const staleKeys = Object.keys(all).filter(
+    (key) => key.startsWith("wallpaperThumb_") && !key.startsWith(currentPrefix),
+  );
+  if (staleKeys.length) await chrome.storage.local.remove(staleKeys);
 }
 
 function createWallpaperThumb(wallpaper, currentBg) {

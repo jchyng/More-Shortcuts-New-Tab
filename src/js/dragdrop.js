@@ -8,12 +8,10 @@ function attachDragAndDrop(container) {
     // Add a class to body so CSS can suppress hover effects while dragging.
     document.body.classList.add("is-dragging");
 
-    // 1. Compute cursor offset within the item.
     const rect = container.getBoundingClientRect();
     const offsetX = e.clientX - rect.left;
     const offsetY = e.clientY - rect.top;
 
-    // 2. Build a drag ghost image (clone).
     const ghost = container.cloneNode(true);
 
     ghost.style.position = "absolute";
@@ -30,11 +28,9 @@ function attachDragAndDrop(container) {
 
     document.body.appendChild(ghost);
 
-    // 3. Use the ghost as the custom drag image.
     e.dataTransfer.setDragImage(ghost, offsetX, offsetY);
     e.dataTransfer.effectAllowed = "move";
 
-    // 4. Mark the original as dragging and discard the ghost.
     setTimeout(() => {
       container.classList.add("dragging");
       document.body.removeChild(ghost);
@@ -49,7 +45,6 @@ function attachDragAndDrop(container) {
     reorderAndSave();
   });
 
-  // Dragging over another item: swap position and rebalance pages.
   container.addEventListener("dragover", (e) => {
     e.preventDefault();
     if (!draggedItem || draggedItem === container) return;
@@ -111,13 +106,11 @@ function handleGlobalDragOver(e) {
   }
 }
 
-// Moves the dragged item onto the page that just became active.
 function moveDraggedItemToCurrentPage() {
   if (!draggedItem) return;
   const pages = document.querySelectorAll(".shortcut-page");
   const targetPage = pages[currentPage];
 
-  // Insert before the add button if present, otherwise append.
   const addBtn = targetPage.querySelector(".add-btn-container");
   if (addBtn) {
     targetPage.insertBefore(draggedItem, addBtn);
@@ -161,7 +154,6 @@ function animateDOMMove(container, moveAction) {
   });
 }
 
-// Keeps item counts balanced across pages after a drag reorder.
 function balanceGrid() {
   const pages = document.querySelectorAll(".shortcut-page");
 

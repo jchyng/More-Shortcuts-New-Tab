@@ -29,6 +29,23 @@ function setCachedFavicon(hostname, dataUrl) {
   chrome.storage.local.set({ [FAVICON_CACHE_PREFIX + hostname]: dataUrl });
 }
 
+async function pruneFaviconCache(currentShortcuts) {
+  const activeHostnames = new Set();
+  for (const item of currentShortcuts) {
+    try {
+      activeHostnames.add(new URL(item.url).hostname);
+    } catch {}
+  }
+
+  const all = await chrome.storage.local.get(null);
+  const staleKeys = Object.keys(all).filter(
+    (key) =>
+      key.startsWith(FAVICON_CACHE_PREFIX) &&
+      !activeHostnames.has(key.slice(FAVICON_CACHE_PREFIX.length)),
+  );
+  if (staleKeys.length) await chrome.storage.local.remove(staleKeys);
+}
+
 function blobToBase64(blob) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
