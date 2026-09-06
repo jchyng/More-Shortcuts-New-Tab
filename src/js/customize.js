@@ -131,6 +131,7 @@ function initCustomize() {
     setPref("themeMode", mode);
     setThemePickerValue(mode);
     applyTheme(mode);
+    reapplyDefaultColorTheme();
 
     themeOptions.hidden = true;
     themeSelect.setAttribute("aria-expanded", "false");
@@ -165,12 +166,16 @@ function initCustomize() {
     });
   }
 
-  const savedColorTheme = getPrefSync("colorTheme", "neutral");
+  // Use the stored value if the user has explicitly saved one; otherwise fall
+  // back to a theme-aware default (black for light, neutral for dark).
+  const storedColorTheme = localStorage.getItem("colorTheme");
+  const defaultColorTheme = getDefaultColorTheme();
+  const savedColorTheme = storedColorTheme ?? defaultColorTheme;
   const savedSwatch = colorThemeOptions.querySelector(
     `[data-theme-color="${savedColorTheme}"]`,
   );
   applyColorTheme(
-    savedSwatch ? savedColorTheme : "neutral",
+    savedSwatch ? savedColorTheme : defaultColorTheme,
     savedSwatch?.dataset.color || "",
   );
 
@@ -400,6 +405,25 @@ function setGoogleAppVisibility(app, isVisible) {
   if (link) link.hidden = !isVisible;
 }
 
+// Returns the appropriate default color theme name based on the current
+// actual theme (light → "black" for better contrast, dark → "neutral").
+// Only used when the user has not explicitly saved a colorTheme preference.
+function getDefaultColorTheme() {
+  const actualTheme = document.body.getAttribute("data-theme") || "dark";
+  return actualTheme === "light" ? "black" : "neutral";
+}
+
+// Re-applies the default color theme when no explicit colorTheme pref is
+// saved and the active theme (light/dark) has just changed.
+function reapplyDefaultColorTheme() {
+  if (localStorage.getItem("colorTheme") !== null) return;
+
+  const name = getDefaultColorTheme();
+  const colorThemeOptions = document.getElementById("colorThemeOptions");
+  const swatch = colorThemeOptions?.querySelector(`[data-theme-color="${name}"]`);
+  applyColorTheme(name, swatch?.dataset.color || "");
+}
+
 function applyColorTheme(name, color) {
   const isNeutral = name === "neutral";
   document.body.classList.toggle("has-color-theme", !isNeutral);
@@ -428,6 +452,9 @@ function applyChangedPref(key, value) {
   if (key === "themeMode") {
     applyTheme(value);
     setThemePickerValue(value);
+    // If the user has never explicitly chosen a color theme, re-evaluate the
+    // theme-aware default now that the active theme may have changed.
+    reapplyDefaultColorTheme();
     return;
   }
 
