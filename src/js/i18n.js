@@ -90,7 +90,7 @@ const TRANSLATIONS = {
     "imageFetchError": "Could not load image from URL."
   },
   "ko": {
-    "appName": "더 많은 바로가기 새 탭",
+    "appName": "More Shortcuts New Tab",
     "appDesc": "Chrome의 10개 바로가기 제한을 극복하세요. 깔끔하고 맞춤 설정 가능한 새 탭 대시보드에서 최대 30개의 바로가기를 추가하고 검색하세요.",
     "searchPlaceholder": "Google 검색 또는 URL 입력",
     "imgSearchTitle": "Google 렌즈로 이미지 검색",

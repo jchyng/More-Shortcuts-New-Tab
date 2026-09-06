@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_appName__",
-  "version": "2.1.15",
+  "version": "16",
   "default_locale": "en",
   "description": "__MSG_appDesc__",
   "chrome_url_overrides": {
