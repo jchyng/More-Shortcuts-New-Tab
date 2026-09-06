@@ -1,4 +1,4 @@
-{
+﻿{
   "appName": {
     "message": "More Shortcuts New Tab"
   },
@@ -193,5 +193,20 @@
   },
   "yourPresets": {
     "message": "我的预设"
+  },
+  "urlBackgroundLabel": {
+    "message": "URL"
+  },
+  "urlBackgroundApply": {
+    "message": "应用"
+  },
+  "imageFetchError": {
+    "message": "无法从该网址加载图片。"
+  },
+  "urlBackgroundPlaceholder": {
+    "message": "输入图片网址 (https://...)"
+  },
+  "invalidImageUrl": {
+    "message": "请输入有效的图片网址。"
   }
 }

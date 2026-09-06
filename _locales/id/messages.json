@@ -1,4 +1,4 @@
-{
+﻿{
   "appName": {
     "message": "More Shortcuts New Tab"
   },
@@ -193,5 +193,20 @@
   },
   "yourPresets": {
     "message": "Preset Anda"
+  },
+  "urlBackgroundLabel": {
+    "message": "URL"
+  },
+  "urlBackgroundApply": {
+    "message": "Terapkan"
+  },
+  "imageFetchError": {
+    "message": "Tidak dapat memuat gambar dari URL."
+  },
+  "urlBackgroundPlaceholder": {
+    "message": "Masukkan URL gambar (https://...)"
+  },
+  "invalidImageUrl": {
+    "message": "Harap masukkan URL gambar yang valid."
   }
 }

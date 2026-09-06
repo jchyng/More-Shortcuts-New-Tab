@@ -15,6 +15,7 @@ const GOOGLE_APP_IDS = [
   "keep",
   "gemini",
 ];
+const DEFAULT_VISIBLE_GOOGLE_APP_IDS = new Set(["gmail", "drive", "gemini"]);
 
 function createSlidingDialog(modal) {
   let closeTimer;
@@ -75,6 +76,11 @@ function initCustomize() {
   const backgroundInput = document.getElementById("backgroundInput");
   const removeBackgroundBtn = document.getElementById("removeBackgroundBtn");
   const backgroundDim = document.getElementById("backgroundDim");
+  const urlBackgroundBtn = document.getElementById("urlBackgroundBtn");
+  const wallpaperUrlForm = document.getElementById("wallpaperUrlForm");
+  const wallpaperUrlInput = document.getElementById("wallpaperUrlInput");
+  const wallpaperUrlSubmitBtn = document.getElementById("wallpaperUrlSubmitBtn");
+  const wallpaperUrlError = document.getElementById("wallpaperUrlError");
   const exportShortcutsBtn = document.getElementById("exportShortcutsBtn");
   const importShortcutsInput = document.getElementById("importShortcutsInput");
   const googleAppsModal = document.getElementById("googleAppsModal");
@@ -94,6 +100,11 @@ function initCustomize() {
   });
 
   closeBtn.addEventListener("click", () => {
+    if (wallpaperUrlForm && !wallpaperUrlForm.hidden) {
+      wallpaperUrlForm.hidden = true;
+      urlBackgroundBtn.classList.remove("active");
+      urlBackgroundBtn.setAttribute("aria-expanded", "false");
+    }
     customizeDialog.close();
   });
 
@@ -231,9 +242,94 @@ function initCustomize() {
     await renderWallpaperGallery();
   });
 
+  // --- URL wallpaper form ---
+
+  function setUrlFormOpen(open) {
+    wallpaperUrlForm.hidden = !open;
+    urlBackgroundBtn.classList.toggle("active", open);
+    urlBackgroundBtn.setAttribute("aria-expanded", String(open));
+    if (open) {
+      wallpaperUrlInput.value = "";
+      showUrlError(null);
+      wallpaperUrlInput.focus();
+    }
+  }
+
+  function showUrlError(msg) {
+    if (msg) {
+      wallpaperUrlError.textContent = msg;
+      wallpaperUrlError.hidden = false;
+    } else {
+      wallpaperUrlError.hidden = true;
+      wallpaperUrlError.textContent = "";
+    }
+  }
+
+  urlBackgroundBtn.addEventListener("click", () => {
+    const isOpen = !wallpaperUrlForm.hidden;
+    setUrlFormOpen(!isOpen);
+  });
+
+  async function submitWallpaperUrl() {
+    const raw = wallpaperUrlInput.value.trim();
+
+    if (!raw) {
+      showUrlError(t.invalidImageUrl || "Please enter a valid image URL.");
+      wallpaperUrlInput.focus();
+      return;
+    }
+
+    // Basic URL format check
+    let url;
+    try {
+      url = new URL(raw);
+      if (url.protocol !== "https:" && url.protocol !== "http:") {
+        throw new Error("Invalid protocol");
+      }
+    } catch {
+      showUrlError(t.invalidImageUrl || "Please enter a valid image URL.");
+      wallpaperUrlInput.focus();
+      return;
+    }
+
+    showUrlError(null);
+    setWallpaperGalleryLoading(true);
+    wallpaperUrlSubmitBtn.disabled = true;
+
+    try {
+      const dataUrl = await fetchImageAsDataUrl(url.href);
+      const wallpaper = await createOptimizedWallpaper(dataUrl);
+      await chrome.storage.local.set({ customBackground: wallpaper.full });
+      await saveUserWallpaper(wallpaper);
+      applyBackground(wallpaper.full);
+      setUrlFormOpen(false);
+      await renderWallpaperGallery();
+    } catch (error) {
+      console.error("Could not load wallpaper from URL:", error);
+      setWallpaperGalleryLoading(false);
+      showUrlError(t.imageFetchError || "Could not load image from URL.");
+      wallpaperUrlInput.focus();
+    } finally {
+      wallpaperUrlSubmitBtn.disabled = false;
+    }
+  }
+
+  wallpaperUrlSubmitBtn.addEventListener("click", submitWallpaperUrl);
+
+  wallpaperUrlInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      submitWallpaperUrl();
+    } else if (event.key === "Escape") {
+      setUrlFormOpen(false);
+    }
+  });
+
   googleAppToggles.forEach((toggle) => {
     const app = toggle.dataset.googleApp;
-    const isVisible = getPrefSync(`googleApp_${app}Hidden`, "false") !== "true";
+    const defaultHidden = String(!DEFAULT_VISIBLE_GOOGLE_APP_IDS.has(app));
+    const isVisible =
+      getPrefSync(`googleApp_${app}Hidden`, defaultHidden) !== "true";
     toggle.checked = isVisible;
     setGoogleAppVisibility(app, isVisible);
 
@@ -597,6 +693,30 @@ function readFileAsDataUrl(file) {
     reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
     reader.readAsDataURL(file);
+  });
+}
+
+// Fetches a remote image URL and converts it to a data URL, leveraging
+// the extension's <all_urls> host_permissions so cross-origin images work.
+async function fetchImageAsDataUrl(url) {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  const contentType = response.headers.get("content-type") || "";
+  if (!contentType.startsWith("image/")) {
+    throw new Error(`Not an image (${contentType})`);
+  }
+
+  const blob = await response.blob();
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
   });
 }
 

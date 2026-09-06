@@ -193,5 +193,20 @@
   },
   "yourPresets": {
     "message": "Your presets"
+  },
+  "urlBackgroundLabel": {
+    "message": "URL"
+  },
+  "urlBackgroundPlaceholder": {
+    "message": "Enter image URL (https://...)"
+  },
+  "urlBackgroundApply": {
+    "message": "Apply"
+  },
+  "invalidImageUrl": {
+    "message": "Please enter a valid image URL."
+  },
+  "imageFetchError": {
+    "message": "Could not load image from URL."
   }
 }

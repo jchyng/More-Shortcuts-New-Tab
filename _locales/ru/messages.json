@@ -1,4 +1,4 @@
-{
+﻿{
   "appName": {
     "message": "More Shortcuts New Tab"
   },
@@ -193,5 +193,20 @@
   },
   "yourPresets": {
     "message": "Ваши пресеты"
+  },
+  "urlBackgroundLabel": {
+    "message": "URL"
+  },
+  "urlBackgroundApply": {
+    "message": "Применить"
+  },
+  "imageFetchError": {
+    "message": "Не удалось загрузить изображение по указанному URL."
+  },
+  "urlBackgroundPlaceholder": {
+    "message": "Введите URL изображения (https://...)"
+  },
+  "invalidImageUrl": {
+    "message": "Пожалуйста, введите корректный URL изображения."
   }
 }

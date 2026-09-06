@@ -1,4 +1,4 @@
-{
+﻿{
   "appName": {
     "message": "More Shortcuts New Tab"
   },
@@ -193,5 +193,20 @@
   },
   "yourPresets": {
     "message": "Cài đặt sẵn của bạn"
+  },
+  "urlBackgroundLabel": {
+    "message": "URL"
+  },
+  "urlBackgroundApply": {
+    "message": "Áp dụng"
+  },
+  "imageFetchError": {
+    "message": "Không thể tải hình ảnh từ URL."
+  },
+  "urlBackgroundPlaceholder": {
+    "message": "Nhập URL hình ảnh (https://...)"
+  },
+  "invalidImageUrl": {
+    "message": "Vui lòng nhập URL hình ảnh hợp lệ."
   }
 }

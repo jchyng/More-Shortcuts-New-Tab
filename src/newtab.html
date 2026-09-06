@@ -17,28 +17,28 @@
         <a href="https://drive.google.com/drive/my-drive" class="header-link" title="Google Drive" data-google-app="drive" draggable="true">
             <img src="../assets/icons/google-drive.png" alt="Google Drive" class="header-icon">Drive
         </a>
-        <a href="https://meet.google.com" class="header-link" title="Google Meet" data-google-app="meet" draggable="true">
+        <a href="https://meet.google.com" class="header-link" title="Google Meet" data-google-app="meet" draggable="true" hidden>
             <img src="../assets/icons/google-meet.svg" alt="Google Meet" class="header-icon">Meet
         </a>
-        <a href="https://calendar.google.com" class="header-link" title="Google Calendar" data-google-app="calendar" draggable="true">
+        <a href="https://calendar.google.com" class="header-link" title="Google Calendar" data-google-app="calendar" draggable="true" hidden>
             <img src="../assets/icons/google-calendar.png" alt="Google Calendar" class="header-icon">Calendar
         </a>
-        <a href="https://photos.google.com" class="header-link" title="Google Photos" data-google-app="photos" draggable="true">
+        <a href="https://photos.google.com" class="header-link" title="Google Photos" data-google-app="photos" draggable="true" hidden>
             <img src="../assets/icons/google-photos.png" alt="Google Photos" class="header-icon">Photos
         </a>
-        <a href="https://maps.google.com" class="header-link" title="Google Maps" data-google-app="maps" draggable="true">
+        <a href="https://maps.google.com" class="header-link" title="Google Maps" data-google-app="maps" draggable="true" hidden>
             <img src="../assets/icons/google-maps.webp" alt="Google Maps" class="header-icon">Maps
         </a>
-        <a href="https://docs.google.com" class="header-link" title="Google Docs" data-google-app="docs" draggable="true">
+        <a href="https://docs.google.com" class="header-link" title="Google Docs" data-google-app="docs" draggable="true" hidden>
             <img src="../assets/icons/google-docs.webp" alt="Google Docs" class="header-icon">Docs
         </a>
-        <a href="https://slides.google.com" class="header-link" title="Google Slides" data-google-app="slides" draggable="true">
+        <a href="https://slides.google.com" class="header-link" title="Google Slides" data-google-app="slides" draggable="true" hidden>
             <img src="../assets/icons/google-slides.webp" alt="Google Slides" class="header-icon">Slides
         </a>
-        <a href="https://sheets.google.com" class="header-link" title="Google Sheets" data-google-app="sheets" draggable="true">
+        <a href="https://sheets.google.com" class="header-link" title="Google Sheets" data-google-app="sheets" draggable="true" hidden>
             <img src="../assets/icons/google-sheets.webp" alt="Google Sheets" class="header-icon">Sheets
         </a>
-        <a href="https://keep.google.com" class="header-link" title="Google Keep" data-google-app="keep" draggable="true">
+        <a href="https://keep.google.com" class="header-link" title="Google Keep" data-google-app="keep" draggable="true" hidden>
             <img src="../assets/icons/google-keep.webp" alt="Google Keep" class="header-icon">Keep
         </a>
         <a href="https://gemini.google.com" class="header-link" title="Google Gemini" data-google-app="gemini" draggable="true">
@@ -223,10 +223,41 @@
                             hidden
                     >
 
+                    <button id="urlBackgroundBtn" class="customize-btn" type="button" aria-expanded="false">
+                        <span class="material-icons">link</span>
+                        <span data-i18n="urlBackgroundLabel">URL</span>
+                    </button>
+
                     <button id="removeBackgroundBtn" class="customize-btn" type="button">
                         <span class="material-icons">delete_outline</span>
                         <span data-i18n="removeBackgroundLabel">Remove</span>
                     </button>
+                </div>
+
+                <div class="wallpaper-url-form" id="wallpaperUrlForm" hidden>
+                    <div class="wallpaper-url-input-wrap">
+                        <span class="material-icons wallpaper-url-icon">link</span>
+                        <input
+                                type="url"
+                                id="wallpaperUrlInput"
+                                data-i18n-placeholder="urlBackgroundPlaceholder"
+                                placeholder="Enter image URL (https://...)"
+                                spellcheck="false"
+                                autocomplete="off"
+                        >
+                        <button
+                                type="button"
+                                id="wallpaperUrlSubmitBtn"
+                                class="wallpaper-url-submit-btn"
+                                data-i18n-title="urlBackgroundApply"
+                                data-i18n-aria-label="urlBackgroundApply"
+                                title="Apply"
+                                aria-label="Apply"
+                        >
+                            <span class="material-icons">arrow_forward</span>
+                        </button>
+                    </div>
+                    <div class="wallpaper-url-error" id="wallpaperUrlError" hidden></div>
                 </div>
             </div>
 
@@ -342,7 +373,7 @@
                             <label for="googleAppToggle-meet">Meet</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-meet">
-                            <input type="checkbox" id="googleAppToggle-meet" data-google-app="meet" checked>
+                            <input type="checkbox" id="googleAppToggle-meet" data-google-app="meet">
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -353,7 +384,7 @@
                             <label for="googleAppToggle-calendar">Calendar</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-calendar">
-                            <input type="checkbox" id="googleAppToggle-calendar" data-google-app="calendar" checked>
+                            <input type="checkbox" id="googleAppToggle-calendar" data-google-app="calendar">
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -364,7 +395,7 @@
                             <label for="googleAppToggle-photos">Photos</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-photos">
-                            <input type="checkbox" id="googleAppToggle-photos" data-google-app="photos" checked>
+                            <input type="checkbox" id="googleAppToggle-photos" data-google-app="photos">
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -375,7 +406,7 @@
                             <label for="googleAppToggle-maps">Maps</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-maps">
-                            <input type="checkbox" id="googleAppToggle-maps" data-google-app="maps" checked>
+                            <input type="checkbox" id="googleAppToggle-maps" data-google-app="maps">
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -386,7 +417,7 @@
                             <label for="googleAppToggle-docs">Docs</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-docs">
-                            <input type="checkbox" id="googleAppToggle-docs" data-google-app="docs" checked>
+                            <input type="checkbox" id="googleAppToggle-docs" data-google-app="docs">
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -397,7 +428,7 @@
                             <label for="googleAppToggle-slides">Slides</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-slides">
-                            <input type="checkbox" id="googleAppToggle-slides" data-google-app="slides" checked>
+                            <input type="checkbox" id="googleAppToggle-slides" data-google-app="slides">
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -408,7 +439,7 @@
                             <label for="googleAppToggle-sheets">Sheets</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-sheets">
-                            <input type="checkbox" id="googleAppToggle-sheets" data-google-app="sheets" checked>
+                            <input type="checkbox" id="googleAppToggle-sheets" data-google-app="sheets">
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -419,7 +450,7 @@
                             <label for="googleAppToggle-keep">Keep</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-keep">
-                            <input type="checkbox" id="googleAppToggle-keep" data-google-app="keep" checked>
+                            <input type="checkbox" id="googleAppToggle-keep" data-google-app="keep">
                             <span class="toggle-slider"></span>
                         </label>
                     </div>

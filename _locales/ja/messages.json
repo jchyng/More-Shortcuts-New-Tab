@@ -1,4 +1,4 @@
-{
+﻿{
   "appName": {
     "message": "More Shortcuts New Tab"
   },
@@ -193,5 +193,20 @@
   },
   "yourPresets": {
     "message": "マイ プリセット"
+  },
+  "urlBackgroundLabel": {
+    "message": "URL"
+  },
+  "urlBackgroundApply": {
+    "message": "適用"
+  },
+  "imageFetchError": {
+    "message": "URLから画像を読み込めませんでした。"
+  },
+  "urlBackgroundPlaceholder": {
+    "message": "画像URLを入力 (https://...)"
+  },
+  "invalidImageUrl": {
+    "message": "有効な画像URLを入力してください。"
   }
 }

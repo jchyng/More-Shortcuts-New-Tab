@@ -82,7 +82,12 @@ const TRANSLATIONS = {
     "imageTooLarge": "Image is too large. Maximum size is 5 MB.",
     "imageSaveError": "Could not save this image.",
     "defaultPresets": "Default presets",
-    "yourPresets": "Your presets"
+    "yourPresets": "Your presets",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "Enter image URL (https://...)",
+    "urlBackgroundApply": "Apply",
+    "invalidImageUrl": "Please enter a valid image URL.",
+    "imageFetchError": "Could not load image from URL."
   },
   "ko": {
     "appName": "더 많은 바로가기 새 탭",
@@ -149,7 +154,12 @@ const TRANSLATIONS = {
     "imageTooLarge": "이미지 파일이 너무 큽니다. 최대 용량은 5MB입니다.",
     "imageSaveError": "이미지를 저장하지 못했습니다.",
     "defaultPresets": "기본 프리셋",
-    "yourPresets": "내 프리셋"
+    "yourPresets": "내 프리셋",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "이미지 주소 입력 (https://...)",
+    "urlBackgroundApply": "적용",
+    "invalidImageUrl": "올바른 이미지 주소를 입력해주세요.",
+    "imageFetchError": "이미지를 불러오지 못했습니다. 주소를 확인해주세요."
   },
   "hi": {
     "appName": "More Shortcuts New Tab",
@@ -216,7 +226,12 @@ const TRANSLATIONS = {
     "imageTooLarge": "छवि बहुत बड़ी है। अधिकतम आकार 5 MB है।",
     "imageSaveError": "इस छवि को सहेजा नहीं जा सका।",
     "defaultPresets": "डिफ़ॉल्ट प्रीसेट",
-    "yourPresets": "आपके प्रीसेट"
+    "yourPresets": "आपके प्रीसेट",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "इमेज URL दर्ज करें (https://...)",
+    "urlBackgroundApply": "लागू करें",
+    "invalidImageUrl": "कृपया एक मान्य इमेज URL दर्ज करें।",
+    "imageFetchError": "URL से इमेज लोड नहीं की जा सकी।"
   },
   "uk": {
     "appName": "More Shortcuts New Tab",
@@ -283,7 +298,12 @@ const TRANSLATIONS = {
     "imageTooLarge": "Зображення завелике. Максимальний розмір: 5 МБ.",
     "imageSaveError": "Не вдалося зберегти зображення.",
     "defaultPresets": "Стандартні пресети",
-    "yourPresets": "Ваші пресети"
+    "yourPresets": "Ваші пресети",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "Введіть URL зображення (https://...)",
+    "urlBackgroundApply": "Застосувати",
+    "invalidImageUrl": "Будь ласка, введіть дійсний URL зображення.",
+    "imageFetchError": "Не вдалося завантажити зображення з URL."
   },
   "ru": {
     "appName": "More Shortcuts New Tab",
@@ -350,7 +370,12 @@ const TRANSLATIONS = {
     "imageTooLarge": "Изображение слишком большое. Максимальный размер: 5 МБ.",
     "imageSaveError": "Не удалось сохранить изображение.",
     "defaultPresets": "Стандартные пресеты",
-    "yourPresets": "Ваши пресеты"
+    "yourPresets": "Ваши пресеты",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "Введите URL изображения (https://...)",
+    "urlBackgroundApply": "Применить",
+    "invalidImageUrl": "Пожалуйста, введите корректный URL изображения.",
+    "imageFetchError": "Не удалось загрузить изображение по указанному URL."
   },
   "ja": {
     "appName": "More Shortcuts New Tab",
@@ -417,7 +442,12 @@ const TRANSLATIONS = {
     "imageTooLarge": "画像が大きすぎます。最大サイズは 5 MB です。",
     "imageSaveError": "画像を保存できませんでした。",
     "defaultPresets": "デフォルト プリセット",
-    "yourPresets": "マイ プリセット"
+    "yourPresets": "マイ プリセット",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "画像URLを入力 (https://...)",
+    "urlBackgroundApply": "適用",
+    "invalidImageUrl": "有効な画像URLを入力してください。",
+    "imageFetchError": "URLから画像を読み込めませんでした。"
   },
   "zh_CN": {
     "appName": "More Shortcuts New Tab",
@@ -484,7 +514,12 @@ const TRANSLATIONS = {
     "imageTooLarge": "图片过大。最大支持 5 MB。",
     "imageSaveError": "无法保存此图片。",
     "defaultPresets": "默认预设",
-    "yourPresets": "我的预设"
+    "yourPresets": "我的预设",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "输入图片网址 (https://...)",
+    "urlBackgroundApply": "应用",
+    "invalidImageUrl": "请输入有效的图片网址。",
+    "imageFetchError": "无法从该网址加载图片。"
   },
   "es": {
     "appName": "More Shortcuts New Tab",
@@ -551,7 +586,12 @@ const TRANSLATIONS = {
     "imageTooLarge": "La imagen es demasiado grande. El tamaño máximo es 5 MB.",
     "imageSaveError": "No se pudo guardar esta imagen.",
     "defaultPresets": "Preajustes predeterminados",
-    "yourPresets": "Tus preajustes"
+    "yourPresets": "Tus preajustes",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "Ingresar URL de la imagen (https://...)",
+    "urlBackgroundApply": "Aplicar",
+    "invalidImageUrl": "Por favor ingresa una URL de imagen válida.",
+    "imageFetchError": "No se pudo cargar la imagen desde la URL."
   },
   "fr": {
     "appName": "More Shortcuts New Tab",
@@ -618,7 +658,12 @@ const TRANSLATIONS = {
     "imageTooLarge": "L'image est trop volumineuse. Taille maximale : 5 Mo.",
     "imageSaveError": "Impossible d'enregistrer cette image.",
     "defaultPresets": "Préréglages par défaut",
-    "yourPresets": "Vos préréglages"
+    "yourPresets": "Vos préréglages",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "Entrer l'URL de l'image (https://...)",
+    "urlBackgroundApply": "Appliquer",
+    "invalidImageUrl": "Veuillez saisir une URL d'image valide.",
+    "imageFetchError": "Impossible de charger l'image depuis l'URL."
   },
   "de": {
     "appName": "More Shortcuts New Tab",
@@ -685,7 +730,12 @@ const TRANSLATIONS = {
     "imageTooLarge": "Bild ist zu groß. Maximale Größe: 5 MB.",
     "imageSaveError": "Bild konnte nicht gespeichert werden.",
     "defaultPresets": "Standard-Voreinstellungen",
-    "yourPresets": "Eigene Voreinstellungen"
+    "yourPresets": "Eigene Voreinstellungen",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "Bild-URL eingeben (https://...)",
+    "urlBackgroundApply": "Anwenden",
+    "invalidImageUrl": "Bitte geben Sie eine gültige Bild-URL ein.",
+    "imageFetchError": "Bild konnte nicht von der URL geladen werden."
   },
   "pt_BR": {
     "appName": "More Shortcuts New Tab",
@@ -744,15 +794,20 @@ const TRANSLATIONS = {
     "chromeImportDropzone": "Arraste o arquivo Preferences aqui ou clique para escolher",
     "chromeImportFoundOne": "1 atalho encontrado.",
     "chromeImportFoundMany": "{count} atalhos encontrados.",
-    "chromeImportInvalidFile": "Este não parece ser um arquivo Preferences do Chrome.",
-    "chromeImportNoShortcuts": "Nenhum atalho encontrado neste perfil.",
+    "chromeImportInvalidFile": "Este não parece ser um arquivo Preferences válido.",
+    "chromeImportNoShortcuts": "Nenhum atalho foi encontrado neste perfil.",
     "chromeImportConfirmBtn": "Importar",
     "importInvalidFile": "Não foi possível ler este arquivo de exportação.",
     "importConfirm": "Isso substituirá seus atalhos atuais. Continuar?",
     "imageTooLarge": "A imagem é muito grande. Tamanho máximo: 5 MB.",
     "imageSaveError": "Não foi possível salvar esta imagem.",
     "defaultPresets": "Predefinições padrão",
-    "yourPresets": "Suas predefinições"
+    "yourPresets": "Suas predefinições",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "Inserir URL da imagem (https://...)",
+    "urlBackgroundApply": "Aplicar",
+    "invalidImageUrl": "Por favor insira uma URL de imagem válida.",
+    "imageFetchError": "Não foi possível carregar a imagem da URL."
   },
   "vi": {
     "appName": "More Shortcuts New Tab",
@@ -819,7 +874,12 @@ const TRANSLATIONS = {
     "imageTooLarge": "Kích thước ảnh quá lớn. Dung lượng tối đa là 5 MB.",
     "imageSaveError": "Không thể lưu hình ảnh này.",
     "defaultPresets": "Cài đặt sẵn mặc định",
-    "yourPresets": "Cài đặt sẵn của bạn"
+    "yourPresets": "Cài đặt sẵn của bạn",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "Nhập URL hình ảnh (https://...)",
+    "urlBackgroundApply": "Áp dụng",
+    "invalidImageUrl": "Vui lòng nhập URL hình ảnh hợp lệ.",
+    "imageFetchError": "Không thể tải hình ảnh từ URL."
   },
   "id": {
     "appName": "More Shortcuts New Tab",
@@ -886,7 +946,12 @@ const TRANSLATIONS = {
     "imageTooLarge": "Ukuran gambar terlalu besar. Ukuran maksimum adalah 5 MB.",
     "imageSaveError": "Tidak dapat menyimpan gambar ini.",
     "defaultPresets": "Preset bawaan",
-    "yourPresets": "Preset Anda"
+    "yourPresets": "Preset Anda",
+    "urlBackgroundLabel": "URL",
+    "urlBackgroundPlaceholder": "Masukkan URL gambar (https://...)",
+    "urlBackgroundApply": "Terapkan",
+    "invalidImageUrl": "Harap masukkan URL gambar yang valid.",
+    "imageFetchError": "Tidak dapat memuat gambar dari URL."
   }
 };
 

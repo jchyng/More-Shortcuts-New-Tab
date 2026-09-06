@@ -193,5 +193,20 @@
   },
   "yourPresets": {
     "message": "내 프리셋"
+  },
+  "urlBackgroundLabel": {
+    "message": "URL"
+  },
+  "urlBackgroundPlaceholder": {
+    "message": "이미지 주소 입력 (https://...)"
+  },
+  "urlBackgroundApply": {
+    "message": "적용"
+  },
+  "invalidImageUrl": {
+    "message": "올바른 이미지 주소를 입력해주세요."
+  },
+  "imageFetchError": {
+    "message": "이미지를 불러오지 못했습니다. 주소를 확인해주세요."
   }
 }

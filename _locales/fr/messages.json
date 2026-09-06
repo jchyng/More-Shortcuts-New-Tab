@@ -1,4 +1,4 @@
-{
+﻿{
   "appName": {
     "message": "More Shortcuts New Tab"
   },
@@ -193,5 +193,20 @@
   },
   "yourPresets": {
     "message": "Vos préréglages"
+  },
+  "urlBackgroundLabel": {
+    "message": "URL"
+  },
+  "urlBackgroundApply": {
+    "message": "Appliquer"
+  },
+  "imageFetchError": {
+    "message": "Impossible de charger l'image depuis l'URL."
+  },
+  "urlBackgroundPlaceholder": {
+    "message": "Entrer l'URL de l'image (https://...)"
+  },
+  "invalidImageUrl": {
+    "message": "Veuillez saisir une URL d'image valide."
   }
 }

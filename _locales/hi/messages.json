@@ -1,4 +1,4 @@
-{
+﻿{
   "appName": {
     "message": "More Shortcuts New Tab"
   },
@@ -193,5 +193,20 @@
   },
   "yourPresets": {
     "message": "आपके प्रीसेट"
+  },
+  "urlBackgroundLabel": {
+    "message": "URL"
+  },
+  "urlBackgroundApply": {
+    "message": "लागू करें"
+  },
+  "imageFetchError": {
+    "message": "URL से इमेज लोड नहीं की जा सकी।"
+  },
+  "urlBackgroundPlaceholder": {
+    "message": "इमेज URL दर्ज करें (https://...)"
+  },
+  "invalidImageUrl": {
+    "message": "कृपया एक मान्य इमेज URL दर्ज करें।"
   }
 }

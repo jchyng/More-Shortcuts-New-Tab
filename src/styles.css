@@ -235,13 +235,15 @@ body.has-wallpaper::before {
   font-size: 90px;
   font-weight: 400;
   line-height: 1;
-  letter-spacing: -3px;
+  letter-spacing: -2px;
+  font-variant-numeric: tabular-nums;
   color: var(--page-text-main);
 }
 .date-text {
-  font-size: 20px;
+  font-size: 18px;
   color: var(--date-text-color);
-  margin-top: 15px;
+  margin-top: 10px;
+  opacity: 0.78;
 }
 
 /* --- Search bar --- */
@@ -1273,28 +1275,29 @@ img.favicon-loading {
   transform: scale(1.15);
 }
 
-/* --- Upload / remove buttons --- */
 .upload-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .customize-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
   flex: 1;
-  padding: 9px 14px;
+  min-width: 0;
+  padding: 9px 8px;
   border: 1px solid var(--search-border-default);
   border-radius: 8px;
   background: var(--search-bg);
   color: var(--text-main);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .customize-section label.customize-btn {
@@ -1306,8 +1309,117 @@ img.favicon-loading {
   border-color: var(--customize-active);
 }
 
+.customize-btn.active {
+  background: var(--hover-bg);
+  border-color: var(--customize-active);
+  color: var(--customize-active);
+}
+
 .customize-btn .material-icons {
   font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* --- Wallpaper URL form --- */
+.wallpaper-url-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  animation: wallpaperUrlSlideDown 0.18s ease;
+}
+
+.wallpaper-url-form[hidden] {
+  display: none;
+}
+
+@keyframes wallpaperUrlSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wallpaper-url-input-wrap {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 3px 4px 3px 10px;
+  border: 1px solid var(--search-border-default);
+  border-radius: 8px;
+  background: var(--search-bg);
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wallpaper-url-input-wrap:focus-within {
+  border-color: var(--customize-active);
+}
+
+.wallpaper-url-icon {
+  font-size: 18px;
+  color: var(--text-sub);
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.wallpaper-url-input-wrap input {
+  flex: 1;
+  min-width: 0;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-main);
+  font: inherit;
+  font-size: 12px;
+  outline: none;
+}
+
+.wallpaper-url-input-wrap input::placeholder {
+  color: var(--text-sub);
+  opacity: 0.8;
+}
+
+.wallpaper-url-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-sub);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.wallpaper-url-submit-btn:hover {
+  background: var(--hover-bg);
+  color: var(--text-main);
+}
+
+.wallpaper-url-submit-btn .material-icons {
+  font-size: 18px;
+}
+
+.wallpaper-url-error {
+  font-size: 11px;
+  line-height: 1.4;
+  color: #ef6b73;
+  padding: 0 4px;
+  word-break: break-word;
+}
+
+.wallpaper-url-error[hidden] {
+  display: none;
 }
 
 /* --- Wallpaper gallery --- */
