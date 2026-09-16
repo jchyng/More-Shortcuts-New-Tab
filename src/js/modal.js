@@ -9,21 +9,32 @@ function setupAddModal() {
   document.getElementById("cancelBtn").onclick = () => modal.close();
 
   let titleFetchTimeout = null;
-  let isFetchingTitle = false;
+  let currentFetchCtrl = null;
+
+  const cancelPendingFetch = () => {
+    clearTimeout(titleFetchTimeout);
+    titleFetchTimeout = null;
+    if (currentFetchCtrl) {
+      currentFetchCtrl.abort();
+      currentFetchCtrl = null;
+    }
+    titleInput.placeholder = t.titleInputPlaceholder ?? "e.g. YouTube";
+    titleInput.classList.remove("title-loading");
+  };
 
   const fetchPageTitle = async () => {
-    if (isFetchingTitle || titleInput.value.trim()) return;
+    if (currentFetchCtrl || titleInput.value.trim()) return;
     let url = urlInput.value.trim();
     if (!url) return;
     if (!url.startsWith("http://") && !url.startsWith("https://")) url = "https://" + url;
     try { new URL(url); } catch { return; }
 
-    isFetchingTitle = true;
+    const ctrl = new AbortController();
+    currentFetchCtrl = ctrl;
     titleInput.placeholder = t.titleLoadingPlaceholder;
     titleInput.classList.add("title-loading");
 
     try {
-      const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), 5000);
       const response = await fetch(url, { signal: ctrl.signal });
       clearTimeout(timer);
@@ -32,14 +43,16 @@ function setupAddModal() {
       if (doc.title && !titleInput.value.trim()) titleInput.value = doc.title;
     } catch {}
 
-    isFetchingTitle = false;
-    titleInput.placeholder = t.titleInputPlaceholder;
-    titleInput.classList.remove("title-loading");
+    if (currentFetchCtrl === ctrl) {
+      currentFetchCtrl = null;
+      titleInput.placeholder = t.titleInputPlaceholder ?? "e.g. YouTube";
+      titleInput.classList.remove("title-loading");
+    }
   };
 
   // Auto-fetch the title once typing in the URL field pauses for 600ms.
   urlInput.addEventListener("input", () => {
-    clearTimeout(titleFetchTimeout);
+    cancelPendingFetch();
     const url = urlInput.value.trim();
     if (!url || titleInput.value.trim() || !url.includes(".")) return;
     titleFetchTimeout = setTimeout(fetchPageTitle, 600);
@@ -47,7 +60,12 @@ function setupAddModal() {
 
   urlInput.addEventListener("blur", () => {
     clearTimeout(titleFetchTimeout);
+    titleFetchTimeout = null;
     fetchPageTitle();
+  });
+
+  modal.addEventListener("close", () => {
+    cancelPendingFetch();
   });
 
   form.onsubmit = async (e) => {
