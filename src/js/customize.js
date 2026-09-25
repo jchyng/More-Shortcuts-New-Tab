@@ -211,23 +211,33 @@ function initCustomize() {
   });
 
   backgroundInput.addEventListener("change", async () => {
-    const file = backgroundInput.files[0];
+    const files = Array.from(backgroundInput.files || []);
 
-    if (!file) return;
+    if (!files.length) return;
 
-    if (file.size > 5 * 1024 * 1024) {
+    const oversizedFiles = files.filter((f) => f.size > 5 * 1024 * 1024);
+    if (oversizedFiles.length > 0) {
       alert(t.imageTooLarge || "Image is too large. Maximum size is 5 MB.");
+      backgroundInput.value = "";
       return;
     }
 
     setWallpaperGalleryLoading(true);
 
+    let lastProcessedWallpaper = null;
+
     try {
-      const source = await readFileAsDataUrl(file);
-      const wallpaper = await createOptimizedWallpaper(source);
-      await chrome.storage.local.set({ customBackground: wallpaper.full });
-      await saveUserWallpaper(wallpaper);
-      applyBackground(wallpaper.full);
+      for (const file of files) {
+        const source = await readFileAsDataUrl(file);
+        const wallpaper = await createOptimizedWallpaper(source);
+        await saveUserWallpaper(wallpaper);
+        lastProcessedWallpaper = wallpaper;
+      }
+
+      if (lastProcessedWallpaper) {
+        await chrome.storage.local.set({ customBackground: lastProcessedWallpaper.full });
+        applyBackground(lastProcessedWallpaper.full);
+      }
       await renderWallpaperGallery();
     } catch (error) {
       console.error("Could not process wallpaper:", error);
@@ -802,7 +812,7 @@ async function createOptimizedWallpaper(source) {
   }
 }
 
-const DEFAULT_WALLPAPER_FILES = ["1.jpg", "2.jpg", "3.jpg"];
+const DEFAULT_WALLPAPER_FILES = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"];
 
 async function getDefaultWallpapers() {
   return DEFAULT_WALLPAPER_FILES.map((filename) => ({
