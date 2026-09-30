@@ -1,5 +1,6 @@
 let draggedItem = null;
 let lastPageSwitchTime = 0;
+let folderDropTarget = null;
 
 function attachDragAndDrop(container) {
   container.addEventListener("dragstart", (e) => {
@@ -39,8 +40,19 @@ function attachDragAndDrop(container) {
 
   container.addEventListener("dragend", () => {
     document.body.classList.remove("is-dragging");
-
     container.classList.remove("dragging");
+
+    if (folderDropTarget && folderDropTarget !== container) {
+      const targetId = Number(folderDropTarget.dataset.id);
+      const draggedId = Number(container.dataset.id);
+      folderDropTarget.classList.remove("drop-target-folder");
+      folderDropTarget = null;
+      draggedItem = null;
+      mergeShortcutsIntoFolder(draggedId, targetId);
+      return;
+    }
+
+    folderDropTarget = null;
     draggedItem = null;
     reorderAndSave();
   });
@@ -49,11 +61,39 @@ function attachDragAndDrop(container) {
     e.preventDefault();
     if (!draggedItem || draggedItem === container) return;
 
+    const rect = container.getBoundingClientRect();
+
+    // A folder can't itself be merged into anything, but a plain link can be
+    // dropped on either another link (forming a new folder) or an existing
+    // folder (joining it) — detected by hovering the tile's center, leaving
+    // its outer edges free for the normal reorder gesture below.
+    const canMergeIntoFolder = !draggedItem.classList.contains("folder-item");
+    let inCenterZone = false;
+
+    if (canMergeIntoFolder) {
+      const relX = (e.clientX - rect.left) / rect.width;
+      const relY = (e.clientY - rect.top) / rect.height;
+      inCenterZone = relX > 0.25 && relX < 0.75 && relY > 0.2 && relY < 0.85;
+    }
+
+    if (inCenterZone) {
+      if (folderDropTarget !== container) {
+        folderDropTarget?.classList.remove("drop-target-folder");
+        folderDropTarget = container;
+        container.classList.add("drop-target-folder");
+      }
+      return; // Pause reordering while hovering a merge target.
+    }
+
+    if (folderDropTarget) {
+      folderDropTarget.classList.remove("drop-target-folder");
+      folderDropTarget = null;
+    }
+
     const pageDiv = container.parentElement;
     const wrapper = document.getElementById("shortcutsWrapper");
 
-    const bounding = container.getBoundingClientRect();
-    const offset = bounding.x + bounding.width / 2;
+    const offset = rect.x + rect.width / 2;
     const isRight = e.clientX - offset > 0;
 
     const nextSibling = container.nextSibling;

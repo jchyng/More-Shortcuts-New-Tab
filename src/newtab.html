@@ -4,46 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Tab</title>
-    <link id="pageFavicon" rel="icon" type="image/png" sizes="32x32" href="../assets/icons/tab-icon-dark-v2-32.png">
-    
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/icon32.png">
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="top-header">
-        <div class="google-apps-group" id="googleAppsGroup">
-        <a href="https://mail.google.com" class="header-link" title="Gmail" data-google-app="gmail" draggable="true">
-            <img src="../assets/icons/gmail.png" alt="Gmail" class="header-icon">Gmail
-        </a>
-        <a href="https://drive.google.com/drive/my-drive" class="header-link" title="Google Drive" data-google-app="drive" draggable="true">
-            <img src="../assets/icons/google-drive.png" alt="Google Drive" class="header-icon">Drive
-        </a>
-        <a href="https://meet.google.com" class="header-link" title="Google Meet" data-google-app="meet" draggable="true" hidden>
-            <img src="../assets/icons/google-meet.svg" alt="Google Meet" class="header-icon">Meet
-        </a>
-        <a href="https://calendar.google.com" class="header-link" title="Google Calendar" data-google-app="calendar" draggable="true" hidden>
-            <img src="../assets/icons/google-calendar.png" alt="Google Calendar" class="header-icon">Calendar
-        </a>
-        <a href="https://photos.google.com" class="header-link" title="Google Photos" data-google-app="photos" draggable="true" hidden>
-            <img src="../assets/icons/google-photos.png" alt="Google Photos" class="header-icon">Photos
-        </a>
-        <a href="https://maps.google.com" class="header-link" title="Google Maps" data-google-app="maps" draggable="true" hidden>
-            <img src="../assets/icons/google-maps.webp" alt="Google Maps" class="header-icon">Maps
-        </a>
-        <a href="https://docs.google.com" class="header-link" title="Google Docs" data-google-app="docs" draggable="true" hidden>
-            <img src="../assets/icons/google-docs.webp" alt="Google Docs" class="header-icon">Docs
-        </a>
-        <a href="https://slides.google.com" class="header-link" title="Google Slides" data-google-app="slides" draggable="true" hidden>
-            <img src="../assets/icons/google-slides.webp" alt="Google Slides" class="header-icon">Slides
-        </a>
-        <a href="https://sheets.google.com" class="header-link" title="Google Sheets" data-google-app="sheets" draggable="true" hidden>
-            <img src="../assets/icons/google-sheets.webp" alt="Google Sheets" class="header-icon">Sheets
-        </a>
-        <a href="https://keep.google.com" class="header-link" title="Google Keep" data-google-app="keep" draggable="true" hidden>
-            <img src="../assets/icons/google-keep.webp" alt="Google Keep" class="header-icon">Keep
-        </a>
-        <a href="https://gemini.google.com" class="header-link" title="Google Gemini" data-google-app="gemini" draggable="true">
-            <img src="../assets/icons/google-gemini.webp" alt="Google Gemini" class="header-icon">Gemini
-        </a>
+        <div class="apps-launcher" id="googleAppsLauncher">
+        <button id="googleAppsToggle" class="icon-btn" type="button" title="Google apps" aria-haspopup="true" aria-expanded="false">
+            <img src="../assets/icons/google-logo.svg" alt="" class="apps-toggle-icon">
+        </button>
+        <div class="apps-flyout" id="googleAppsFlyout" hidden>
+            <a href="https://mail.google.com" class="flyout-app-link" draggable="true" title="Gmail" data-google-app="gmail">
+                <img src="../assets/icons/gmail.png" alt="" class="flyout-app-icon"><span>Gmail</span>
+            </a>
+            <a href="https://drive.google.com/drive/my-drive" class="flyout-app-link" draggable="true" title="Google Drive" data-google-app="drive">
+                <img src="../assets/icons/google-drive.png" alt="" class="flyout-app-icon"><span>Drive</span>
+            </a>
+            <a href="https://meet.google.com" class="flyout-app-link" draggable="true" title="Google Meet" data-google-app="meet">
+                <img src="../assets/icons/google-meet.svg" alt="" class="flyout-app-icon"><span>Meet</span>
+            </a>
+            <a href="https://calendar.google.com" class="flyout-app-link" draggable="true" title="Google Calendar" data-google-app="calendar">
+                <img src="../assets/icons/google-calendar.png" alt="" class="flyout-app-icon"><span>Calendar</span>
+            </a>
+            <a href="https://photos.google.com" class="flyout-app-link" draggable="true" title="Google Photos" data-google-app="photos">
+                <img src="../assets/icons/google-photos.png" alt="" class="flyout-app-icon"><span>Photos</span>
+            </a>
+            <a href="https://maps.google.com" class="flyout-app-link" draggable="true" title="Google Maps" data-google-app="maps">
+                <img src="../assets/icons/google-maps.webp" alt="" class="flyout-app-icon"><span>Maps</span>
+            </a>
+            <a href="https://docs.google.com" class="flyout-app-link" draggable="true" title="Google Docs" data-google-app="docs">
+                <img src="../assets/icons/google-docs.webp" alt="" class="flyout-app-icon"><span>Docs</span>
+            </a>
+            <a href="https://slides.google.com" class="flyout-app-link" draggable="true" title="Google Slides" data-google-app="slides">
+                <img src="../assets/icons/google-slides.webp" alt="" class="flyout-app-icon"><span>Slides</span>
+            </a>
+            <a href="https://sheets.google.com" class="flyout-app-link" draggable="true" title="Google Sheets" data-google-app="sheets">
+                <img src="../assets/icons/google-sheets.webp" alt="" class="flyout-app-icon"><span>Sheets</span>
+            </a>
+            <a href="https://keep.google.com" class="flyout-app-link" draggable="true" title="Google Keep" data-google-app="keep">
+                <img src="../assets/icons/google-keep.webp" alt="" class="flyout-app-icon"><span>Keep</span>
+            </a>
+            <a href="https://gemini.google.com" class="flyout-app-link" draggable="true" title="Google Gemini" data-google-app="gemini">
+                <img src="../assets/icons/google-gemini.webp" alt="" class="flyout-app-icon"><span>Gemini</span>
+            </a>
+        </div>
+        </div>
+        <div class="apps-launcher" id="microsoftAppsLauncher">
+        <button id="microsoftAppsToggle" class="icon-btn" type="button" title="Microsoft apps" aria-haspopup="true" aria-expanded="false">
+            <img src="../assets/icons/microsoft-logo.svg" alt="" class="apps-toggle-icon">
+        </button>
+        <div class="apps-flyout" id="microsoftAppsFlyout" hidden>
+            <a href="https://outlook.live.com/mail/" class="flyout-app-link" draggable="true" title="Outlook" data-microsoft-app="outlook">
+                <img src="../assets/icons/microsoft-outlook.svg" alt="" class="flyout-app-icon"><span>Outlook</span>
+            </a>
+            <a href="https://onedrive.live.com/" class="flyout-app-link" draggable="true" title="OneDrive" data-microsoft-app="onedrive">
+                <img src="../assets/icons/microsoft-onedrive.svg" alt="" class="flyout-app-icon"><span>OneDrive</span>
+            </a>
+            <a href="https://teams.microsoft.com/" class="flyout-app-link" draggable="true" title="Microsoft Teams" data-microsoft-app="teams">
+                <img src="../assets/icons/microsoft-teams.svg" alt="" class="flyout-app-icon"><span>Teams</span>
+            </a>
+            <a href="https://www.office.com/launch/word" class="flyout-app-link" draggable="true" title="Word" data-microsoft-app="word">
+                <img src="../assets/icons/microsoft-word.svg" alt="" class="flyout-app-icon"><span>Word</span>
+            </a>
+            <a href="https://www.office.com/launch/excel" class="flyout-app-link" draggable="true" title="Excel" data-microsoft-app="excel">
+                <img src="../assets/icons/microsoft-excel.svg" alt="" class="flyout-app-icon"><span>Excel</span>
+            </a>
+            <a href="https://www.office.com/launch/powerpoint" class="flyout-app-link" draggable="true" title="PowerPoint" data-microsoft-app="powerpoint">
+                <img src="../assets/icons/microsoft-powerpoint.svg" alt="" class="flyout-app-icon"><span>PowerPoint</span>
+            </a>
+            <a href="https://www.onenote.com/notebooks" class="flyout-app-link" draggable="true" title="OneNote" data-microsoft-app="onenote">
+                <img src="../assets/icons/microsoft-onenote.svg" alt="" class="flyout-app-icon"><span>OneNote</span>
+            </a>
+            <a href="https://copilot.microsoft.com/" class="flyout-app-link" draggable="true" title="Microsoft Copilot" data-microsoft-app="copilot">
+                <img src="../assets/icons/microsoft-copilot.svg" alt="" class="flyout-app-icon"><span>Copilot</span>
+            </a>
+        </div>
         </div>
         <button id="themeToggle" class="icon-btn" title="Toggle Theme">
             <span class="material-icons">dark_mode</span>
@@ -102,13 +138,23 @@
             </div>
             <div class="input-group">
                 <label for="modalTitle" data-i18n="nameLabel">Name</label>
-                <input type="text" id="modalTitle" placeholder="e.g. YouTube" required>
+                <input type="text" id="modalTitle" placeholder="e.g. YouTube" maxlength="40" required>
             </div>
             <div class="modal-actions">
                 <button type="button" id="cancelBtn" data-i18n="cancelBtnLabel">Cancel</button>
                 <button type="submit" class="primary" id="submitBtn" data-i18n="addBtnLabel">Add</button>
             </div>
         </form>
+    </dialog>
+
+    <dialog id="folderModal" class="folder-modal">
+        <div class="folder-modal-header">
+            <input type="text" id="folderNameInput" class="folder-name-input" maxlength="40" placeholder="Folder name">
+            <button id="closeFolderBtn" class="icon-btn">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        <div class="folder-grid" id="folderGrid"></div>
     </dialog>
 
     <dialog id="customizeModal" class="customize-modal">
@@ -299,6 +345,29 @@
                 </div>
             </div>
 
+            <div class="customize-section customize-toggle-row">
+                <div>
+                    <label for="hideAllMicrosoftApps">Show Microsoft apps</label>
+                    <span class="customize-hint">Show or hide the Microsoft app shortcuts in the header</span>
+                </div>
+                <label class="toggle-switch" for="hideAllMicrosoftApps">
+                    <input type="checkbox" id="hideAllMicrosoftApps" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="customize-section">
+                <label>Microsoft apps</label>
+                <span class="customize-hint">Choose which Microsoft app shortcuts appear in the header, and reorder them</span>
+
+                <div class="upload-row">
+                    <button id="editMicrosoftAppsBtn" class="customize-btn" type="button">
+                        <span class="material-icons">tune</span>
+                        Edit
+                    </button>
+                </div>
+            </div>
+
             <div class="customize-section">
                 <label data-i18n="shortcutsBackupLabel">Shortcuts</label>
                 <span class="customize-hint" data-i18n="shortcutsBackupHint">Back up your shortcuts to a file, or restore them from one</span>
@@ -342,13 +411,12 @@
             </div>
 
             <div class="customize-section">
-                <span class="customize-hint" data-i18n="googleAppsModalHint">Switch apps on or off, and drag them to reorder</span>
+                <span class="customize-hint">Switch apps on or off. Drag them in the apps flyout to reorder</span>
 
-                <div id="googleAppList" class="google-app-list">
-                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="gmail">
-                        <div class="google-app-row-label">
-                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
-                            <img src="../assets/icons/gmail.png" alt="Gmail" class="google-app-icon">
+                <div id="googleAppList" class="app-list">
+                    <div class="customize-toggle-row app-row" data-google-app="gmail">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/gmail.png" alt="Gmail" class="app-row-icon">
                             <label for="googleAppToggle-gmail">Gmail</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-gmail">
@@ -356,10 +424,9 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="drive">
-                        <div class="google-app-row-label">
-                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
-                            <img src="../assets/icons/google-drive.png" alt="Google Drive" class="google-app-icon">
+                    <div class="customize-toggle-row app-row" data-google-app="drive">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/google-drive.png" alt="Google Drive" class="app-row-icon">
                             <label for="googleAppToggle-drive">Drive</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-drive">
@@ -367,10 +434,9 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="meet">
-                        <div class="google-app-row-label">
-                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
-                            <img src="../assets/icons/google-meet.svg" alt="Google Meet" class="google-app-icon">
+                    <div class="customize-toggle-row app-row" data-google-app="meet">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/google-meet.svg" alt="Google Meet" class="app-row-icon">
                             <label for="googleAppToggle-meet">Meet</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-meet">
@@ -378,10 +444,9 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="calendar">
-                        <div class="google-app-row-label">
-                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
-                            <img src="../assets/icons/google-calendar.png" alt="Google Calendar" class="google-app-icon">
+                    <div class="customize-toggle-row app-row" data-google-app="calendar">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/google-calendar.png" alt="Google Calendar" class="app-row-icon">
                             <label for="googleAppToggle-calendar">Calendar</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-calendar">
@@ -389,10 +454,9 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="photos">
-                        <div class="google-app-row-label">
-                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
-                            <img src="../assets/icons/google-photos.png" alt="Google Photos" class="google-app-icon">
+                    <div class="customize-toggle-row app-row" data-google-app="photos">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/google-photos.png" alt="Google Photos" class="app-row-icon">
                             <label for="googleAppToggle-photos">Photos</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-photos">
@@ -400,10 +464,9 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="maps">
-                        <div class="google-app-row-label">
-                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
-                            <img src="../assets/icons/google-maps.webp" alt="Google Maps" class="google-app-icon">
+                    <div class="customize-toggle-row app-row" data-google-app="maps">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/google-maps.webp" alt="Google Maps" class="app-row-icon">
                             <label for="googleAppToggle-maps">Maps</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-maps">
@@ -411,10 +474,9 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="docs">
-                        <div class="google-app-row-label">
-                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
-                            <img src="../assets/icons/google-docs.webp" alt="Google Docs" class="google-app-icon">
+                    <div class="customize-toggle-row app-row" data-google-app="docs">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/google-docs.webp" alt="Google Docs" class="app-row-icon">
                             <label for="googleAppToggle-docs">Docs</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-docs">
@@ -422,10 +484,9 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="slides">
-                        <div class="google-app-row-label">
-                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
-                            <img src="../assets/icons/google-slides.webp" alt="Google Slides" class="google-app-icon">
+                    <div class="customize-toggle-row app-row" data-google-app="slides">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/google-slides.webp" alt="Google Slides" class="app-row-icon">
                             <label for="googleAppToggle-slides">Slides</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-slides">
@@ -433,10 +494,9 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="sheets">
-                        <div class="google-app-row-label">
-                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
-                            <img src="../assets/icons/google-sheets.webp" alt="Google Sheets" class="google-app-icon">
+                    <div class="customize-toggle-row app-row" data-google-app="sheets">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/google-sheets.webp" alt="Google Sheets" class="app-row-icon">
                             <label for="googleAppToggle-sheets">Sheets</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-sheets">
@@ -444,10 +504,9 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="keep">
-                        <div class="google-app-row-label">
-                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
-                            <img src="../assets/icons/google-keep.webp" alt="Google Keep" class="google-app-icon">
+                    <div class="customize-toggle-row app-row" data-google-app="keep">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/google-keep.webp" alt="Google Keep" class="app-row-icon">
                             <label for="googleAppToggle-keep">Keep</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-keep">
@@ -455,14 +514,112 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                    <div class="customize-toggle-row google-app-row" draggable="true" data-google-app="gemini">
-                        <div class="google-app-row-label">
-                            <span class="material-icons google-app-drag-handle">drag_indicator</span>
-                            <img src="../assets/icons/google-gemini.webp" alt="Google Gemini" class="google-app-icon">
+                    <div class="customize-toggle-row app-row" data-google-app="gemini">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/google-gemini.webp" alt="Google Gemini" class="app-row-icon">
                             <label for="googleAppToggle-gemini">Gemini</label>
                         </div>
                         <label class="toggle-switch" for="googleAppToggle-gemini">
                             <input type="checkbox" id="googleAppToggle-gemini" data-google-app="gemini" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="microsoftAppsModal" class="customize-modal">
+        <div class="customize-content">
+            <div class="customize-header">
+                <h3>Microsoft apps</h3>
+
+                <button id="closeMicrosoftAppsBtn" class="icon-btn">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+
+            <div class="customize-section">
+                <span class="customize-hint">Switch apps on or off. Drag them in the apps flyout to reorder</span>
+
+                <div id="microsoftAppList" class="app-list">
+                    <div class="customize-toggle-row app-row" data-microsoft-app="outlook">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/microsoft-outlook.svg" alt="Outlook" class="app-row-icon">
+                            <label for="microsoftAppToggle-outlook">Outlook</label>
+                        </div>
+                        <label class="toggle-switch" for="microsoftAppToggle-outlook">
+                            <input type="checkbox" id="microsoftAppToggle-outlook" data-microsoft-app="outlook" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row app-row" data-microsoft-app="onedrive">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/microsoft-onedrive.svg" alt="OneDrive" class="app-row-icon">
+                            <label for="microsoftAppToggle-onedrive">OneDrive</label>
+                        </div>
+                        <label class="toggle-switch" for="microsoftAppToggle-onedrive">
+                            <input type="checkbox" id="microsoftAppToggle-onedrive" data-microsoft-app="onedrive" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row app-row" data-microsoft-app="teams">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/microsoft-teams.svg" alt="Microsoft Teams" class="app-row-icon">
+                            <label for="microsoftAppToggle-teams">Teams</label>
+                        </div>
+                        <label class="toggle-switch" for="microsoftAppToggle-teams">
+                            <input type="checkbox" id="microsoftAppToggle-teams" data-microsoft-app="teams" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row app-row" data-microsoft-app="word">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/microsoft-word.svg" alt="Word" class="app-row-icon">
+                            <label for="microsoftAppToggle-word">Word</label>
+                        </div>
+                        <label class="toggle-switch" for="microsoftAppToggle-word">
+                            <input type="checkbox" id="microsoftAppToggle-word" data-microsoft-app="word" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row app-row" data-microsoft-app="excel">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/microsoft-excel.svg" alt="Excel" class="app-row-icon">
+                            <label for="microsoftAppToggle-excel">Excel</label>
+                        </div>
+                        <label class="toggle-switch" for="microsoftAppToggle-excel">
+                            <input type="checkbox" id="microsoftAppToggle-excel" data-microsoft-app="excel" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row app-row" data-microsoft-app="powerpoint">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/microsoft-powerpoint.svg" alt="PowerPoint" class="app-row-icon">
+                            <label for="microsoftAppToggle-powerpoint">PowerPoint</label>
+                        </div>
+                        <label class="toggle-switch" for="microsoftAppToggle-powerpoint">
+                            <input type="checkbox" id="microsoftAppToggle-powerpoint" data-microsoft-app="powerpoint" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row app-row" data-microsoft-app="onenote">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/microsoft-onenote.svg" alt="OneNote" class="app-row-icon">
+                            <label for="microsoftAppToggle-onenote">OneNote</label>
+                        </div>
+                        <label class="toggle-switch" for="microsoftAppToggle-onenote">
+                            <input type="checkbox" id="microsoftAppToggle-onenote" data-microsoft-app="onenote" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="customize-toggle-row app-row" data-microsoft-app="copilot">
+                        <div class="app-row-label">
+                            <img src="../assets/icons/microsoft-copilot.svg" alt="Microsoft Copilot" class="app-row-icon">
+                            <label for="microsoftAppToggle-copilot">Copilot</label>
+                        </div>
+                        <label class="toggle-switch" for="microsoftAppToggle-copilot">
+                            <input type="checkbox" id="microsoftAppToggle-copilot" data-microsoft-app="copilot" checked>
                             <span class="toggle-slider"></span>
                         </label>
                     </div>

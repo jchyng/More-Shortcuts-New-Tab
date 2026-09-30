@@ -1,5 +1,6 @@
 let shortcuts = [];
 const MAX_SHORTCUTS = 30;
+const MAX_TITLE_LENGTH = 40;
 
 async function initShortcuts() {
   const result = await chrome.storage.sync.get(["myShortcuts"]);
