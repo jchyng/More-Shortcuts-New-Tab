@@ -15,7 +15,45 @@ const GOOGLE_APP_IDS = [
   "keep",
   "gemini",
 ];
-const DEFAULT_VISIBLE_GOOGLE_APP_IDS = new Set(["gmail", "drive", "gemini"]);
+const MICROSOFT_APP_IDS = [
+  "outlook",
+  "onedrive",
+  "teams",
+  "word",
+  "excel",
+  "powerpoint",
+  "onenote",
+  "copilot",
+];
+const APP_IDS_BY_PROVIDER = {
+  google: GOOGLE_APP_IDS,
+  microsoft: MICROSOFT_APP_IDS,
+};
+
+function capitalize(text) {
+  return text[0].toUpperCase() + text.slice(1);
+}
+
+const APPS_LAUNCHER_ANIMATION_MS = 220;
+
+// Slides an apps launcher icon in/out instead of snapping it away, mirroring
+// createSlidingDialog's animate-then-remove pattern: the "hiding" class
+// drives the CSS transition, and the `hidden` attribute is only applied
+// once that transition has actually finished.
+function setLauncherVisibility(launcher, isVisible) {
+  window.clearTimeout(launcher._hideTimer);
+
+  if (isVisible) {
+    launcher.hidden = false;
+    void launcher.offsetWidth; // force reflow so removing the class transitions in
+    launcher.classList.remove("apps-launcher-hiding");
+  } else {
+    launcher.classList.add("apps-launcher-hiding");
+    launcher._hideTimer = window.setTimeout(() => {
+      launcher.hidden = true;
+    }, APPS_LAUNCHER_ANIMATION_MS);
+  }
+}
 
 function createSlidingDialog(modal) {
   let closeTimer;
@@ -60,6 +98,79 @@ function createSlidingDialog(modal) {
   return { open, close };
 }
 
+// Wires up a provider's apps launcher (header icon + flyout), its edit
+// modal, and its per-app visibility/order toggles. Called once per
+// provider ("google", "microsoft") since both share identical markup
+// conventions (${provider}Apps*, ${provider}AppToggle-<app>, etc.).
+function setupAppProvider(provider) {
+  const label = capitalize(provider);
+  const editBtn = document.getElementById(`edit${label}AppsBtn`);
+  const appsModal = document.getElementById(`${provider}AppsModal`);
+  const closeAppsBtn = document.getElementById(`close${label}AppsBtn`);
+  const launcher = document.getElementById(`${provider}AppsLauncher`);
+  const appsToggle = document.getElementById(`${provider}AppsToggle`);
+  const appsFlyout = document.getElementById(`${provider}AppsFlyout`);
+  const hideAllApps = document.getElementById(`hideAll${label}Apps`);
+  const appToggles = document.querySelectorAll(`[id^='${provider}AppToggle-']`);
+
+  const appsDialog = createSlidingDialog(appsModal);
+
+  editBtn.addEventListener("click", () => {
+    appsDialog.open();
+  });
+
+  closeAppsBtn.addEventListener("click", () => {
+    appsDialog.close();
+  });
+
+  appsToggle.addEventListener("click", () => {
+    const isOpen = !appsFlyout.hidden;
+    appsFlyout.hidden = isOpen;
+    appsToggle.setAttribute("aria-expanded", String(!isOpen));
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!launcher.contains(event.target)) {
+      appsFlyout.hidden = true;
+      appsToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  appToggles.forEach((toggle) => {
+    const app = toggle.dataset[`${provider}App`];
+    const isVisible = getPrefSync(`${provider}App_${app}Hidden`, "false") !== "true";
+    toggle.checked = isVisible;
+    setAppVisibility(provider, app, isVisible);
+
+    toggle.addEventListener("change", () => {
+      // Refuse to hide the last visible app in this provider's list — the
+      // apps flyout would otherwise have nothing left to show.
+      if (!toggle.checked && ![...appToggles].some((t) => t !== toggle && t.checked)) {
+        toggle.checked = true;
+        return;
+      }
+
+      setPref(`${provider}App_${app}Hidden`, String(!toggle.checked));
+      setAppVisibility(provider, app, toggle.checked);
+    });
+  });
+
+  const allAppsHidden = getPrefSync(`${provider}AppsHidden`, "false") === "true";
+  hideAllApps.checked = !allAppsHidden;
+  // Initial state on page load: apply instantly, no slide-in/out animation.
+  launcher.classList.toggle("apps-launcher-hiding", allAppsHidden);
+  launcher.hidden = allAppsHidden;
+
+  hideAllApps.addEventListener("change", () => {
+    const hideAll = !hideAllApps.checked;
+    setPref(`${provider}AppsHidden`, String(hideAll));
+    setLauncherVisibility(launcher, !hideAll);
+  });
+
+  applyAppOrder(provider, getAppOrder(provider));
+  attachAppDragAndDrop(provider, appsFlyout, ".flyout-app-link");
+}
+
 function initCustomize() {
   // Remove data created by the old "Recent" wallpapers feature.
   chrome.storage.local.remove("wallpaperHistory");
@@ -83,16 +194,8 @@ function initCustomize() {
   const wallpaperUrlError = document.getElementById("wallpaperUrlError");
   const exportShortcutsBtn = document.getElementById("exportShortcutsBtn");
   const importShortcutsInput = document.getElementById("importShortcutsInput");
-  const googleAppsModal = document.getElementById("googleAppsModal");
-  const editGoogleAppsBtn = document.getElementById("editGoogleAppsBtn");
-  const closeGoogleAppsBtn = document.getElementById("closeGoogleAppsBtn");
-  const googleAppList = document.getElementById("googleAppList");
-  const googleAppsGroup = document.getElementById("googleAppsGroup");
-  const hideAllGoogleApps = document.getElementById("hideAllGoogleApps");
-  const googleAppToggles = document.querySelectorAll("[id^='googleAppToggle-']");
 
   const customizeDialog = createSlidingDialog(modal);
-  const googleAppsDialog = createSlidingDialog(googleAppsModal);
 
   customizeBtn.addEventListener("click", () => {
     if (modal.open) customizeDialog.close();
@@ -106,14 +209,6 @@ function initCustomize() {
       urlBackgroundBtn.setAttribute("aria-expanded", "false");
     }
     customizeDialog.close();
-  });
-
-  editGoogleAppsBtn.addEventListener("click", () => {
-    googleAppsDialog.open();
-  });
-
-  closeGoogleAppsBtn.addEventListener("click", () => {
-    googleAppsDialog.close();
   });
 
   themeSelect.addEventListener("click", () => {
@@ -340,33 +435,8 @@ function initCustomize() {
     }
   });
 
-  googleAppToggles.forEach((toggle) => {
-    const app = toggle.dataset.googleApp;
-    const defaultHidden = String(!DEFAULT_VISIBLE_GOOGLE_APP_IDS.has(app));
-    const isVisible =
-      getPrefSync(`googleApp_${app}Hidden`, defaultHidden) !== "true";
-    toggle.checked = isVisible;
-    setGoogleAppVisibility(app, isVisible);
-
-    toggle.addEventListener("change", () => {
-      setPref(`googleApp_${app}Hidden`, String(!toggle.checked));
-      setGoogleAppVisibility(app, toggle.checked);
-    });
-  });
-
-  const allGoogleAppsHidden = getPrefSync("googleAppsHidden", "false") === "true";
-  hideAllGoogleApps.checked = !allGoogleAppsHidden;
-  googleAppsGroup.hidden = allGoogleAppsHidden;
-
-  hideAllGoogleApps.addEventListener("change", () => {
-    const hideAll = !hideAllGoogleApps.checked;
-    setPref("googleAppsHidden", String(hideAll));
-    setGoogleAppsGroupVisibility(googleAppsGroup, !hideAll);
-  });
-
-  applyGoogleAppOrder(getGoogleAppOrder());
-  attachGoogleAppDragAndDrop(googleAppsGroup, ".header-link", true);
-  attachGoogleAppDragAndDrop(googleAppList, ".google-app-row", false);
+  setupAppProvider("google");
+  setupAppProvider("microsoft");
 
   exportShortcutsBtn.addEventListener("click", () => {
     exportShortcuts();
@@ -410,8 +480,8 @@ async function loadBackground() {
   }
 }
 
-function setGoogleAppVisibility(app, isVisible) {
-  const link = document.querySelector(`.header-link[data-google-app="${app}"]`);
+function setAppVisibility(provider, app, isVisible) {
+  const link = document.querySelector(`.flyout-app-link[data-${provider}-app="${app}"]`);
   if (link) link.hidden = !isVisible;
 }
 
@@ -492,18 +562,32 @@ function applyChangedPref(key, value) {
     return;
   }
 
-  if (key === "googleAppsHidden") {
-    const hideAll = value === "true";
-    const toggle = document.getElementById("hideAllGoogleApps");
-    if (toggle) toggle.checked = !hideAll;
-    const group = document.getElementById("googleAppsGroup");
-    if (group) setGoogleAppsGroupVisibility(group, !hideAll);
-    return;
-  }
+  for (const provider of Object.keys(APP_IDS_BY_PROVIDER)) {
+    const label = capitalize(provider);
 
-  if (key === "googleAppOrder") {
-    applyGoogleAppOrder(getGoogleAppOrder());
-    return;
+    if (key === `${provider}AppsHidden`) {
+      const hideAll = value === "true";
+      const toggle = document.getElementById(`hideAll${label}Apps`);
+      if (toggle) toggle.checked = !hideAll;
+      const launcher = document.getElementById(`${provider}AppsLauncher`);
+      if (launcher) setLauncherVisibility(launcher, !hideAll);
+      return;
+    }
+
+    if (key === `${provider}AppOrder`) {
+      applyAppOrder(provider, getAppOrder(provider));
+      return;
+    }
+
+    const prefix = `${provider}App_`;
+    if (key.startsWith(prefix) && key.endsWith("Hidden")) {
+      const app = key.slice(prefix.length, -"Hidden".length);
+      const isVisible = value !== "true";
+      const toggle = document.getElementById(`${provider}AppToggle-${app}`);
+      if (toggle) toggle.checked = isVisible;
+      setAppVisibility(provider, app, isVisible);
+      return;
+    }
   }
 
   if (key === "use24HourClock") {
@@ -518,81 +602,22 @@ function applyChangedPref(key, value) {
     applyLocalization();
     return;
   }
-
-  if (key.startsWith("googleApp_") && key.endsWith("Hidden")) {
-    const app = key.slice("googleApp_".length, -"Hidden".length);
-    const isVisible = value !== "true";
-    const toggle = document.getElementById(`googleAppToggle-${app}`);
-    if (toggle) toggle.checked = isVisible;
-    setGoogleAppVisibility(app, isVisible);
-  }
 }
 
-const GOOGLE_APPS_STAGGER_MS = 45;
-const GOOGLE_APPS_FADE_MS = 220;
+function getAppOrder(provider) {
+  const appIds = APP_IDS_BY_PROVIDER[provider];
 
-// Animates the whole group in/out: showing builds the bar right-to-left,
-// hiding collapses it left-to-right, each icon staggered after the last.
-function setGoogleAppsGroupVisibility(group, show) {
-  const items = [...group.querySelectorAll(".header-link:not([hidden])")];
-
-  if (!items.length) {
-    group.hidden = !show;
-    return;
-  }
-
-  const token = Symbol();
-  group._googleAppsAnimToken = token;
-
-  items.forEach((item) => {
-    item.style.transition = "none";
-  });
-
-  if (show) {
-    group.hidden = false;
-    items.forEach((item) => {
-      item.style.opacity = "0";
-      item.style.transform = "translateY(-4px)";
-    });
-  }
-
-  void group.offsetWidth; // commit the "from" state before transitioning
-
-  items.forEach((item, index) => {
-    const order = show ? items.length - 1 - index : index;
-    const delay = order * GOOGLE_APPS_STAGGER_MS;
-    item.style.transition = `opacity ${GOOGLE_APPS_FADE_MS}ms ease ${delay}ms, transform ${GOOGLE_APPS_FADE_MS}ms ease ${delay}ms`;
-    item.style.opacity = show ? "" : "0";
-    item.style.transform = show ? "" : "translateY(-4px)";
-  });
-
-  const totalDuration =
-    (items.length - 1) * GOOGLE_APPS_STAGGER_MS + GOOGLE_APPS_FADE_MS;
-
-  window.setTimeout(() => {
-    if (group._googleAppsAnimToken !== token) return;
-
-    if (!show) group.hidden = true;
-    items.forEach((item) => {
-      item.style.transition = "";
-      item.style.opacity = "";
-      item.style.transform = "";
-    });
-  }, totalDuration);
-}
-
-function getGoogleAppOrder() {
   let stored;
   try {
-    stored = JSON.parse(getPrefSync("googleAppOrder", null));
+    stored = JSON.parse(getPrefSync(`${provider}AppOrder`, null));
   } catch {
     stored = null;
   }
 
   const known = Array.isArray(stored)
-    ? stored.filter((app) => GOOGLE_APP_IDS.includes(app))
+    ? stored.filter((app) => appIds.includes(app))
     : [];
-  const missing = GOOGLE_APP_IDS.filter((app) => !known.includes(app));
+  const missing = appIds.filter((app) => !known.includes(app));
 
   return [...known, ...missing];
 }
@@ -606,26 +631,36 @@ function reorderElements(container, order, getElement, beforeNode = null) {
   container.insertBefore(fragment, beforeNode);
 }
 
-function applyGoogleAppOrder(order) {
-  reorderElements(document.getElementById("googleAppList"), order, (app) =>
-    document.querySelector(`.google-app-row[data-google-app="${app}"]`),
+function applyAppOrder(provider, order) {
+  reorderElements(document.getElementById(`${provider}AppList`), order, (app) =>
+    document.querySelector(`.app-row[data-${provider}-app="${app}"]`),
   );
 
-  reorderElements(document.getElementById("googleAppsGroup"), order, (app) =>
-    document.querySelector(`.header-link[data-google-app="${app}"]`),
+  reorderElements(document.getElementById(`${provider}AppsFlyout`), order, (app) =>
+    document.querySelector(`.flyout-app-link[data-${provider}-app="${app}"]`),
   );
 }
 
-function saveGoogleAppOrder(order) {
-  setPref("googleAppOrder", JSON.stringify(order));
-  applyGoogleAppOrder(order);
+function saveAppOrder(provider, order) {
+  setPref(`${provider}AppOrder`, JSON.stringify(order));
+  applyAppOrder(provider, order);
 }
 
 // FLIP-style animation: record positions, run the DOM change, animate the delta.
-function animateGoogleAppReorder(container, itemSelector, moveAction) {
+function animateAppReorder(container, itemSelector, moveAction) {
   const items = [...container.querySelectorAll(itemSelector)];
-  const positions = new Map();
 
+  // Snap any item still mid-animation from a previous call back to its true
+  // layout position first, so the "before" measurement below is never thrown
+  // off by a leftover transform — chaining reorders on top of an in-flight
+  // one is what produced the overlapping/misplaced tiles during fast drags.
+  items.forEach((item) => {
+    item.style.transition = "none";
+    item.style.transform = "";
+  });
+  void container.offsetWidth; // force reflow before measuring
+
+  const positions = new Map();
   items.forEach((item) => {
     const rect = item.getBoundingClientRect();
     positions.set(item, { left: rect.left, top: rect.top });
@@ -641,9 +676,11 @@ function animateGoogleAppReorder(container, itemSelector, moveAction) {
     const deltaX = oldPos.left - rect.left;
     const deltaY = oldPos.top - rect.top;
 
-    if (deltaX === 0 && deltaY === 0) return;
+    if (deltaX === 0 && deltaY === 0) {
+      item.style.transition = "";
+      return;
+    }
 
-    item.style.transition = "none";
     item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
 
     requestAnimationFrame(() => {
@@ -654,8 +691,40 @@ function animateGoogleAppReorder(container, itemSelector, moveAction) {
   });
 }
 
-function attachGoogleAppDragAndDrop(container, itemSelector, horizontal) {
+// Grid-aware reorder: a target well below/above the dragged item's row wins
+// on the vertical axis; otherwise (same row) the horizontal position decides.
+function attachAppDragAndDrop(provider, container, itemSelector) {
   let dragged = null;
+  let pendingFrame = null;
+  let latestEvent = null;
+
+  const processPendingMove = () => {
+    pendingFrame = null;
+    const event = latestEvent;
+    if (!dragged || !event) return;
+
+    const item = event.target.closest(itemSelector);
+    if (!item || item === dragged) return;
+
+    const rect = item.getBoundingClientRect();
+    const dy = event.clientY - (rect.top + rect.height / 2);
+    const rowThreshold = rect.height / 4;
+    const isAfter =
+      Math.abs(dy) > rowThreshold
+        ? dy > 0
+        : event.clientX - rect.left > rect.width / 2;
+
+    const referenceNode = isAfter ? item.nextSibling : item;
+    // Skip when the move is a no-op — otherwise every mousemove re-triggers
+    // the FLIP animation and the grid visibly jitters under the cursor.
+    if (referenceNode === dragged || dragged.nextSibling === referenceNode) {
+      return;
+    }
+
+    animateAppReorder(container, itemSelector, () => {
+      container.insertBefore(dragged, referenceNode);
+    });
+  };
 
   container.addEventListener("dragstart", (event) => {
     const item = event.target.closest(itemSelector);
@@ -669,27 +738,37 @@ function attachGoogleAppDragAndDrop(container, itemSelector, horizontal) {
     const item = event.target.closest(itemSelector);
     if (item) item.classList.remove("dragging");
     if (!dragged) return;
+
+    // A drag that ends before the next animation frame (a quick flick, or a
+    // synthetic drag) would otherwise drop its last pending move unapplied.
+    if (pendingFrame !== null) {
+      cancelAnimationFrame(pendingFrame);
+      processPendingMove();
+    }
     dragged = null;
+    latestEvent = null;
 
     const order = [...container.querySelectorAll(itemSelector)].map(
-      (element) => element.dataset.googleApp,
+      (element) => element.dataset[`${provider}App`],
     );
-    saveGoogleAppOrder(order);
+    saveAppOrder(provider, order);
+  });
+
+  container.addEventListener("dragenter", (event) => {
+    event.preventDefault();
   });
 
   container.addEventListener("dragover", (event) => {
     event.preventDefault();
-    const item = event.target.closest(itemSelector);
-    if (!dragged || !item || item === dragged) return;
+    if (!dragged) return;
 
-    const rect = item.getBoundingClientRect();
-    const isAfter = horizontal
-      ? event.clientX - rect.left > rect.width / 2
-      : event.clientY - rect.top > rect.height / 2;
-
-    animateGoogleAppReorder(container, itemSelector, () => {
-      container.insertBefore(dragged, isAfter ? item.nextSibling : item);
-    });
+    // Coalesce rapid dragover events (several can fire per animation frame)
+    // into a single reorder using the latest pointer position, instead of
+    // chaining a FLIP animation per event.
+    latestEvent = event;
+    if (pendingFrame === null) {
+      pendingFrame = requestAnimationFrame(processPendingMove);
+    }
   });
 
   container.addEventListener("drop", (event) => {
@@ -812,7 +891,15 @@ async function createOptimizedWallpaper(source) {
   }
 }
 
-const DEFAULT_WALLPAPER_FILES = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"];
+const DEFAULT_WALLPAPER_FILES = [
+  "1.jpg",
+  "2.jpg",
+  "3.jpg",
+  "4.jpg",
+  "5.jpg",
+  "4-mountain-lake.png",
+  "5-desert-canyon.png",
+];
 
 async function getDefaultWallpapers() {
   return DEFAULT_WALLPAPER_FILES.map((filename) => ({

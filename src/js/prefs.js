@@ -18,6 +18,16 @@ const SYNCED_PREF_KEYS = [
   "googleApp_sheetsHidden",
   "googleApp_keepHidden",
   "googleApp_geminiHidden",
+  "microsoftAppsHidden",
+  "microsoftAppOrder",
+  "microsoftApp_outlookHidden",
+  "microsoftApp_onedriveHidden",
+  "microsoftApp_teamsHidden",
+  "microsoftApp_wordHidden",
+  "microsoftApp_excelHidden",
+  "microsoftApp_powerpointHidden",
+  "microsoftApp_onenoteHidden",
+  "microsoftApp_copilotHidden",
 ];
 
 function getPrefSync(key, fallback) {

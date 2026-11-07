@@ -52,7 +52,7 @@
 - **Dark / Light / System Theme**: toggle instantly or follow your OS setting
 - **Accent Colors**: personalize the search bar and UI with a palette of color themes
 - **Wallpapers**: set a custom background image or pick from built-in presets, with adjustable darkness
-- **Google Apps Bar**: show, hide, and reorder quick links to Gmail, Drive, Meet, Calendar, Photos, Maps, Docs, Slides, Sheets, Keep, and Gemini
+- **Google Apps Launcher**: a grid icon in the header opens a flyout of quick links to Gmail, Drive, Meet, Calendar, Photos, Maps, Docs, Slides, Sheets, Keep, and Gemini — show/hide individual apps and drag them within the flyout to reorder
 
 ### Everyday use
 - **Digital Clock**: clean clock with date display
@@ -106,7 +106,7 @@ Install directly from the [Chrome Web Store](https://chromewebstore.google.com/d
 - Click the **customize icon** in the top-right corner to open the panel
 - Switch **theme** (system, light, or dark) and pick an **accent color**
 - Upload a **wallpaper** or choose a preset, and adjust its darkness
-- Show, hide, and reorder the **Google apps bar**
+- Choose which apps show up in the **Google apps launcher** flyout; open the flyout and drag icons to reorder them
 - **Export** your shortcuts to a file, or **import** a previous backup
 - **Import from Chrome**: select Chrome's `Preferences` file (find it via `chrome://version` → "Profile Path") to pull in your existing Chrome New Tab shortcuts, with a checklist to choose which ones to add
 
@@ -117,11 +117,6 @@ Install directly from the [Chrome Web Store](https://chromewebstore.google.com/d
   <sub><strong>New tab page</strong></sub>
 </p>
 
-<p align="center">
-  <img src="assets/screenshots/header-bar.png" alt="Google apps bar" width="700"><br>
-  <sub><strong>Google apps bar</strong></sub>
-</p>
-
 <table>
   <tr>
     <td align="center">
@@ -130,7 +125,7 @@ Install directly from the [Chrome Web Store](https://chromewebstore.google.com/d
     </td>
     <td align="center">
       <img src="assets/screenshots/google-apps-panel.png" alt="Google apps panel" width="260"><br>
-      <sub><strong>Choose & reorder Google apps</strong></sub>
+      <sub><strong>Choose which Google apps show</strong></sub>
     </td>
   </tr>
   <tr>
@@ -169,7 +164,7 @@ Install directly from the [Chrome Web Store](https://chromewebstore.google.com/d
   - `favicon`: display website favicons
   - `search`: run searches through Chrome's default search engine
   - `host_permissions` (`<all_urls>`): fetch page titles and favicons for the sites you add
-- **Storage**: shortcuts, theme, accent color, wallpaper darkness, and Google Apps bar settings sync across devices via Chrome Sync Storage when signed in; the wallpaper image itself is too large for sync's quota and stays local to each browser
+- **Storage**: shortcuts, theme, accent color, wallpaper darkness, and Google Apps launcher settings sync across devices via Chrome Sync Storage when signed in; the wallpaper image itself is too large for sync's quota and stays local to each browser
 - **No External Dependencies**: all fonts (Inter, Material Icons) are bundled locally
 
 ## File Structure
@@ -183,7 +178,7 @@ More-Shortcuts-New-Tab/
 │   │   ├── main.js            # Entry point, localization, global listeners
 │   │   ├── prefs.js           # Synced preferences (chrome.storage.sync + local mirror)
 │   │   ├── theme.js           # Light/dark/system theme handling
-│   │   ├── customize.js       # Customize panel, wallpaper, Google apps bar
+│   │   ├── customize.js       # Customize panel, wallpaper, Google apps launcher
 │   │   ├── shortcuts.js       # Grid rendering, pagination
 │   │   ├── storage.js         # Shortcuts persistence (chrome.storage.sync)
 │   │   ├── favicons.js        # Favicon fetching, caching, fallbacks

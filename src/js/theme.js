@@ -10,7 +10,6 @@ function applyTheme(mode) {
   document.body.setAttribute("data-theme", actualTheme);
 
   updateThemeIcon(actualTheme);
-  updateFavicon(actualTheme);
 }
 
 function initTheme() {
@@ -69,14 +68,4 @@ function setThemePickerValue(mode) {
 function updateThemeIcon(theme) {
   document.querySelector("#themeToggle span").textContent =
     theme === "dark" ? "light_mode" : "dark_mode";
-}
-
-function updateFavicon(theme) {
-  const favicon = document.getElementById("pageFavicon");
-  if (!favicon) return;
-
-  favicon.href =
-    theme === "dark"
-      ? "../assets/icons/tab-icon-dark-v2-32.png"
-      : "../assets/icons/tab-icon-light-v2-32.png";
 }

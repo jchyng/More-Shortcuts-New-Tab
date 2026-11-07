@@ -31,7 +31,10 @@ function setCachedFavicon(hostname, dataUrl) {
 
 async function pruneFaviconCache(currentShortcuts) {
   const activeHostnames = new Set();
-  for (const item of currentShortcuts) {
+  const allItems = currentShortcuts.flatMap((item) =>
+    item.type === "folder" ? item.items : [item],
+  );
+  for (const item of allItems) {
     try {
       activeHostnames.add(new URL(item.url).hostname);
     } catch {}

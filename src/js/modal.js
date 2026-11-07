@@ -70,7 +70,7 @@ function setupAddModal() {
 
   form.onsubmit = async (e) => {
     e.preventDefault();
-    const title = titleInput.value;
+    const title = titleInput.value.trim().slice(0, MAX_TITLE_LENGTH);
     let url = urlInput.value;
     const submitBtn = document.getElementById("submitBtn");
 
